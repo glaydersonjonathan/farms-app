@@ -45,7 +45,7 @@
         }
 
         function GetByName(name) {
-            return $http.get(API_SERVER.url + 'account/user?name=' + name).then(handleSuccess, handleError);
+            return $http.get(API_SERVER.url + '/account/user?name=' + name).then(handleSuccess, handleError);
         }
 
         // Private functions.

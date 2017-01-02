@@ -18,7 +18,7 @@
     .state('/', {
       url: '/',
       controller: 'AccountController',
-      templateUrl: "account/account.view.html",
+      templateUrl: "view/account.view.html",
       controllerAs: 'vm'
     })
     .state('adm', {
