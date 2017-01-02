@@ -4,46 +4,15 @@
 <div class="row">
 <div class="col-xs-12">
 
-  <!-- Button to display the modal form registration. -->
-  <div class="form-group">
-    <button type="button" class="btn btn-primary" ng-click="vm.showCreateForm()">
-      <i class="fa fa-plus"></i> Create
-    </button>
-  </div>
 
   <div class="box">
     <div class="panel-group"> <!-- Start filter the list of projects. -->
 
       <div class="box-header">
-        <h3 class="box-title">Projects</h3>
+        <h3 class="box-title">Researcher</h3>
       </div>
 
       <div class="panel-body">
-
-        <!-- TpReview filter -->
-        <div class="form-group">
-          <label for="tpReview">Review type</label>
-          <select id="tpReview" name="tpReview" class="form-control" ng-model="vm.tpReviewSearch">
-            <option value="">All types</option>
-            <option value="0">Not Systematic</option>
-            <option value="1">Systematic Mapping</option>
-            <option value="2">Systematic Review</option>
-          </select>
-        </div>
-
-        <!--  DsKey filter -->
-        <div class="form-group">
-          <label for="dsKey">Key</label>
-          <input type="text" ng-model="vm.dsKeySearch" class="form-control" >
-        </div>
-
-        <!-- DsTilte filter -->
-        <div class="form-group">
-          <label for="ds_title">Title</label>
-          <input id="ds_title" name="ds_title" type="text" ng-model="vm.dsTitleSearch" class="form-control">
-        </div>
-      </div>
-    </div> <!-- End filter the list of projects. -->
 
     <!-- Star pager -->
     <div class="text-center">
@@ -138,7 +107,7 @@
     <!-- End project list -->
 
     <!-- Modal form registration. -->
-    <div ng-include="'adm/views/project/project-create-form.html'"></div>
+    <div ng-include="'adm/views/researcher/researcher-create-form.html'"></div>
 
     <!-- Modal confirmation message. -->
     <div ng-include="'adm/views/message/confirmation-message-modal.html'"></div>

@@ -50,6 +50,16 @@
         displayName: 'Projects'
       }
     })
+  .state('adm.researchers', {
+      url: "/researchers",
+      controller: 'ProjectController',
+      templateUrl: "adm/views/researcher/researcher-view.html",
+      controllerAs: 'vm',
+      title: 'Researchers',
+      data: {
+        displayName: 'Researcher'
+      }
+    })
     .state('adm.institutions', {
       url: "/project/institutions",
       controller: 'InstitutionController',
