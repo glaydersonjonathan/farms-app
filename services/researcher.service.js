@@ -47,7 +47,7 @@
         }
 
         function handleError(error) {
-            return res.data;
+            return error.data;
         }
     }
 

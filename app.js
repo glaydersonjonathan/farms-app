@@ -52,7 +52,7 @@
     })
   .state('adm.researchers', {
       url: "/researchers",
-      controller: 'ProjectController',
+      controller: 'ResearcherController',
       templateUrl: "adm/views/researcher/researcher-view.html",
       controllerAs: 'vm',
       title: 'Researchers',
