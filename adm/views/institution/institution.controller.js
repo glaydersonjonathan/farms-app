@@ -95,6 +95,7 @@
       ProjectService.GetInstitutionsByDsKey(dsKey).then(function (response) {
         //if (response.code === 1000) {
           var institutions = response;
+          console.log(institutions);
           vm.institutions = institutions;
           vm.dataLoading = false;
         //} else {

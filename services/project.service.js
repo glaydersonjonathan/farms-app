@@ -27,6 +27,8 @@
         return service;
 
         function Create(project) {
+            console.log('oi');
+            console.log(project);
             return $http.post(API_SERVER.url + '/projects', project).then(handleSuccess, handleError);
         }
 

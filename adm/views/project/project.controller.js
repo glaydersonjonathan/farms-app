@@ -108,10 +108,10 @@
 
     function createProject() {
       //alert(vm.project.tpReview  + " " + vm.project.dsKey + " " + vm.project.dsTitle + " " + vm.project.dsProject);
-      /*vm.dataLoading = true;
+      vm.dataLoading = true;
       ProjectService.Create(vm.project).then(function (response) {
         console.log(response.data);
-        if (response.code === 1002) {
+        if (response.code === 1006) {
           FlashService.Success(response.description, true);
           vm.project = null;
           $('#create-modal-form').closeModal();
@@ -120,7 +120,7 @@
           FlashService.Error(response.description, true);
           vm.dataLoading = false;
         }
-      });*/
+      });
     };
 
     function readProject(key) {

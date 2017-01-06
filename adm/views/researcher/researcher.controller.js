@@ -22,13 +22,14 @@
     //vm.showEditForm = showEditForm;
     //vm.showReadForm = showReadForm;
     
-    vm.getAllResearchers = getAllResearchers;
+    vm.getByNmResearcher = getByNmResearcher;
     vm.editResearcher  = editResearcher;
     
     initController();
 
     function initController() {
-      vm.getAllResearchers();
+      var teste = 'andre';
+      vm.getByNmResearcher(teste);
     }
 
  // Forms
@@ -46,18 +47,17 @@
 
     // CRUD functions
 
-    function getAllResearchers() {
-      vm.dataLoading = true;
-            ResearcherService.GetAll().then(function (response) {
+function getByNmResearcher(nmResearcher) {
+      //vm.dataLoading = true;
+      ResearcherService.GetByNmResearcher(nmResearcher).then(function (response) {
+        //console.log(response.data);
         //if (response.code === 1000) {
-          var researchers = response;
-          vm.researchers = researchers;          
-          vm.dataLoading = false;
-          console.log(researchers);
-          //} else {
+        var researcher = response;
+        return researcher;
+        //} else {
           // console.log(response.data);
           //FlashService.Error(response.description);
-          //vm.lDataLoading = false;
+          //vm.dataLoading = false;
         //}
       });
     }
