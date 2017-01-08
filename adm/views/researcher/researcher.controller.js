@@ -22,14 +22,13 @@
     //vm.showEditForm = showEditForm;
     //vm.showReadForm = showReadForm;
     
-    vm.getByNmResearcher = getByNmResearcher;
+    vm.getBydsSso = getBydsSso;
     vm.editResearcher  = editResearcher;
     
     initController();
 
     function initController() {
-      var teste = 'andre';
-      vm.getByNmResearcher(teste);
+      vm.getBydsSso();
     }
 
  // Forms
@@ -38,8 +37,8 @@
     }
 
     function showCreateForm() {
-      clearForm();
-      $('#create-modal-title').text("Create Project");
+     // clearForm();
+      $('#create-modal-title').text("Edit Researcher");
       $('#create-modal-form').modal({backdrop: 'static', keyboard: false, show: true, closable: false});
     }
 
@@ -47,24 +46,23 @@
 
     // CRUD functions
 
-function getByNmResearcher(nmResearcher) {
-      //vm.dataLoading = true;
-      ResearcherService.GetByNmResearcher(nmResearcher).then(function (response) {
-        //console.log(response.data);
-        //if (response.code === 1000) {
-        var researcher = response;
-        return researcher;
-        //} else {
-          // console.log(response.data);
-          //FlashService.Error(response.description);
-          //vm.dataLoading = false;
-        //}
+      function getBydsSso() {
+        var dsSso = $rootScope.globals.currentUser.dsUsername;
+        ResearcherService.GetBydsSso(dsSso).then(function (response) {  
+        vm.researcher = response;
       });
     }
 
-    function editResearcher(researcher){
-    	
+
+
+    function editResearcher(){
+      ResearcherService.UpdateResearcher(vm.researcher).then(function (response) {  
+      console.log(response.data);
+        //vm.getBydsSso();
+      }); 	
     }
+
+
    
  } /****** End ProjectController *****/
 

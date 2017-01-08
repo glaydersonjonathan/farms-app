@@ -11,8 +11,10 @@
 
         service.GetAll = GetAll;
         service.GetByNmResearcher = GetByNmResearcher;
+        service.GetBydsSso = GetBydsSso;
         service.Create = Create;
         service.Update = Update;
+        service.UpdateResearcher = UpdateResearcher;
         service.Delete = Delete;
 
         return service;
@@ -25,12 +27,22 @@
             return $http.get(API_SERVER.url + '/researchers/' + nmResearcher).then(handleSuccess, handleError);
         }
 
+//OK!
+        function GetBydsSso(dsSso) {
+            return $http.get(API_SERVER.url + '/researchers/' + dsSso).then(handleSuccess, handleError);
+        }
+
         function Create(institution) {
             return $http.post(API_SERVER.url + '/researchers', institution).then(handleSuccess, handleError);
         }
 
         function Update(idResearcher) {
             return $http.put(API_SERVER.url + '/researchers/' + institution.idResearcher, institution).then(handleSuccess, handleError);
+        }
+
+//testando
+        function UpdateResearcher(researcher) {
+            return $http.put(API_SERVER.url + '/researchers/', researcher).then(handleSuccess, handleError);
         }
 
         function Delete(idResearcher) {

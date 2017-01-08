@@ -12,32 +12,21 @@
         <h3 class="box-title">Researcher</h3>
       </div>
 
-<div>
-Nome user:  {{vm.user.dsUserName}}  
-</br> 
-nome researcher: {{vm.researcher.nmResearcher}}
-</br> 
-Email:
-</br> 
-Opcao troca de senha
-</div>
-
-
 <table class="table table-bordered table-hover">
         <thead>
           <tr>
             <th class="width-30-pct">Name</th>
             <th class="width-30-pct">Email</th>
-            <th class="width-30-pct">Instituion</th>
+            <th class="width-30-pct">Password</th>
             <th class="text-align-center">Actions</th>
           </tr>
         </thead>
         
         <tbody>
               <tr >
-            <td class="width-30-pct">vir� Nome</td>
-            <td class="width-30-pct">vir� Email</td>
-            <td class="width-30-pct">vir� institui��o</td>
+            <td class="width-30-pct">{{vm.researcher.nmResearcher}}</td>
+            <td class="width-30-pct">{{vm.researcher.dsEmail}}</td>
+            <td class="width-30-pct">Change in edit button</td>
             <td class="center">
               <button type="button" class="btn btn-warning" ng-click="vm.showCreateForm()">
                 <span class="glyphicon glyphicon-pencil"></span>
@@ -54,7 +43,7 @@ Opcao troca de senha
 
 
    <!-- Modal form registration. -->
-    <div ng-include="'adm/views/researcher/researcher-create-form.html'"></div>
+    <div ng-include="'adm/views/researcher/researcher-edit-form.html'"></div>
 	    <!-- Modal confirmation message. -->
     <div ng-include="'adm/views/message/confirmation-message-modal.html'"></div>
      
