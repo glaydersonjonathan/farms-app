@@ -12,6 +12,7 @@
         service.Success = Success;
         service.Error = Error;
 
+
         initService();
 
         return service;
@@ -37,7 +38,7 @@
         function Success(message, keepAfterLocationChange) {
             $rootScope.flash = {
                 message: message,
-                type: 'success', 
+                type: 'success',
                 keepAfterLocationChange: keepAfterLocationChange
             };
         }

@@ -15,6 +15,7 @@
         service.Create = Create;
         service.Update = Update;
         service.UpdateResearcher = UpdateResearcher;
+        service.UpdatePassword = UpdatePassword;
         service.Delete = Delete;
 
         return service;
@@ -27,7 +28,7 @@
             return $http.get(API_SERVER.url + '/researchers/' + nmResearcher).then(handleSuccess, handleError);
         }
 
-//OK!
+        //OK!
         function GetBydsSso(dsSso) {
             return $http.get(API_SERVER.url + '/researchers/' + dsSso).then(handleSuccess, handleError);
         }
@@ -40,11 +41,16 @@
             return $http.put(API_SERVER.url + '/researchers/' + institution.idResearcher, institution).then(handleSuccess, handleError);
         }
 
-//testando
+        //testando
         function UpdateResearcher(researcher) {
             return $http.put(API_SERVER.url + '/researchers/', researcher).then(handleSuccess, handleError);
         }
 
+        function UpdatePassword(researcher) {
+            return $http.put(API_SERVER.url + '/researchers/pass', researcher).then(handleSuccess, handleError);
+        }
+
+        //testando
         function Delete(idResearcher) {
             return $http.delete(API_SERVER.url + '/researchers/' + idResearcher).then(handleSuccess, handleError);
         }

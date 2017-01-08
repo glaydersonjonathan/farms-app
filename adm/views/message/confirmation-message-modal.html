@@ -13,19 +13,19 @@
         <button type="button" class="close" data-dismiss="modal">
           <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
         </button>
-        <h4 class="modal-title" id="modal-title">Confirmation</h4>
+        <h4 class="modal-title" id="confirmation-message-modal-title">Confirmation</h4>
       </div>
       <!-- End - Header title. -->
 
       <!-- Start - Body. -->
       <div class="modal-body">
-        <h4 id="confirmation-message">Message...</h4>
+        <h4 id="confirmation-message-modal-message">Message...</h4>
       </div>
       <!-- End - Body. -->
 
       <!-- Start - Action buttons. -->
       <div class="modal-footer">
-        <button id="btn-ok" type="button" class="btn btn-default" ng-click="vm.ok()"><i class="fa fa-check"></i>Yes</button>
+        <button id="btn-ok" type="button" class="btn btn-default" ng-click="vm.yes()"><i class="fa fa-check"></i>Yes</button>
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>No</button>
       </div>
       <!-- End - Action buttons. -->
