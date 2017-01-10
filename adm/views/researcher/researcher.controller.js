@@ -11,11 +11,8 @@
   function ResearcherController(ResearcherService, AuthenticationService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
     var vm = this;
 
-    
     // Researcher
     vm.researcher = {};
-    vm.researchers = [];
-
 
     // Forms
     vm.showEditForm = showEditForm;
@@ -37,12 +34,12 @@
 
     // Forms
     function showEditForm() {
-      vm.researcher.dsPassword = null;   // ****VER PQ ISSO NÃO FUNCIONA****
       $('#create-modal-form-title').text("Edit Researcher");
       $('#create-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     function showChangePassForm() {
+      vm.researcher.dsPassword = null;
       $('#change-modal-form-title').text("Change Password");
       $('#change-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
@@ -69,7 +66,7 @@
       });
     }
 
-    //falta verificar no back se email já existe
+    //falta verificar corretmanet no back se email já existe
     function editResearcher() {
       ResearcherService.UpdateResearcher(vm.researcher).then(function (response) {
         if (response.code === 1003) {
@@ -81,7 +78,7 @@
         }
       });
     }
-
+    //falta o confirm password funcionar
     function editPassword() {
       ResearcherService.UpdatePassword(vm.researcher).then(function (response) {
         if (response.code === 1001) {
@@ -93,21 +90,6 @@
         }
       });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

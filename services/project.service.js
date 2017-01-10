@@ -23,11 +23,11 @@
         service.GetSearchKeywordsByDsKey = GetSearchKeywordsByDsKey;
         service.GetStandardQueryByDsKey = GetStandardQueryByDsKey;
         service.GetSelectionCriteriasByDsKey = GetSelectionCriteriasByDsKey;
-        
-        return service;
 
+        return service;
+//testando
         function Create(project) {
-            console.log('oi');
+            console.log('enviei: ');
             console.log(project);
             return $http.post(API_SERVER.url + '/projects', project).then(handleSuccess, handleError);
         }
@@ -40,13 +40,13 @@
             return $http.delete(API_SERVER.url + '/projects/' + dsKey).then(handleSuccess, handleError);
         }
 
-//OK!
+        //OK!
         function GetByDsKey(dsKey) {
             return $http.get(API_SERVER.url + '/projects/' + dsKey).then(handleSuccess, handleError);
         }
 
         function GetAllByDsSsoResearcher(dsSso) {
-            return $http.get(API_SERVER.url + '/researchers/' + dsSso + '/projects').then(handleSuccess, handleError);
+            return $http.get(API_SERVER.url + '/projects/' + dsSso + '/projects').then(handleSuccess, handleError);
         }
 
         function GetInstitutionsByDsKey(dsKey) {
@@ -64,27 +64,27 @@
         function GetObjectivesByDsKey(dsKey) {
             return $http.get(API_SERVER.url + '/projects/' + dsKey + '/objectives').then(handleSuccess, handleError);
         }
-        
+
         function GetMainQuestionByDsKey(dsKey) {
             return $http.get(API_SERVER.url + '/projects/' + dsKey + '/main-question').then(handleSuccess, handleError);
         }
-        
+
         function GetSecondaryQuestionByDsKey(dsKey) {
             return $http.get(API_SERVER.url + '/projects/' + dsKey + '/secondary-question').then(handleSuccess, handleError);
         }
-        
+
         function GetSearchKeywordsByDsKey(dsKey) {
             return $http.get(API_SERVER.url + '/projects/' + dsKey + '/search-keywords').then(handleSuccess, handleError);
         }
-        
+
         function GetStandardQueryByDsKey(dsKey) {
             return $http.get(API_SERVER.url + '/projects/' + dsKey + '/standard-query').then(handleSuccess, handleError);
         }
-        
+
         function GetSelectionCriteriasByDsKey(dsKey) {
             return $http.get(API_SERVER.url + '/projects/' + dsKey + '/selection-criterias').then(handleSuccess, handleError);
         }
-        
+
         // private functions
         function handleSuccess(res) {
             return res.data;
