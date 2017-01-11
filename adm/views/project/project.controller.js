@@ -11,10 +11,10 @@
   function ProjectController(ProjectService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
     var vm = this;
 
-    //vm.dataLoading = true;
+    vm.dataLoading = true;
 
     // Project
-    vm.project = {};
+    vm.project = {}; //usando pra editar
     vm.projects = [];
 
     vm.clearForm = clearForm;
@@ -53,14 +53,20 @@
       vm.project = null;
     }
 
+    //ok
     function showCreateForm() {
       clearForm();
       $('#create-modal-title').text("Create Project");
       $('#create-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
-    function showEditForm() {
-      $('#edit-modal-title').text("Update project");
+    //testando
+    function showEditForm(dsKey) {
+      //antes de exibir formulário preciso pegar dados projeto
+      ProjectService.GetByDsKey(dsKey).then(function (response) {
+        vm.project = response;
+      });
+      $('#edit-modal-form-title').text("Update project");
       $('#edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
@@ -76,6 +82,7 @@
 
     function closeModal() {
       $('#create-modal-form').modal('hide');
+      $('#edit-modal-form').modal('hide');
       $('#confirmation-message-modal').modal('hide');
     }
 
@@ -85,30 +92,16 @@
       vm.dataLoading = true;
       var dsSso = $rootScope.globals.currentUser.dsUsername;
       ProjectService.GetAllByDsSsoResearcher(dsSso).then(function (response) {
-        //if (response.code === 1000) {
         var projects = response;
         vm.projects = projects;
         vm.dataLoading = false;
-        //} else {
-        // console.log(response.data);
-        //FlashService.Error(response.description);
-        //vm.lDataLoading = false;
-        //}
       });
     }
 
     function getProjectByKey(dsKey) {
-      //vm.dataLoading = true;
       ProjectService.GetByDsKey(dsKey).then(function (response) {
-        //console.log(response.data);
-        //if (response.code === 1000) {
         var project = response;
         return project;
-        //} else {
-        // console.log(response.data);
-        //FlashService.Error(response.description);
-        //vm.dataLoading = false;
-        //}
       });
     }
 
@@ -118,9 +111,26 @@
 
       vm.dataLoading = true;
       ProjectService.Create(vm.project).then(function (response) {
-        console.log('recebi');
-        console.log(response.data);
         if (response.code === 1006) {
+          FlashService.Success(response.description, true);
+          vm.project = null;
+          closeModal();
+          vm.getAllProjects();
+        } else {
+          FlashService.Error(response.description, true);
+          vm.dataLoading = false;
+          closeModal();
+        }
+      });
+    };
+
+    function updateProject() {
+      console.log('enviei');
+      console.log(vm.project);
+      vm.dataLoading = true;
+      ProjectService.Update(vm.project).then(function (response) {
+        console.log(response.data);
+        if (response.code === 1007) {
           FlashService.Success(response.description, true);
           vm.project = null;
           closeModal();
@@ -147,23 +157,7 @@
       });
     }
 
-    function updateProject() {
-      alert(vm.project.tpReview + " " + vm.project.dsKey + " " + vm.project.dsTitle + " " + vm.project.dsProject);
-      /*
-      vm.dataLoading = true;
-      ProjectService.Update(vm.project).then(function (response) {
-        console.log(response.data);
-        if (response.code === 1002) {
-          FlashService.Success(response.description, true);
-          vm.project = null;
-          $('#edit-modal-form').closeModal();
-          vm.getAllProjects();
-        } else {
-          FlashService.Error(response.description, true);
-          vm.dataLoading = false;
-        }
-      });*/
-    };
+
 
     function deleteProject(key) {
       showConfirmationMessage();

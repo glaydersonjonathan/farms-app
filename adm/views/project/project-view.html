@@ -11,7 +11,7 @@
     </button>
       </div>
 
-            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash"
+      <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash"
         ng-bind="flash.message"></div>
 
       <div class="box">
@@ -89,6 +89,7 @@
                 <th class="width-60-pct">Review type</th>
                 <th class="width-60-pct">Key</th>
                 <th class="width-30-pct">Title</th>
+                <th class="width-30-pct">Description</th>
                 <th class="text-align-center">Actions</th>
               </tr>
             </thead>
@@ -117,11 +118,12 @@
                 </td>
                 <td class="width-30-pct">{{ project.dsKey }}</td>
                 <td class="width-30-pct">{{ project.dsTitle }}</td>
+                 <td class="width-30-pct">{{ project.dsProject}}</td>
                 <td class="center">
                   <button type="button" class="btn btn-default" ng-click="vm.openProject(project.dsKey)">
                 <span class="glyphicon glyphicon-folder-open"></span>
               </button>
-                  <button type="button" class="btn btn-warning" ng-click="vm.editProject(project)">
+                  <button type="button" class="btn btn-warning" ng-click="vm.showEditForm(project.dsKey)">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
                   <button type="button" class="btn btn-danger" ng-click="vm.deleteProject(project.dsKey)">
@@ -145,7 +147,8 @@
 
         <!-- Modal form registration. -->
         <div ng-include="'adm/views/project/project-create-form.html'"></div>
-
+        <!-- Modal form edit. -->
+        <div ng-include="'adm/views/project/project-edit-form.html'"></div>
         <!-- Modal confirmation message. -->
         <div ng-include="'adm/views/message/confirmation-message-modal.html'"></div>
 

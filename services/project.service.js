@@ -25,15 +25,15 @@
         service.GetSelectionCriteriasByDsKey = GetSelectionCriteriasByDsKey;
 
         return service;
-//testando
+        //testando, falta institutions
         function Create(project) {
-            console.log('enviei: ');
-            console.log(project);
             return $http.post(API_SERVER.url + '/projects', project).then(handleSuccess, handleError);
         }
 
+
+        //testando
         function Update(project) {
-            return $http.put(API_SERVER.url + '/projects/' + project.dsKey, project).then(handleSuccess, handleError);
+            return $http.put(API_SERVER.url + '/projects/', project).then(handleSuccess, handleError);
         }
 
         function Delete(dsKey) {

@@ -100,6 +100,36 @@
         displayName: 'Protocol'
       }
     })
+    .state('adm.charts', {
+      url: "/project/charts",
+      controller: 'ProtocolController',
+      templateUrl: "adm/views/chart/chart-view.html",
+      controllerAs: 'vm',
+      title: 'Chart',
+      data: {
+        displayName: 'Chart'
+      }
+    })
+    .state('adm.reports', {
+      url: "/project/reports",
+      controller: 'ProtocolController',
+      templateUrl: "adm/views/report/report-view.html",
+      controllerAs: 'vm',
+      title: 'Report',
+      data: {
+        displayName: 'Report'
+      }
+    })
+        .state('adm.extractions', {
+      url: "/project/extractions",
+      controller: 'ProtocolController',
+      templateUrl: "adm/views/extraction/extraction-view.html",
+      controllerAs: 'vm',
+      title: 'Extraction',
+      data: {
+        displayName: 'Extraction'
+      }
+    })
   }
 
   run.$inject = ['$rootScope', '$location', '$cookieStore', '$http', '$state'];
