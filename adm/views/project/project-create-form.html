@@ -14,7 +14,7 @@
 
         <div class="form-group" ng-class="{ 'has-error': form.tp_review.$dirty && form.tp_review.$error.required }">
           <label for="tp_review">Review type</label>
-          <select id="tp_review" name="tp_review" class="form-control" ng-model="vm.project.tpReview" >
+          <select id="tp_review" name="tp_review" class="form-control" ng-model="vm.project.tpReview">
             <option value="">All types</option>
             <option value="0">Not Systematic</option>
             <option value="1">Systematic Mapping</option>
@@ -37,24 +37,27 @@
           <textarea id="ds_project" name="ds_project" ng-model="vm.project.dsProject" class="form-control" rows="5"></textarea>
         </div>
 
-
-         <div class="form-group"> 
-          <label for="ds_ins">ins</label>
-          <input type="number" name="ds_ins" id="ds_ins" class="form-control" ng-model="vm.project.idInstitution" />
+        <div class="form-group" ng-class="{ 'has-error': form.ds_ins.$dirty && form.ds_ins.$error.required }">
+          <label for="ds_ins">Institution</label>
+          <select id="ds_ins" name="ds_ins" ng-model="vm.project.idInstitution" class="form-control" ng-options="institution.idInstitution as institution.dsAbbreviation + ' - '+ institution.nmInstitution for institution in vm.all_institutions">
+            <option value="">Select a option</option>
+           </select>
         </div>
-      </div>
-      </div>
-      <!-- End - Fields form -->
 
-      <!-- Start - Action buttons. -->
-      <div class="modal-footer">
-        <button id="btn-create" type="button" class="btn btn-primary" ng-click="vm.createProject()"><i class="fa fa-check"></i>Save</button>
-        <!--button id="btn-update" type="button" class="btn btn-primary" ng-click="vm.updateProject()"><i class="fa fa-check"></i>Salvar</button-->
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
-      </div>
-      <!-- End - Action buttons. -->
 
-      <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      </div>
     </div>
+    <!-- End - Fields form -->
+
+    <!-- Start - Action buttons. -->
+    <div class="modal-footer">
+      <button id="btn-create" type="button" class="btn btn-primary" ng-click="vm.createProject()"><i class="fa fa-check"></i>Save</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
+    </div>
+    <!-- End - Action buttons. -->
+
+    <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+    />
   </div>
+</div>
 </div>

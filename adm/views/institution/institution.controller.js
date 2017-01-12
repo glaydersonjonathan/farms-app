@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-  .module('app')
-  .controller('InstitutionController', InstitutionController);
+    .module('app')
+    .controller('InstitutionController', InstitutionController);
 
   InstitutionController.$inject = ['InstitutionService', 'ProjectService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
 
@@ -59,32 +59,33 @@
     function showCreateForm() {
       clearForm();
       $('#create-modal-title').text("Create Institution");
-      $('#create-modal-form').modal({backdrop: 'static', keyboard: false, show: true, closable: false});
+      $('#create-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     function showInstitutionInvitationForm() {
       clearForm();
       $('#invite-modal-title').text("Institution Invitation");
-      $('#institution-invitation-modal-form').modal({backdrop: 'static', keyboard: false, show: true, closable: false});
+      $('#institution-invitation-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     function showEditForm() {
-        $('#edit-modal-title').text("Update institution");
-        $('#edit-modal-form').modal({backdrop: 'static', keyboard: false, show: true, closable: false});
+      $('#edit-modal-title').text("Update institution");
+      $('#edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     function showReadForm() {
       $('#read-modal-title').text("Institution");
-      $('#read-modal-form').modal({backdrop: 'static', keyboard: false, show: true, closable: false});
+      $('#read-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     function showConfirmationMessage() {
       $('#confirmation-message-modal-title').text("Confirmation");
-      $('#confirmation-message-modal').modal({backdrop: 'static', keyboard: false, show: true, closable: false});
+      $('#confirmation-message-modal').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     // CRUD functions
 
+    //todas do projeto aberto
     function getAllInstitutions() {
       vm.dataLoading = true;
       var currentProject = $cookieStore.get("currentProject");
@@ -93,16 +94,13 @@
         dsKey = currentProject.dsKey
       }
       ProjectService.GetInstitutionsByDsKey(dsKey).then(function (response) {
-        //if (response.code === 1000) {
-          var institutions = response;
-          console.log(institutions);
-          vm.institutions = institutions;
-          vm.dataLoading = false;
-        //} else {
-          // console.log(response.data);
-          //FlashService.Error(response.description);
-          //vm.lDataLoading = false;
-        //}
+        if (response.code === 2008) {
+          FlashService.Error(response.description, false);
+        }
+        var institutions = response;
+        //console.log(institutions);
+        vm.institutions = institutions;
+        vm.dataLoading = false;
       });
     }
 
@@ -114,9 +112,9 @@
         var institution = response;
         return institution;
         //} else {
-          // console.log(response.data);
-          //FlashService.Error(response.description);
-          //vm.dataLoading = false;
+        // console.log(response.data);
+        //FlashService.Error(response.description);
+        //vm.dataLoading = false;
         //}
       });
     }
@@ -163,14 +161,14 @@
         vm.institution = response;
         showReadForm();
         //} else {
-          //FlashService.Error(response.description);
-          //vm.dataLoading = false;
+        //FlashService.Error(response.description);
+        //vm.dataLoading = false;
         //}
       });
     }
 
     function updateInstitution(institution) {
-      alert(vm.institution.tpReview  + " " + vm.institution.dsKey + " " + vm.institution.dsTitle + " " + vm.institution.dsInstitution);
+      alert(vm.institution.tpReview + " " + vm.institution.dsKey + " " + vm.institution.dsTitle + " " + vm.institution.dsInstitution);
       /*
       vm.dataLoading = true;
       InstitutionService.Update(vm.institution).then(function (response) {
@@ -208,14 +206,14 @@
 
     /****** Start filter functions *****/
     function institutionsByFilter() {
-        return vm.institutions.filter(function(institution) {
-           return (institution.nmInstitution.toString().indexOf(vm.nmInstitutionSearch) > -1
-                              || institution.nmInstitution.toLowerCase().indexOf(vm.nmInstitutionSearch.toLowerCase()) > -1);
-        });
+      return vm.institutions.filter(function (institution) {
+        return (institution.nmInstitution.toString().indexOf(vm.nmInstitutionSearch) > -1
+          || institution.nmInstitution.toLowerCase().indexOf(vm.nmInstitutionSearch.toLowerCase()) > -1);
+      });
     };
     /****** End filters functions *****/
 
-   /****** Start pagination functions *****/
+    /****** Start pagination functions *****/
     vm.currentPage = 0;
     vm.itemsPerPage = 30;
 
@@ -235,7 +233,7 @@
 
       for (var i = start; i < start + rangeSize; i++) {
         if (i >= 0) {
-           ps.push(i);
+          ps.push(i);
         }
       }
       return ps;
@@ -256,18 +254,18 @@
     function setPage(pageNumber) {
       vm.currentPage = pageNumber;
     };
-   /****** End pagination functions *****/
+    /****** End pagination functions *****/
 
- } /****** End InstitutionController *****/
+  } /****** End InstitutionController *****/
 
   /****** Start pager *****/
   angular
-  .module('app')
-  .filter('pagination', function() {
-    return function(input, start) {
-      start = parseInt(start, 10);
-      return input.slice(start);
-    };
-  });
+    .module('app')
+    .filter('pagination', function () {
+      return function (input, start) {
+        start = parseInt(start, 10);
+        return input.slice(start);
+      };
+    });
   /****** End pager *****/
 })();

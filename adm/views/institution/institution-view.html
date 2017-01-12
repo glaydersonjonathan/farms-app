@@ -7,9 +7,12 @@
   <!-- Button to display the modal form registration. -->
   <div class="form-group">
     <button type="button" class="btn btn-primary" ng-click="vm.showInstitutionInvitationForm()">
-      <i class="fa fa-plus"></i> Create
+      <i class="fa fa-plus"></i> Add institution a project
     </button>
   </div>
+
+   <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash"
+        ng-bind="flash.message"></div>
 
   <div class="box">
     <div class="panel-group"> <!-- Start filter the list of institutions. -->

@@ -17,6 +17,8 @@
     vm.project = {}; //usando pra editar
     vm.projects = [];
 
+    vm.all_institutions = [];//usado na criação de um projeto
+
     vm.clearForm = clearForm;
     vm.showCreateForm = showCreateForm;
     vm.showEditForm = showEditForm;
@@ -29,6 +31,8 @@
     vm.updateProject = updateProject;
     vm.deleteProject = deleteProject;
     vm.openProject = openProject;
+
+    vm.getAllInstitutions = getAllInstitutions;
 
     vm.projectsByFilter = projectsByFilter;
     vm.tpReviewSearch = "";
@@ -55,7 +59,9 @@
 
     //ok
     function showCreateForm() {
+      getAllInstitutions();
       clearForm();
+      
       $('#create-modal-title').text("Create Project");
       $('#create-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
@@ -86,6 +92,7 @@
       $('#confirmation-message-modal').modal('hide');
     }
 
+
     // CRUD functions
 
     function getAllProjects() {
@@ -94,6 +101,18 @@
       ProjectService.GetAllByDsSsoResearcher(dsSso).then(function (response) {
         var projects = response;
         vm.projects = projects;
+        vm.dataLoading = false;
+      });
+    }
+
+    //metodo usado na hora de criar um projeto
+    function getAllInstitutions(){
+            ProjectService.GetAllInstitutions().then(function (response) {
+        if (response.code === 2008) {
+          FlashService.Error(response.description, false);
+        }
+        var all_institutions = response;
+        vm.all_institutions = all_institutions;
         vm.dataLoading = false;
       });
     }
@@ -111,6 +130,8 @@
 
       vm.dataLoading = true;
       ProjectService.Create(vm.project).then(function (response) {
+        console.log('recebi:');
+        console.log(response.data);
         if (response.code === 1006) {
           FlashService.Success(response.description, true);
           vm.project = null;
@@ -131,12 +152,12 @@
       ProjectService.Update(vm.project).then(function (response) {
         console.log(response.data);
         if (response.code === 1007) {
-          FlashService.Success(response.description, true);
+          FlashService.Success(response.description, false);
           vm.project = null;
           closeModal();
           vm.getAllProjects();
         } else {
-          FlashService.Error(response.description, true);
+          FlashService.Error(response.description, false);
           vm.dataLoading = false;
           closeModal();
         }
