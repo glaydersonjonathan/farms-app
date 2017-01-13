@@ -13,6 +13,8 @@
 
     //vm.dataLoading = true;
 
+    vm.all_countries = [];
+
     // Institution
     vm.institution = {};
     vm.institutions = [];
@@ -21,12 +23,14 @@
     vm.invite = {};
 
     vm.clearForm = clearForm;
-    vm.showCreateForm = showCreateForm;
+    vm.showCreateInsForm = showCreateInsForm;
     vm.showInstitutionInvitationForm = showInstitutionInvitationForm;
     vm.showEditForm = showEditForm;
     vm.showReadForm = showReadForm;
+    vm.closeModal = closeModal;
 
     vm.getAllInstitutions = getAllInstitutions;
+    vm.getAllCountries = getAllCountries;
     vm.getInstitutionByCdCite = getInstitutionByCdCite;
     vm.createInstitution = createInstitution;
     vm.inviteInstitution = inviteInstitution;
@@ -56,10 +60,11 @@
       vm.flInstitution = null;
     }
 
-    function showCreateForm() {
+    function showCreateInsForm() {
       clearForm();
-      $('#create-modal-title').text("Create Institution");
-      $('#create-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
+      getAllCountries();
+      $('#create-institution-title').text("Create Institution");
+      $('#create-institution').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     function showInstitutionInvitationForm() {
@@ -83,6 +88,11 @@
       $('#confirmation-message-modal').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
+    function closeModal() {
+      $('#create-institution').modal('hide');
+    }
+
+
     // CRUD functions
 
     //todas do projeto aberto
@@ -104,6 +114,31 @@
       });
     }
 
+
+    function getAllCountries() {
+      InstitutionService.GetAllCountries().then(function (response) {
+        vm.all_countries = response;
+      });
+    }
+
+    function createInstitution() {
+      //alert(vm.institution.tpReview  + " " + vm.institution.dsKey + " " + vm.institution.dsTitle + " " + vm.institution.dsInstitution);
+      vm.dataLoading = true;
+      InstitutionService.Create(vm.institution).then(function (response) {
+        console.log(response.data);
+        if (response.code === 1008) {
+          FlashService.Success(response.description, false);
+          vm.institution = null;
+          closeModal();
+         } else {
+          FlashService.Error(response.description, false);
+          vm.dataLoading = false;
+          closeModal();
+        }
+      });
+    }
+
+
     function getInstitutionByCdCite(cdCite) {
       //vm.dataLoading = true;
       InstitutionService.GetByCdCite(cdCite).then(function (response) {
@@ -119,22 +154,7 @@
       });
     }
 
-    function createInstitution() {
-      //alert(vm.institution.tpReview  + " " + vm.institution.dsKey + " " + vm.institution.dsTitle + " " + vm.institution.dsInstitution);
-      /*vm.dataLoading = true;
-      InstitutionService.Create(vm.institution).then(function (response) {
-        console.log(response.data);
-        if (response.code === 1002) {
-          FlashService.Success(response.description, true);
-          vm.institution = null;
-          $('#create-modal-form').closeModal();
-          vm.getAllInstitutions();
-        } else {
-          FlashService.Error(response.description, true);
-          vm.dataLoading = false;
-        }
-      });*/
-    };
+
 
     function inviteInstitution() {
       //alert(vm.institution.tpReview  + " " + vm.institution.dsKey + " " + vm.institution.dsTitle + " " + vm.institution.dsInstitution);

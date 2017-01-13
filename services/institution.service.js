@@ -10,6 +10,7 @@
         var service = {};
 
         service.GetAll = GetAll;
+        service.GetAllCountries = GetAllCountries;
         service.GetByNmInstitution = GetByNmInstitution;
         service.Create = Create;
         service.Update = Update;
@@ -21,12 +22,17 @@
             return $http.get(API_SERVER.url + '/institutions').then(handleSuccess, handleError);
         }
 
-        function GetByNmInstitution(nmInstitution) {
-            return $http.get(API_SERVER.url + '/institutions/' + nmInstitution).then(handleSuccess, handleError);
+        function GetAllCountries() {
+            return $http.get(API_SERVER.url + '/institutions/countries').then(handleSuccess, handleError);
         }
 
         function Create(institution) {
+            console.log(institution);
             return $http.post(API_SERVER.url + '/institutions', institution).then(handleSuccess, handleError);
+        }
+
+        function GetByNmInstitution(nmInstitution) {
+            return $http.get(API_SERVER.url + '/institutions/' + nmInstitution).then(handleSuccess, handleError);
         }
 
         function Update(idInstitution) {
@@ -43,7 +49,7 @@
         }
 
         function handleError(error) {
-            return res.data;
+            return error.data;
         }
     }
 
