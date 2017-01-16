@@ -133,12 +133,12 @@
         console.log('recebi:');
         console.log(response.data);
         if (response.code === 1006) {
-          FlashService.Success(response.description, true);
+          FlashService.Success(response.description, false);
           vm.project = null;
           closeModal();
           vm.getAllProjects();
         } else {
-          FlashService.Error(response.description, true);
+          FlashService.Error(response.description, false);
           vm.dataLoading = false;
           closeModal();
         }

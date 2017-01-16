@@ -3,21 +3,21 @@
 
   <div class="row">
     <div class="col-xs-12">
+     
+      <center>
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" ng-click="vm.showCreateInsForm()">
+      <i class="fa fa-plus"></i> Register new Institution
+    </button>
+        </div>
+      </center>
 
       <!-- Button to display the modal form registration. -->
       <div class="form-group">
-        <button type="button" class="btn btn-primary" ng-click="vm.showInstitutionInvitationForm()">
+        <button type="button" class="btn btn-primary" ng-click="vm.showInstitutionAddForm()">
       <i class="fa fa-plus"></i> Add institution a project
     </button>
       </div>
-
-
-      <div class="form-group">
-        <button type="button" class="btn btn-primary" ng-click="vm.showCreateInsForm()">
-      <i class="fa fa-plus"></i> New Institution
-    </button>
-      </div>
-
 
       <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash"
         ng-bind="flash.message"></div>
@@ -96,9 +96,6 @@
                 <td class="width-30-pct">{{ institution.dsAbbreviation }}</td>
                 <td class="width-30-pct">{{ institution.nmCountry }}</td>
                 <td class="center">
-                  <button type="button" class="btn btn-warning" ng-click="vm.editInstitution(institution)">
-                <span class="glyphicon glyphicon-pencil"></span>
-              </button>
                   <button type="button" class="btn btn-danger" ng-click="vm.deleteInstitution(institution.dsKey)">
                 <span class="glyphicon glyphicon-trash"></span>
               </button>
@@ -119,6 +116,9 @@
 
         <!-- Modal form registration. -->
         <div ng-include="'adm/views/institution/institution-create-form.html'"></div>
+
+        <!-- Modal form add a project. -->
+        <div ng-include="'adm/views/institution/institution-add-form.html'"></div>
 
         <!-- Modal confirmation message. -->
         <div ng-include="'adm/views/message/confirmation-message-modal.html'"></div>

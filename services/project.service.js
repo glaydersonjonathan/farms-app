@@ -15,6 +15,7 @@
         service.GetByDsKey = GetByDsKey;
 
         service.GetAllInstitutions = GetAllInstitutions;
+        service.AddInstitutionProject= AddInstitutionProject;
 
         service.GetAllByDsSsoResearcher = GetAllByDsSsoResearcher;
         service.GetInstitutionsByDsKey = GetInstitutionsByDsKey;
@@ -28,7 +29,7 @@
         service.GetSelectionCriteriasByDsKey = GetSelectionCriteriasByDsKey;
 
         return service;
-        //testando, falta institutions
+        //testando
         function Create(project) {
             return $http.post(API_SERVER.url + '/projects', project).then(handleSuccess, handleError);
         }
@@ -38,7 +39,7 @@
             return $http.put(API_SERVER.url + '/projects/', project).then(handleSuccess, handleError);
         }
 
-                //OK!
+        //OK!
         function GetByDsKey(dsKey) {
             return $http.get(API_SERVER.url + '/projects/' + dsKey).then(handleSuccess, handleError);
         }
@@ -54,6 +55,13 @@
         function GetAllInstitutions() {
             return $http.get(API_SERVER.url + '/projects/institutions').then(handleSuccess, handleError);
         }
+
+
+        function AddInstitutionProject(project_member) {
+            return $http.post(API_SERVER.url + '/projects/addInstitution', project_member).then(handleSuccess, handleError);
+        }
+
+
 
         function Delete(dsKey) {
             return $http.delete(API_SERVER.url + '/projects/' + dsKey).then(handleSuccess, handleError);

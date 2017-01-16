@@ -11,12 +11,20 @@
 
         vm.user = {};
         vm.project = {};
+        vm.year ={};
 
         initController();
 
         function initController() {
             loadCurrentUser();
+            date();
         }
+
+function date() {
+    var date = new Date();
+    vm.year = date.getFullYear();
+   }
+
 
         function loadCurrentUser() {
           vm.user.dsName = $rootScope.globals.currentUser.dsName;
