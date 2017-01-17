@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-  .module('app')
-  .controller('MemberController', MemberController);
+    .module('app')
+    .controller('MemberController', MemberController);
 
   MemberController.$inject = ['MemberService', 'ProjectService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
 
@@ -20,15 +20,17 @@
     // Invite
     vm.invite = {};
 
+    vm.all_institutions = [];
+
     vm.clearForm = clearForm;
-    vm.showCreateForm = showCreateForm;
+    vm.closeModal = closeModal;
     vm.showMemberInvitationForm = showMemberInvitationForm;
     vm.showEditForm = showEditForm;
     vm.showReadForm = showReadForm;
-
+    vm.getAllInstitutions = getAllInstitutions;
     vm.getAllMembers = getAllMembers;
     vm.getMemberByCdCite = getMemberByCdCite;
-    vm.createMember = createMember;
+
     vm.inviteMember = inviteMember;
     vm.readMember = readMember;
     vm.updateMember = updateMember;
@@ -54,33 +56,33 @@
     function clearForm() {
       vm.member = null;
       vm.flMember = null;
+      vm.invite = null;
     }
 
-    function showCreateForm() {
-      clearForm();
-      $('#create-modal-title').text("Create Member");
-      $('#create-modal-form').modal({backdrop: 'static', keyboard: false, show: true, closable: false});
+    function closeModal() {
+      $('#member-invitation-modal-form').modal('hide');
     }
 
     function showMemberInvitationForm() {
       clearForm();
-      $('#invite-modal-title').text("Member Invitation");
-      $('#member-invitation-modal-form').modal({backdrop: 'static', keyboard: false, show: true, closable: false});
+      getAllInstitutions();
+      $('#member-invitation-modal-form-title').text("Member Invitation");
+      $('#member-invitation-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     function showEditForm() {
-        $('#edit-modal-title').text("Update member");
-        $('#edit-modal-form').modal({backdrop: 'static', keyboard: false, show: true, closable: false});
+      $('#edit-modal-title').text("Update member");
+      $('#edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     function showReadForm() {
       $('#read-modal-title').text("Member");
-      $('#read-modal-form').modal({backdrop: 'static', keyboard: false, show: true, closable: false});
+      $('#read-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     function showConfirmationMessage() {
       $('#confirmation-message-modal-title').text("Confirmation");
-      $('#confirmation-message-modal').modal({backdrop: 'static', keyboard: false, show: true, closable: false});
+      $('#confirmation-message-modal').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     // CRUD functions
@@ -93,17 +95,50 @@
         dsKey = currentProject.dsKey
       }
       ProjectService.GetMembersByDsKey(dsKey).then(function (response) {
-        //if (response.code === 1000) {
-          var members = response;
-          vm.members = members;
-          vm.dataLoading = false;
-        //} else {
-          // console.log(response.data);
-          //FlashService.Error(response.description);
-          //vm.lDataLoading = false;
-        //}
+
+        var members = response;
+        vm.members = members;
+        vm.dataLoading = false;
+        if (response.code === 2008) {
+          FlashService.Error(response.description, false);
+          vm.lDataLoading = false;
+        }
       });
     }
+
+    function getAllInstitutions() {
+      ProjectService.GetAllInstitutions().then(function (response) {
+        if (response.code === 2008) {
+          FlashService.Error(response.description, false);
+        }
+        var all_institutions = response;
+        vm.all_institutions = all_institutions;
+        vm.dataLoading = false;
+      });
+    }
+
+    function inviteMember() {
+      vm.dataLoading = true;
+      var currentProject = $cookieStore.get("currentProject");
+      var dsKey = null;
+      if (currentProject != null) {
+        vm.invite.dsKey = currentProject.dsKey;
+      }
+
+      MemberService.Invite(vm.invite).then(function (response) {
+        console.log(response.data);
+        if (response.code === 1010) {
+          FlashService.Success(response.description, false);
+          vm.invite = null;
+          closeModal();
+          vm.getAllMembers();
+        } else {
+          FlashService.Error(response.description, false);
+          vm.dataLoading = false;
+          closeModal();
+        }
+      });
+    };
 
     function getMemberByCdCite(cdCite) {
       //vm.dataLoading = true;
@@ -113,46 +148,13 @@
         var member = response;
         return member;
         //} else {
-          // console.log(response.data);
-          //FlashService.Error(response.description);
-          //vm.dataLoading = false;
+        // console.log(response.data);
+        //FlashService.Error(response.description);
+        //vm.dataLoading = false;
         //}
       });
     }
 
-    function createMember() {
-      //alert(vm.member.tpReview  + " " + vm.member.dsKey + " " + vm.member.dsTitle + " " + vm.member.dsMember);
-      /*vm.dataLoading = true;
-      MemberService.Create(vm.member).then(function (response) {
-        console.log(response.data);
-        if (response.code === 1002) {
-          FlashService.Success(response.description, true);
-          vm.member = null;
-          $('#create-modal-form').closeModal();
-          vm.getAllMembers();
-        } else {
-          FlashService.Error(response.description, true);
-          vm.dataLoading = false;
-        }
-      });*/
-    };
-
-    function inviteMember() {
-      //alert(vm.member.tpReview  + " " + vm.member.dsKey + " " + vm.member.dsTitle + " " + vm.member.dsMember);
-      /*vm.dataLoading = true;
-      MemberService.Create(vm.member).then(function (response) {
-        console.log(response.data);
-        if (response.code === 1002) {
-          FlashService.Success(response.description, true);
-          vm.member = null;
-          $('#create-modal-form').closeModal();
-          vm.getAllMembers();
-        } else {
-          FlashService.Error(response.description, true);
-          vm.dataLoading = false;
-        }
-      });*/
-    };
 
     function readMember(cdCiteKey) {
       //vm.dataLoading = true;
@@ -162,14 +164,14 @@
         vm.member = response;
         showReadForm();
         //} else {
-          //FlashService.Error(response.description);
-          //vm.dataLoading = false;
+        //FlashService.Error(response.description);
+        //vm.dataLoading = false;
         //}
       });
     }
 
     function updateMember(member) {
-      alert(vm.member.tpReview  + " " + vm.member.dsKey + " " + vm.member.dsTitle + " " + vm.member.dsMember);
+      alert(vm.member.tpReview + " " + vm.member.dsKey + " " + vm.member.dsTitle + " " + vm.member.dsMember);
       /*
       vm.dataLoading = true;
       MemberService.Update(vm.member).then(function (response) {
@@ -207,14 +209,14 @@
 
     /****** Start filter functions *****/
     function membersByFilter() {
-        return vm.members.filter(function(member) {
-           return (member.nmResearcher.toString().indexOf(vm.nmResearcherSearch) > -1
-                              || member.nmResearcher.toLowerCase().indexOf(vm.nmResearcherSearch.toLowerCase()) > -1);
-        });
+      return vm.members.filter(function (member) {
+        return (member.nmResearcher.toString().indexOf(vm.nmResearcherSearch) > -1
+          || member.nmResearcher.toLowerCase().indexOf(vm.nmResearcherSearch.toLowerCase()) > -1);
+      });
     };
     /****** End filters functions *****/
 
-   /****** Start pagination functions *****/
+    /****** Start pagination functions *****/
     vm.currentPage = 0;
     vm.itemsPerPage = 30;
 
@@ -234,7 +236,7 @@
 
       for (var i = start; i < start + rangeSize; i++) {
         if (i >= 0) {
-           ps.push(i);
+          ps.push(i);
         }
       }
       return ps;
@@ -255,18 +257,18 @@
     function setPage(pageNumber) {
       vm.currentPage = pageNumber;
     };
-   /****** End pagination functions *****/
+    /****** End pagination functions *****/
 
- } /****** End MemberController *****/
+  } /****** End MemberController *****/
 
   /****** Start pager *****/
   angular
-  .module('app')
-  .filter('pagination', function() {
-    return function(input, start) {
-      start = parseInt(start, 10);
-      return input.slice(start);
-    };
-  });
+    .module('app')
+    .filter('pagination', function () {
+      return function (input, start) {
+        start = parseInt(start, 10);
+        return input.slice(start);
+      };
+    });
   /****** End pager *****/
 })();

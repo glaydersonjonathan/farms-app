@@ -11,7 +11,7 @@
 
         service.GetAll = GetAll;
         service.GetByNmMember = GetByNmMember;
-        service.Create = Create;
+        service.Invite = Invite;
         service.Update = Update;
         service.Delete = Delete;
 
@@ -25,8 +25,8 @@
             return $http.get(API_SERVER.url + '/members/' + nmMember).then(handleSuccess, handleError);
         }
 
-        function Create(member) {
-            return $http.post(API_SERVER.url + '/members', member).then(handleSuccess, handleError);
+        function Invite(invite) {
+            return $http.post(API_SERVER.url + '/projects/members/invite/',invite).then(handleSuccess, handleError);
         }
 
         function Update(idMember) {
@@ -43,7 +43,7 @@
         }
 
         function handleError(error) {
-            return res.data;
+            return error.data;
         }
     }
 
