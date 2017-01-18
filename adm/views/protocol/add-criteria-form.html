@@ -1,0 +1,41 @@
+<!-- Project registration form. -->
+<div class="modal fade" id="criteria-modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Form title. -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="criteria-modal-form-title" id="criteria-modal-form-title">title</h4>
+      </div>
+
+      <!-- Start - Fields form -->
+      <div class="modal-body">
+
+        <div class="form-group" ng-class="{ 'has-error': form.tp_criteria.$dirty && form.tp_criteria.$error.required }">
+          <label for="tp_criteria">Criteria type</label>
+          <select id="tp_criteria" name="tp_criteria" class="form-control" ng-model="vm.protocol.selectionCriterias.tpCriteria">
+            <option value="">All types</option>
+            <option value="0">Exclusion</option>
+            <option value="1">Inclusion</option>
+             </select>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': form.ds_criteria.$dirty && form.ds_criteria.$error.required }">
+          <label for="ds_criteria">Criteria</label>
+          <input type="text" name="ds_criteria" id="ds_criteria" class="form-control" ng-model="vm.protocol.selectionCriterias.dsSelectionCriteria" required />
+          <span ng-show="form.ds_criteria.$dirty && form.ds_criteria.$error.required" class="help-block">Criteria is required.</span>
+        </div>
+      </div>
+    </div>
+    <!-- End - Fields form -->
+
+    <!-- Start - Action buttons. -->
+    <div class="modal-footer">
+      <button id="btn-create" type="button" class="btn btn-primary" ng-click="vm.saveCriteria()"><i class="fa fa-check"></i>Save</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
+    </div>
+    <!-- End - Action buttons. -->
+  </div>
+</div>
+</div>

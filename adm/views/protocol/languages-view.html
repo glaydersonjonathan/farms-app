@@ -1,35 +1,44 @@
 <!-- Start - Languages list -->
 <div class="box-body">
-<table class="table table-bordered table-hover">
-  <thead>
-    <tr>
-      <th class="width-60-pct">Languages</th>
-      <th class="width-60-pct">Actions</th>
-    </tr>  
-  </thead>
-  <tbody>
-    <tr ng-hide="vm.protocol.searchKeywords.length > 0">
-      <td align="center" colspan="5">No languages registered.</td>
-    </tr>
-    <tr ng-repeat="language in  vm.protocol.searchKeywords">
-        <td class="width-30-pct">{{ language.dsSearchKeyword }}</td>
+
+  <center>
+    <div class="form-group">
+      <button type="button" class="btn btn-primary" ng-click="vm.showAddLanguageForm()">
+     <i class="fa fa-plus"></i> Add Language
+      </button>
+    </div>
+  </center>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th class="width-60-pct">Languages</th>
+        <th class="width-60-pct">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-hide="vm.protocol.languages.length > 0">
+        <td align="center" colspan="5">No languages registered.</td>
+      </tr>
+      <tr ng-repeat="language in  vm.protocol.languages">
+        <td class="width-30-pct">{{ language.nmLanguage }}</td>
         <td class="center">
-            <button type="button" class="btn btn-warning" ng-click="vm.editLanguage(language)">
+          <button type="button" class="btn btn-warning" ng-click="vm.editLanguage(language)">
                 <span class="glyphicon glyphicon-pencil"></span>
             </button>
-            <button type="button" class="btn btn-danger" ng-click="vm.deleteLanguage(language)">
+          <button type="button" class="btn btn-danger" ng-click="vm.deleteLanguage(language)">
                 <span class="glyphicon glyphicon-trash"></span>
             </button>
         </td>
-    </tr>
-      
-  </tbody>
-  <tfoot>
-    <tr>
-      <th class="width-60-pct">Languages</th>
-      <th class="width-60-pct">Actions</th>
-    </tr>
-  </tfoot>
-</table>
+      </tr>
+
+    </tbody>
+    <tfoot>
+      <tr>
+        <th class="width-60-pct">Languages</th>
+        <th class="width-60-pct">Actions</th>
+      </tr>
+    </tfoot>
+  </table>
 </div>
 <!-- End - Languages list -->

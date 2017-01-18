@@ -22,12 +22,16 @@
         service.GetSecondaryQuestionByDsKey = GetSecondaryQuestionByDsKey;
         service.GetSearchKeywordsByDsKey = GetSearchKeywordsByDsKey;
         service.GetStandardQueryByDsKey = GetStandardQueryByDsKey;
+        service.GetSearchEngineByDsKey = GetSearchEngineByDsKey;
         service.GetSelectionCriteriasByDsKey = GetSelectionCriteriasByDsKey;
+        service.GetLanguagesByDsKey = GetLanguagesByDsKey;
 
         service.SaveObjectives = SaveObjectives;
         service.SaveMainQuestion = SaveMainQuestion;
         service.SaveSecondaryQuestion = SaveSecondaryQuestion;
         service.SaveStandardQuery = SaveStandardQuery;
+        service.SaveKeyword = SaveKeyword;
+        service.SaveCriteria = SaveCriteria;
 
         return service;
 
@@ -69,8 +73,17 @@
             return $http.get(API_SERVER.url + '/protocol/' + dsKey + '/search-keywords').then(handleSuccess, handleError);
         }
 
+        function GetLanguagesByDsKey(dsKey) {
+            return $http.get(API_SERVER.url + '/protocol/' + dsKey + '/languages').then(handleSuccess, handleError);
+        }
+
+
         function GetStandardQueryByDsKey(dsKey) {
             return $http.get(API_SERVER.url + '/protocol/' + dsKey + '/standard-query').then(handleSuccess, handleError);
+        }
+
+        function GetSearchEngineByDsKey(dsKey) {
+            return $http.get(API_SERVER.url + '/protocol/' + dsKey + '/search-engine').then(handleSuccess, handleError);
         }
 
         function GetSelectionCriteriasByDsKey(dsKey) {
@@ -94,6 +107,14 @@
 
         function SaveStandardQuery(standardQuery) {
             return $http.post(API_SERVER.url + '/protocol/standardQuery/', standardQuery).then(handleSuccess, handleError);
+        }
+
+        function SaveKeyword(searchKeywords) {
+            return $http.post(API_SERVER.url + '/protocol/searchKeywords/', searchKeywords).then(handleSuccess, handleError);
+        }
+
+        function SaveCriteria(selectionCriterias) {
+            return $http.post(API_SERVER.url + '/protocol/selectionCriterias/', selectionCriterias).then(handleSuccess, handleError);
         }
 
         // private functions

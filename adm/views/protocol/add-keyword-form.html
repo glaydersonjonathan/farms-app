@@ -1,0 +1,32 @@
+<!-- Keyword registration form. -->
+<div class="modal fade" id="create-modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Form title. -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="create-modal-form-title" id="create-modal-form-title">title</h4>
+            </div>
+
+            <!-- Start - Fields form -->
+            <div class="modal-body">
+
+                <div class="form-group" ng-class="{ 'has-error': form.ds_keyword.$dirty && form.ds_keyword.$error.required }">
+                    <label for="ds_keyword">Keyword</label>
+                    <input type="text" name="ds_keyword" id="ds_keyword" class="form-control" ng-model="vm.protocol.searchKeywords.dsSearchKeyword" required />
+                    <span ng-show="form.ds_keyword.$dirty && form.ds_keyword.$error.required" class="help-block">Key is required.</span>
+                </div>
+            </div>
+        </div>
+        <!-- End - Fields form -->
+
+        <!-- Start - Action buttons. -->
+        <div class="modal-footer">
+            <button id="btn-create" type="button" class="btn btn-primary" ng-click="vm.saveKeyword()"><i class="fa fa-check"></i>Save</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
+        </div>
+        <!-- End - Action buttons. -->
+    </div>
+</div>
+</div>
