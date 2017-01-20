@@ -38,22 +38,38 @@
             <textarea id="ds_project" name="ds_project" ng-model="vm.project.dsProject" class="form-control" rows="5"></textarea>
           </div>
 
-          <div class="form-group">
-            <label for="ds_ins">Institution</label>
-            <select id="ds_ins" name="ds_ins" ng-model="vm.project.idInstitution" class="form-control" ng-options="institution.idInstitution as institution.dsAbbreviation + ' - '+ institution.nmInstitution for institution in vm.all_institutions">
-            <option value="">Select a option</option>
+
+          <!--Institution-->
+          <hr width=90%> 
+            <div class="form-group">
+              <div class="form-group">
+                <label for="ds_country">Institution Country</label>
+                <select id="ds_country" name="ds_country" ng-model="vm.project.country" class="form-control" ng-options="country as country.nmCountry for country in vm.all_countries | orderBy: 'nmCountry'"
+                  required>'
+            <option value="">Select a country of institutuion</option>
            </select>
-            <span ng-show="form.ds_ins.$dirty && form.ds_ins.$error.required" class="help-block">Institution is required.</span>
-          </div>
+                <span ng-show="form.ds_country.$dirty && form.ds_country.$error.required" class="help-block">Country is required.</span>
+              </div>
+
+              <div class="form-group">
+                <label for="ds_name_ins">Institution Name</label>
+                <input type="text" name="ds_name_ins" id="ds_name_ins" class="form-control" ng-model="vm.project.nmInstitution" required />
+                <span ng-show="form.ds_name_ins.$dirty && form.ds_name_ins.$error.required" class="help-block">Institution name is required.</span>
+              </div>
+
+              <div class="form-group">
+                <label for="ds_abbr">Institution Abbreviation</label>
+                <input type="text" name="ds_abbr" id="ds_abbr" class="form-control" ng-model="vm.project.dsAbbreviation" required />
+                <span ng-show="form.ds_abbr.$dirty && form.ds_abbr.$error.required" class="help-block">Institution abbreviation is required.</span>
+              </div>
+            </div>
 
         </form>
-
-
       </div>
 
       <!-- Start - Action buttons. -->
       <div class="modal-footer">
-        <button id="btn-create" class="btn btn-primary" ng-click="vm.createProject()"><i class="fa fa-check"  type="submit" ng-disabled="form.$invalid"></i>Save</button>
+        <button id="btn-create" class="btn btn-primary" ng-click="vm.createProject(); form.$setPristine();"><i class="fa fa-check"  type="submit" ng-disabled="form.$invalid"></i>Save</button>
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
       </div>
       <!-- End - Action buttons. -->

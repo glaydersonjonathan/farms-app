@@ -7,7 +7,7 @@
 
   MemberController.$inject = ['MemberService', 'ProjectService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
 
-  /****** Início MemberController *****/
+  /****** Begin MemberController *****/
   function MemberController(MemberService, ProjectService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
     var vm = this;
 
@@ -20,14 +20,14 @@
     // Invite
     vm.invite = {};
 
-    vm.all_institutions = [];
+    
 
     vm.clearForm = clearForm;
     vm.closeModal = closeModal;
     vm.showMemberInvitationForm = showMemberInvitationForm;
     vm.showEditForm = showEditForm;
     vm.showReadForm = showReadForm;
-    vm.getAllInstitutions = getAllInstitutions;
+   
     vm.getAllMembers = getAllMembers;
     vm.getMemberByCdCite = getMemberByCdCite;
 
@@ -65,7 +65,6 @@
 
     function showMemberInvitationForm() {
       clearForm();
-      getAllInstitutions();
       $('#member-invitation-modal-form-title').text("Member Invitation");
       $('#member-invitation-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
@@ -106,16 +105,7 @@
       });
     }
 
-    function getAllInstitutions() {
-      ProjectService.GetAllInstitutions().then(function (response) {
-        if (response.code === 2008) {
-          FlashService.Error(response.description, false);
-        }
-        var all_institutions = response;
-        vm.all_institutions = all_institutions;
-        vm.dataLoading = false;
-      });
-    }
+
 
     function inviteMember() {
       vm.dataLoading = true;

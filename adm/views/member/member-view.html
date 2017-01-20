@@ -69,7 +69,6 @@
               <tr>
                 <th class="width-30-pct">Name</th>
                 <th class="width-30-pct">Username</th>
-                <th class="width-30-pct">Institution</th>
                 <th class="width-30-pct">Role</th>
                 <th class="text-align-center">Actions</th>
               </tr>
@@ -87,13 +86,12 @@
               <tr ng-repeat="member in vm.membersByFilter() | pagination : vm.currentPage*vm.itemsPerPage | limitTo: vm.itemsPerPage">
                 <td class="width-30-pct">{{ member.nmResearcher }}</td>
                 <td class="width-30-pct">{{ member.dsSSO }}</td>
-                <td class="width-30-pct">{{ member.nmInstitution }}</td>
                 <td class="width-30-pct">{{ member.tpRole }}</td>
                 <td class="center">
-                  <button type="button" class="btn btn-warning" ng-click="vm.editMember(member)">
+                  <button type="button" class="btn btn-warning" ng-click="vm.editMember(member)" ng-disabled="true">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
-                  <button type="button" class="btn btn-danger" ng-click="vm.deleteMember(member.dsKey)">
+                  <button type="button" class="btn btn-danger" ng-click="vm.deleteMember(member.dsKey)" ng-disabled="true">
                 <span class="glyphicon glyphicon-trash"></span>
               </button>
                 </td>
@@ -103,7 +101,6 @@
               <tr>
                 <th class="width-30-pct">Name</th>
                 <th class="width-30-pct">Username</th>
-                <th class="width-30-pct">Institution</th>
                 <th class="width-30-pct">Role</th>
                 <th class="text-align-center">Actions</th>
               </tr>

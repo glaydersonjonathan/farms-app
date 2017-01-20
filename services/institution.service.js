@@ -12,7 +12,10 @@
         service.GetAll = GetAll;
         service.GetAllCountries = GetAllCountries;
         service.GetByNmInstitution = GetByNmInstitution;
-        service.Create = Create;
+        //service.Create = Create;
+
+      service.AddInstitutionProject = AddInstitutionProject;
+
         service.Update = Update;
         service.Delete = Delete;
 
@@ -26,10 +29,17 @@
             return $http.get(API_SERVER.url + '/institutions/countries').then(handleSuccess, handleError);
         }
 
-        function Create(institution) {
+      /*  function Create(institution) {
             console.log(institution);
             return $http.post(API_SERVER.url + '/institutions', institution).then(handleSuccess, handleError);
+        }*/
+
+        function AddInstitutionProject(project) {
+            return $http.post(API_SERVER.url + '/institutions/addInstitution', project).then(handleSuccess, handleError);
         }
+
+
+
 
         function GetByNmInstitution(nmInstitution) {
             return $http.get(API_SERVER.url + '/institutions/' + nmInstitution).then(handleSuccess, handleError);

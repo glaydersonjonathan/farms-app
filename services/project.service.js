@@ -14,8 +14,7 @@
         service.Delete = Delete;
         service.GetByDsKey = GetByDsKey;
 
-        service.GetAllInstitutions = GetAllInstitutions;
-        service.AddInstitutionProject = AddInstitutionProject;
+  
 
         service.GetAllByDsSsoResearcher = GetAllByDsSsoResearcher;
         service.GetInstitutionsByDsKey = GetInstitutionsByDsKey;
@@ -46,17 +45,6 @@
         function GetInstitutionsByDsKey(dsKey) {
             return $http.get(API_SERVER.url + '/projects/' + dsKey + '/institutions').then(handleSuccess, handleError);
         }
-
-        function GetAllInstitutions() {
-            return $http.get(API_SERVER.url + '/projects/institutions').then(handleSuccess, handleError);
-        }
-
-
-        function AddInstitutionProject(project_member) {
-            return $http.post(API_SERVER.url + '/projects/addInstitution', project_member).then(handleSuccess, handleError);
-        }
-
-
 
         function Delete(dsKey) {
             return $http.delete(API_SERVER.url + '/projects/' + dsKey).then(handleSuccess, handleError);

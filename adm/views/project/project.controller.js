@@ -5,10 +5,10 @@
     .module('app')
     .controller('ProjectController', ProjectController);
 
-  ProjectController.$inject = ['ProjectService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
+  ProjectController.$inject = ['ProjectService', 'InstitutionService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
 
   /****** Início ProjectController *****/
-  function ProjectController(ProjectService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
+  function ProjectController(ProjectService,InstitutionService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
     var vm = this;
 
     vm.dataLoading = true;
@@ -17,6 +17,8 @@
     vm.project = {}; //usando pra editar
     vm.projects = [];
 
+
+    vm.all_countries = [];
     vm.all_institutions = [];//usado na criação de um projeto
 
     vm.clearForm = clearForm;
@@ -32,7 +34,8 @@
     vm.deleteProject = deleteProject;
     vm.openProject = openProject;
 
-    vm.getAllInstitutions = getAllInstitutions;
+    //vm.getAllInstitutions = getAllInstitutions;
+    vm.getAllCountries = getAllCountries;
 
     vm.projectsByFilter = projectsByFilter;
     vm.tpReviewSearch = "";
@@ -59,7 +62,8 @@
 
     //ok
     function showCreateForm() {
-      getAllInstitutions();
+      //getAllInstitutions();
+      getAllCountries();
       clearForm();
 
       $('#create-modal-title').text("Create Project");
@@ -105,17 +109,23 @@
       });
     }
 
-    //metodo usado na hora de criar um projeto
-    function getAllInstitutions() {
-      ProjectService.GetAllInstitutions().then(function (response) {
-        if (response.code === 2008) {
-          FlashService.Error(response.description, false);
-        }
-        var all_institutions = response;
-        vm.all_institutions = all_institutions;
-        vm.dataLoading = false;
+    function getAllCountries() {
+      InstitutionService.GetAllCountries().then(function (response) {
+        vm.all_countries = response;
       });
     }
+
+    //metodo usado na hora de criar um projeto
+    /* function getAllInstitutions() {
+       ProjectService.GetAllInstitutions().then(function (response) {
+         if (response.code === 2008) {
+           FlashService.Error(response.description, false);
+         }
+         var all_institutions = response;
+         vm.all_institutions = all_institutions;
+         vm.dataLoading = false;
+       });
+     }*/
 
     function getProjectByKey(dsKey) {
       ProjectService.GetByDsKey(dsKey).then(function (response) {

@@ -14,7 +14,7 @@
     //vm.dataLoading = true;
 
     vm.all_countries = [];
-    vm.all_institutions = [];//usado na adição de uma instituição a projeto
+    
 
     // Institution
     vm.institution = {};
@@ -24,7 +24,7 @@
     vm.project_member = {};
 
     vm.clearForm = clearForm;
-    vm.showCreateInsForm = showCreateInsForm;
+    
     vm.showInstitutionAddForm = showInstitutionAddForm;
     //vm.showEditForm = showEditForm;
     //vm.showReadForm = showReadForm;
@@ -33,12 +33,12 @@
     vm.getAllInstitutions = getAllInstitutions;
     vm.getAllCountries = getAllCountries;
     vm.getInstitutionByCdCite = getInstitutionByCdCite;
-    vm.createInstitution = createInstitution;
+   
     vm.inviteInstitution = inviteInstitution;
     vm.readInstitution = readInstitution;
     vm.updateInstitution = updateInstitution;
     vm.deleteInstitution = deleteInstitution;
-    vm.getAll = getAll;
+ 
     vm.addInstitutionProject = addInstitutionProject;
 
     vm.institutionsByFilter = institutionsByFilter;
@@ -63,16 +63,10 @@
       vm.flInstitution = null;
     }
 
-    function showCreateInsForm() {
-      clearForm();
-      getAllCountries();
-      $('#create-institution-title').text("Create Institution");
-      $('#create-institution').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
-    }
-
+ 
     function showInstitutionAddForm() {
       clearForm();
-      getAll();
+      getAllCountries();
       $('#institution-add-modal-form-title').text("Add Institution a Project");
       $('#institution-add-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
@@ -101,18 +95,6 @@
     // CRUD functions
 
 
-    //metodo usado na hora de adicionar uma instituição ao projeto
-    function getAll() {
-      ProjectService.GetAllInstitutions().then(function (response) {
-        if (response.code === 2008) {
-          FlashService.Error(response.description, false);
-        }
-        var all_institutions = response;
-        vm.all_institutions = all_institutions;
-        vm.dataLoading = false;
-      });
-    }
-
     //todas do projeto aberto
     function getAllInstitutions() {
       vm.dataLoading = true;
@@ -139,14 +121,19 @@
       });
     }
 
-    function createInstitution() {
-      //alert(vm.institution.tpReview  + " " + vm.institution.dsKey + " " + vm.institution.dsTitle + " " + vm.institution.dsInstitution);
-      vm.dataLoading = true;
-      InstitutionService.Create(vm.institution).then(function (response) {
+
+    function addInstitutionProject() {
+      var currentProject = $cookieStore.get("currentProject");
+      if (currentProject != null) {
+        vm.institution.dsKey = currentProject.dsKey;
+      }
+      
+      InstitutionService.AddInstitutionProject(vm.institution).then(function (response) {
         console.log(response.data);
-        if (response.code === 1008) {
+        if (response.code === 1009) {
           FlashService.Success(response.description, false);
           vm.institution = null;
+          getAllInstitutions();
           closeModal();
         } else {
           FlashService.Error(response.description, false);
@@ -154,31 +141,6 @@
           closeModal();
         }
       });
-    }
-
-    function addInstitutionProject() {
-      var currentProject = $cookieStore.get("currentProject");
-      if (currentProject != null) {
-        vm.project_member.dsKey = currentProject.dsKey;
-      }
-
-      vm.project_member.dsUserName = $rootScope.globals.currentUser.dsUsername;
-      console.log(vm.project_member);
-
-      ProjectService.AddInstitutionProject(vm.project_member).then(function (response) {
-        console.log(response);
-        if (response.code === 1009) {
-          FlashService.Success(response.description, false);
-        } else {
-          FlashService.Error(response.description, false);
-        }
-        getAllInstitutions();
-        closeModal();
-      });
-
-
-
-
 
     }
 
