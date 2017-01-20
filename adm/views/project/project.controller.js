@@ -61,7 +61,7 @@
     function showCreateForm() {
       getAllInstitutions();
       clearForm();
-      
+
       $('#create-modal-title').text("Create Project");
       $('#create-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
@@ -106,8 +106,8 @@
     }
 
     //metodo usado na hora de criar um projeto
-    function getAllInstitutions(){
-            ProjectService.GetAllInstitutions().then(function (response) {
+    function getAllInstitutions() {
+      ProjectService.GetAllInstitutions().then(function (response) {
         if (response.code === 2008) {
           FlashService.Error(response.description, false);
         }
@@ -128,10 +128,11 @@
       //usuario atualmente logado
       vm.project.dsSsoResearcher = $rootScope.globals.currentUser.dsUsername;
 
+      console.log(vm.project);
       vm.dataLoading = true;
       ProjectService.Create(vm.project).then(function (response) {
         console.log('recebi:');
-        console.log(response.data);
+        console.log(response);
         if (response.code === 1006) {
           FlashService.Success(response.description, false);
           vm.project = null;

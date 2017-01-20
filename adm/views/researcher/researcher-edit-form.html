@@ -5,30 +5,33 @@
 
       <!-- Form title. -->
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <!--button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button-->
         <h4 class="create-modal-title" id="create-modal-form-title">Edit Researcher</h4>
       </div>
 
       <!-- Start - Fields form -->
       <div class="modal-body">
-        <div class="form-group" ng-class="{ 'has-error': form.ds_username.$dirty && form.ds_username.$error.required }">
-          <div class="form-group" ng-class="{ 'has-error': form.ds_name.$dirty && form.ds_name.$error.required }">
-            <label for="ds_name">Name: </label>
-            <input type="text" name="ds_name" id="ds_name" class="form-control" ng-model="vm.researcher.nmResearcher" required />
-            <span ng-show="form.ds_name.$dirty && form.ds_name.$error.required" class="help-block">Name is required.</span>
-          </div>
-          <div class="form-group" ng-class="{ 'has-error': form.ds_email.$dirty && form.ds_email.$error.required }">
-            <label for="ds_email">Email: </label>
-            <input type="text" name="ds_email" id="ds_email" class="form-control" ng-model="vm.researcher.dsEmail" required />
-            <span ng-show="form.ds_email.$dirty && form.ds_email.$error.required" class="help-block">Email is required.</span>
-          </div>
-        </div>
-        <!-- End - Fields form -->
+        <form name="form" ng-submit="send()">
 
+          <div class="form-group">
+            <div class="form-group">
+              <label for="ds_name">Name: </label>
+              <input type="text" name="ds_name" id="ds_name" class="form-control" ng-model="vm.researcher.nmResearcher" required />
+              <span ng-show="form.ds_name.$dirty && form.ds_name.$error.required" class="help-block">Name is required.</span>
+            </div>
+            <div class="form-group">
+              <label for="ds_email">Email: </label>
+              <input type="text" name="ds_email" id="ds_email" class="form-control" ng-model="vm.researcher.dsEmail" required />
+              <span ng-show="form.ds_email.$dirty && form.ds_email.$error.required" class="help-block">Email is required.</span>
+              <span class="help-block" ng-show="form.ds_email.$error.email"> Invalid email format</span>
+            </div>
+          </div>
+          <!-- End - Fields form -->
+        </form>
         <!-- Start - Action buttons. -->
         <div class="modal-footer">
-          <button id="btn-update" type="button" class="btn btn-primary" ng-click="vm.editResearcher()"><i class="fa fa-check"></i>Save</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
+          <button id="btn-update" type="submit" class="btn btn-primary" ng-click="vm.editResearcher()" ng-disabled="form.$invalid"><i class="fa fa-check"></i>Save</button>
+          <button type="button" class="btn btn-default" ng-click="vm.getBydsSso()" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
         </div>
         <!-- End - Action buttons. -->
 
