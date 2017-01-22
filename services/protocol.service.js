@@ -16,6 +16,8 @@
         service.GetAll = GetAll;
         service.GetByNmProtocol = GetByNmProtocol;
 
+        service.GetAllLanguages = GetAllLanguages;
+        service.GetAllEngines = GetAllEngines;
 
         service.GetObjectivesByDsKey = GetObjectivesByDsKey;
         service.GetMainQuestionByDsKey = GetMainQuestionByDsKey;
@@ -32,6 +34,8 @@
         service.SaveStandardQuery = SaveStandardQuery;
         service.SaveKeyword = SaveKeyword;
         service.SaveCriteria = SaveCriteria;
+        service.SaveLanguage = SaveLanguage;
+        service.SaveEngine = SaveEngine;
 
         return service;
 
@@ -55,6 +59,15 @@
             return $http.delete(API_SERVER.url + '/protocol/' + idProtocol).then(handleSuccess, handleError);
         }
 
+
+
+        function GetAllLanguages() {
+            return $http.get(API_SERVER.url + '/protocol/allLanguages').then(handleSuccess, handleError);
+        }
+
+        function GetAllEngines() {
+            return $http.get(API_SERVER.url + '/protocol/allEngines').then(handleSuccess, handleError);
+        }
 
 
         function GetObjectivesByDsKey(dsKey) {
@@ -115,6 +128,14 @@
 
         function SaveCriteria(selectionCriterias) {
             return $http.post(API_SERVER.url + '/protocol/selectionCriterias/', selectionCriterias).then(handleSuccess, handleError);
+        }
+
+        function SaveLanguage(languages) {
+            return $http.post(API_SERVER.url + '/protocol/languages/', languages).then(handleSuccess, handleError);
+        }
+
+        function SaveEngine(engines) {
+            return $http.post(API_SERVER.url + '/protocol/engines/', engines).then(handleSuccess, handleError);
         }
 
         // private functions

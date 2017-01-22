@@ -23,10 +23,10 @@
       <tr ng-repeat="language in  vm.protocol.languages">
         <td class="width-30-pct">{{ language.nmLanguage }}</td>
         <td class="center">
-          <button type="button" class="btn btn-warning" ng-click="vm.editLanguage(language)">
+          <button type="button" class="btn btn-warning" ng-click="vm.editLanguage(language)" ng-disabled="true">
                 <span class="glyphicon glyphicon-pencil"></span>
             </button>
-          <button type="button" class="btn btn-danger" ng-click="vm.deleteLanguage(language)">
+          <button type="button" class="btn btn-danger" ng-click="vm.deleteLanguage(language)" ng-disabled="true">
                 <span class="glyphicon glyphicon-trash"></span>
             </button>
         </td>

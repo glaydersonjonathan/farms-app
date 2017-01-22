@@ -1,0 +1,39 @@
+<!-- Add language form. -->
+<div class="modal fade" id="language-modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Form title. -->
+            <div class="modal-header">
+                <!--button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button-->
+                <h4 class="language-modal-form-title" id="language-modal-form-title">title</h4>
+            </div>
+
+            <!-- Start - Fields form -->
+            <div class="modal-body">
+                <form name="form" ng-submit="send()">
+                <div class="form-group">
+                    <label for="language">Language</label>
+                    <select id="language" name="language" class="form-control" ng-model="vm.protocol.languages.language" ng-options="language as language.nmLanguage for language in vm.all_languages"
+                        required>
+            <option value="">Select a option</option>
+            <span ng-show="form.language.$dirty && form.language.$error.required" class="help-block">Language is required.</span>
+             </select>
+                </div>
+                </form>
+            </div>
+            <!-- Start - Action buttons. -->
+            <div class="modal-footer">
+                <button id="btn-create" type="button" class="btn btn-primary" ng-click="vm.saveLanguage(); form.$setPristine();"><i class="fa fa-check"></i>Add</button>
+                <button type="button" class="btn btn-default" ng-click="vm.getAllProtocol(); form.$setPristine();" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
+            </div>
+            <!-- End - Action buttons. -->
+
+
+        </div>
+        <!-- End - Fields form -->
+
+
+    </div>
+</div>
+</div>

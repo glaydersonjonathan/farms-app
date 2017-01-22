@@ -7,17 +7,24 @@
 
   ProtocolController.$inject = ['ProtocolService', 'ProjectService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
 
-  /****** Início ProtocolController *****/
+  /****** Begin ProtocolController *****/
   function ProtocolController(ProtocolService, ProjectService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
     var vm = this;
 
     // Protocol
     vm.protocol = {};
 
+    vm.dataLoading = false;
+
+    vm.all_languages = [];
+    vm.all_engines = [];
+
     //Forms
     vm.clearForm = clearForm;
     vm.showAddKeywordForm = showAddKeywordForm;
     vm.showAddCriteriaForm = showAddCriteriaForm;
+    vm.showAddLanguageForm = showAddLanguageForm;
+    vm.showAddSearchEngineForm = showAddSearchEngineForm;
     vm.closeModal = closeModal;
 
     vm.getAllProtocol = getAllProtocol;
@@ -27,11 +34,15 @@
     vm.saveStandardQuery = saveStandardQuery;
     vm.saveKeyword = saveKeyword;
     vm.saveCriteria = saveCriteria;
+    vm.saveLanguage = saveLanguage;
+    vm.saveEngine = saveEngine;
 
     initController();
 
     function initController() {
       vm.getAllProtocol();
+      getAllLanguages();
+      getAllEngines();
     }
 
     //Forms
@@ -48,9 +59,23 @@
       $('#criteria-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
+    function showAddLanguageForm() {
+      clearForm();
+      $('#language-modal-form-title').text("Add Language");
+      $('#language-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
+    }
+
+    function showAddSearchEngineForm() {
+      clearForm();
+      $('#engine-modal-form-title').text("Add Search Engine");
+      $('#engine-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
+    }
+
     function closeModal() {
       $('#create-modal-form').modal('hide');
       $('#criteria-modal-form').modal('hide');
+      $('#language-modal-form').modal('hide');
+      $('#engine-modal-form').modal('hide');
       //$('#edit-modal-form').modal('hide');
       //$('#confirmation-message-modal').modal('hide');
     }
@@ -58,9 +83,23 @@
     function clearForm() {
       vm.protocol.searchKeywords = null;
       vm.protocol.selectionCriterias = null;
+      vm.protocol.languages = null;
+      vm.protocol.searchEngines = null;
     }
 
     // CRUD functions
+
+    function getAllLanguages() {
+      ProtocolService.GetAllLanguages().then(function (response) {
+        vm.all_languages = response;
+      });
+    }
+
+    function getAllEngines() {
+      ProtocolService.GetAllEngines().then(function (response) {
+        vm.all_engines = response;
+      });
+    }
 
     function getAllProtocol() {
       vm.dataLoading = true;
@@ -101,6 +140,7 @@
         var selectionCriterias = response;
         vm.protocol.selectionCriterias = selectionCriterias;
       });
+      vm.dataLoading = false;
     }
 
     function saveObjectives() {
@@ -217,6 +257,45 @@
       });
     }
 
+    function saveLanguage() {
+      var currentProject = $cookieStore.get("currentProject");
+      if (currentProject != null) {
+        vm.protocol.languages.dsProjectKey = currentProject.dsKey;
+      }
+      console.log(vm.protocol);
+      ProtocolService.SaveLanguage(vm.protocol.languages).then(function (response) {
+        console.log(response);
+        if (response.code === 1017) {
+          FlashService.Success(response.description, false);
+          getAllProtocol();
+        }
+        else {
+          FlashService.Error(response.description, false);
+        }
+        closeModal();
+      });
+    }
+
+
+    
+    function saveEngine() {
+      var currentProject = $cookieStore.get("currentProject");
+      if (currentProject != null) {
+        vm.protocol.searchEngines.dsProjectKey = currentProject.dsKey;
+      }
+      console.log(vm.protocol);
+      ProtocolService.SaveEngine(vm.protocol.searchEngines).then(function (response) {
+        console.log(response);
+        if (response.code === 1018) {
+          FlashService.Success(response.description, false);
+          getAllProtocol();
+        }
+        else {
+          FlashService.Error(response.description, false);
+        }
+        closeModal();
+      });
+    }
 
 
   } /****** End ProtocolController *****/
