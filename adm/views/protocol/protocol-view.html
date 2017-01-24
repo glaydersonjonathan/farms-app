@@ -6,97 +6,94 @@
     <div class="col-xs-12">
       <!-- col-xs-12 -->
 
+      <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+      />
       <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash"
         ng-bind="flash.message"></div>
 
-
-      <div ng-if="vm.dataLoading">
-        <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-        />
-        
-      </div>
-      <div class="nav-tabs-custom">
-        <!-- start - nav-tabs-custom -->
-        <ul class="nav nav-tabs">
-          <li class="active"><a data-target="#objetives-tab" data-toggle="tab">Objetives</a></li>
-          <li><a data-target="#main-question-tab" data-toggle="tab">Main Question</a></li>
-          <li><a data-target="#secondary-question-tab" data-toggle="tab">Secondary Question</a></li>
-          <li><a data-target="#keywords-tab" data-toggle="tab">Keywords</a></li>
-          <li><a data-target="#languages-tab" data-toggle="tab">Languages</a></li>
-          <li><a data-target="#standard-query-tab" data-toggle="tab">Standard Query</a></li>
-          <li><a data-target="#search-engine-tab" data-toggle="tab">Search Engine</a></li>
-          <li><a data-target="#selection-criteria-tab" data-toggle="tab">Selection Criteria</a></li>
-        </ul>
-        <div class="tab-content">
-          <!-- start - tab-content -->
-
-          <!-- Start - Objetives tab -->
-          <div class="tab-pane active" id="objetives-tab">
-            <div ng-include="'adm/views/protocol/objectives-view.html'"></div>
-          </div>
-          <!-- End - Objetives tab -->
-
-          <!-- Start - Main Questions tab -->
-          <div class="tab-pane active" id="main-question-tab">
-            <div ng-include="'adm/views/protocol/main-question-view.html'"></div>
-          </div>
-          <!-- End - Main Questions tab -->
-
-          <!-- Start - Secondary Questions tab -->
-          <div class="tab-pane active" id="secondary-question-tab">
-            <div ng-include="'adm/views/protocol/secondary-question-view.html'"></div>
-          </div>
-          <!-- End - Secondary Questions tab -->
-
-          <!-- Start - Keywords tab -->
-          <div class="tab-pane active" id="keywords-tab">
-            <div ng-include="'adm/views/protocol/search-keywords-view.html'"></div>
-          </div>
-          <!-- End - Keywords tab -->
-
-          <!-- Start - Languages tab -->
-          <div class="tab-pane active" id="languages-tab">
-            <div ng-include="'adm/views/protocol/languages-view.html'"></div>
-          </div>
-          <!-- End - Languages tab -->
-
-          <!-- Start - Standard Query tab -->
-          <div class="tab-pane active" id="standard-query-tab">
-            <div ng-include="'adm/views/protocol/standard-query-view.html'"></div>
-          </div>
-          <!-- End - Standard Query tab -->
-
-          <!-- Start - Search Engine tab -->
-          <div class="tab-pane active" id="search-engine-tab">
-            <div ng-include="'adm/views/protocol/search-engine-view.html'"></div>
-          </div>
-          <!-- End - Search Engine tab -->
-
-          <!-- Start - Selection Criteria tab -->
-          <div class="tab-pane active" id="selection-criteria-tab">
-            <div ng-include="'adm/views/protocol/selection-criteria-view.html'"></div>
-          </div>
-          <!-- End - Selection Criteria tab -->
-
-        </div>
-        <!-- End tab-content -->
-      </div>
-      <!-- End nav-tabs-custom -->
-
-      <!-- Modal form registration. -->
-      <div ng-include="'adm/views/protocol/add-keyword-form.html'"></div>
-      <!-- Modal form registration. -->
-      <div ng-include="'adm/views/protocol/add-criteria-form.html'"></div>
-      <!-- Modal form registration. -->
-      <div ng-include="'adm/views/protocol/add-language-form.html'"></div>
-      <!-- Modal form registration. -->
-      <div ng-include="'adm/views/protocol/add-engine-form.html'"></div>
-      <!-- Modal form registration. -->
-      <div ng-include="'adm/views/protocol/create-engine-form.html'"></div>
-
     </div>
-    <!-- col-xs-12 -->
+    <div class="nav-tabs-custom">
+      <!-- start - nav-tabs-custom -->
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-target="#objetives-tab" data-toggle="tab">Objetives</a></li>
+        <li><a data-target="#main-question-tab" data-toggle="tab">Main Question</a></li>
+        <li><a data-target="#secondary-question-tab" data-toggle="tab">Secondary Question</a></li>
+        <li><a data-target="#keywords-tab" data-toggle="tab">Keywords</a></li>
+        <li><a data-target="#languages-tab" data-toggle="tab">Languages</a></li>
+        <li><a data-target="#standard-query-tab" data-toggle="tab">Standard Query</a></li>
+        <li><a data-target="#search-engine-tab" data-toggle="tab">Search Engine</a></li>
+        <li><a data-target="#selection-criteria-tab" data-toggle="tab">Selection Criteria</a></li>
+      </ul>
+      <div class="tab-content">
+        <!-- start - tab-content -->
+
+        <!-- Start - Objetives tab -->
+        <div class="tab-pane active" id="objetives-tab">
+          <div ng-include="'adm/views/protocol/objectives-view.html'"></div>
+        </div>
+        <!-- End - Objetives tab -->
+
+        <!-- Start - Main Questions tab -->
+        <div class="tab-pane active" id="main-question-tab">
+          <div ng-include="'adm/views/protocol/main-question-view.html'"></div>
+        </div>
+        <!-- End - Main Questions tab -->
+
+        <!-- Start - Secondary Questions tab -->
+        <div class="tab-pane active" id="secondary-question-tab">
+          <div ng-include="'adm/views/protocol/secondary-question-view.html'"></div>
+        </div>
+        <!-- End - Secondary Questions tab -->
+
+        <!-- Start - Keywords tab -->
+        <div class="tab-pane active" id="keywords-tab">
+          <div ng-include="'adm/views/protocol/search-keywords-view.html'"></div>
+        </div>
+        <!-- End - Keywords tab -->
+
+        <!-- Start - Languages tab -->
+        <div class="tab-pane active" id="languages-tab">
+          <div ng-include="'adm/views/protocol/languages-view.html'"></div>
+        </div>
+        <!-- End - Languages tab -->
+
+        <!-- Start - Standard Query tab -->
+        <div class="tab-pane active" id="standard-query-tab">
+          <div ng-include="'adm/views/protocol/standard-query-view.html'"></div>
+        </div>
+        <!-- End - Standard Query tab -->
+
+        <!-- Start - Search Engine tab -->
+        <div class="tab-pane active" id="search-engine-tab">
+          <div ng-include="'adm/views/protocol/search-engine-view.html'"></div>
+        </div>
+        <!-- End - Search Engine tab -->
+
+        <!-- Start - Selection Criteria tab -->
+        <div class="tab-pane active" id="selection-criteria-tab">
+          <div ng-include="'adm/views/protocol/selection-criteria-view.html'"></div>
+        </div>
+        <!-- End - Selection Criteria tab -->
+
+      </div>
+      <!-- End tab-content -->
+    </div>
+    <!-- End nav-tabs-custom -->
+
+    <!-- Modal form registration. -->
+    <div ng-include="'adm/views/protocol/add-keyword-form.html'"></div>
+    <!-- Modal form registration. -->
+    <div ng-include="'adm/views/protocol/add-criteria-form.html'"></div>
+    <!-- Modal form registration. -->
+    <div ng-include="'adm/views/protocol/add-language-form.html'"></div>
+    <!-- Modal form registration. -->
+    <div ng-include="'adm/views/protocol/add-engine-form.html'"></div>
+    <!-- Modal form registration. -->
+    <div ng-include="'adm/views/protocol/create-engine-form.html'"></div>
+
   </div>
-  <!-- end row -->
+  <!-- col-xs-12 -->
+</div>
+<!-- end row -->
 </div>
 <!-- end content -->

@@ -1,14 +1,14 @@
 <!-- Start - Standard Query form -->
 <div class="form-group">
   <label for="ds_standard_query">Standard Query:</label>
-  <textarea id="ds_standard_query" name="ds_standard_query" ng-model="vm.protocol.standardQuery.dsStandardQuery" class="form-control" rows="15"></textarea>
+  <textarea ng-readonly="vm.roleResearcher != 0" id="ds_standard_query" name="ds_standard_query" ng-model="vm.protocol.standardQuery.dsStandardQuery" class="form-control" rows="15"></textarea>
 </div>
 <!-- End - Standard Query form -->
 
 <!-- Start - Action buttons -->
 <div class="modal-footer">
-    <button id="btn-save-standard-query" type="button" class="btn btn-primary" ng-click="vm.saveStandardQuery()">
-        <i class="fa fa-check"></i>Salvar
+    <button ng-show="vm.roleResearcher == 0" id="btn-save-standard-query" type="button" class="btn btn-primary" ng-click="vm.saveStandardQuery()">
+        <i class="fa fa-check"></i>Save
     </button>
 </div>
 <!-- End - Action buttons -->

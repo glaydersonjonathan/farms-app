@@ -15,7 +15,9 @@
     vm.protocol = {};
     vm.searchEngine = {}; //usado para criar search engine
 
-    vm.dataLoading = false;
+    vm.dataLoading = true;
+    //show buttons
+    vm.roleResearcher = {};
 
     vm.all_languages = [];
     vm.all_engines = [];
@@ -44,8 +46,7 @@
 
     function initController() {
       vm.getAllProtocol();
-      getAllLanguages();
-      getAllEngines();
+      getRoleResearcher();
     }
 
     //Forms
@@ -64,18 +65,20 @@
 
     function showAddLanguageForm() {
       clearForm();
+      getAllLanguages();
       $('#language-modal-form-title').text("Add Language");
       $('#language-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     function showAddSearchEngineForm() {
       clearForm();
+      getAllEngines();
       $('#engine-modal-form-title').text("Add Search Engine");
       $('#engine-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     function showCreateSearchEngineForm() {
-       vm.searchEngine = null;
+      vm.searchEngine = null;
       $('#create-engine-modal-form-title').text("Create Search Engine");
       $('#create-engine-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
@@ -99,6 +102,18 @@
 
     // CRUD functions
 
+    function getRoleResearcher() {
+      var currentProject = $cookieStore.get("currentProject");
+      var roleResearcher = {};
+      if (currentProject != null) {
+        roleResearcher.dsKey = currentProject.dsKey;
+      }
+      roleResearcher.dsUserName = $rootScope.globals.currentUser.dsUsername;
+      ProjectService.GetRoleBydsKey(roleResearcher.dsKey, roleResearcher.dsUserName).then(function (response) {
+        vm.roleResearcher = response;
+      });
+    }
+
     function getAllLanguages() {
       ProtocolService.GetAllLanguages().then(function (response) {
         vm.all_languages = response;
@@ -117,6 +132,8 @@
       var dsKey = null;
       if (currentProject != null) {
         dsKey = currentProject.dsKey
+      } else {
+        FlashService.Error('Open a project before view and edit protocol', false);
       }
       ProtocolService.GetObjectivesByDsKey(dsKey).then(function (response) {
         var objectives = response;

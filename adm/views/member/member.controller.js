@@ -17,17 +17,20 @@
     vm.member = {};
     vm.members = [];
 
+    //show buttons
+    vm.roleResearcher = {};
+
     // Invite
     vm.invite = {};
 
-    
+
 
     vm.clearForm = clearForm;
     vm.closeModal = closeModal;
     vm.showMemberInvitationForm = showMemberInvitationForm;
     vm.showEditForm = showEditForm;
     vm.showReadForm = showReadForm;
-   
+
     vm.getAllMembers = getAllMembers;
     vm.getMemberByCdCite = getMemberByCdCite;
 
@@ -50,12 +53,13 @@
 
     function initController() {
       vm.getAllMembers();
+      getRoleResearcher();
     }
 
     // Forms
     function clearForm() {
       vm.member = null;
-      vm.flMember = null;
+      //vm.flMember = null;
       vm.invite = null;
     }
 
@@ -85,6 +89,18 @@
     }
 
     // CRUD functions
+
+    function getRoleResearcher() {
+      var currentProject = $cookieStore.get("currentProject");
+      var roleResearcher = {};
+      if (currentProject != null) {
+        roleResearcher.dsKey = currentProject.dsKey;
+      }
+      roleResearcher.dsUserName = $rootScope.globals.currentUser.dsUsername;
+      ProjectService.GetRoleBydsKey(roleResearcher.dsKey, roleResearcher.dsUserName).then(function (response) {
+        vm.roleResearcher = response;
+      });
+    }
 
     function getAllMembers() {
       vm.dataLoading = true;

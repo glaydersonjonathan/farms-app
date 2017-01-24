@@ -3,15 +3,20 @@
 
   <div class="row">
     <div class="col-xs-12">
-      <!-- Button to display the modal form registration. -->
-      <div class="form-group">
-        <button type="button" class="btn btn-primary" ng-click="vm.showInstitutionAddForm()">
-      <i class="fa fa-plus"></i> Add institution a project
-    </button>
-      </div>
 
       <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash"
         ng-bind="flash.message"></div>
+
+      <center>
+        <!-- Button to display the modal form registration. -->
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" ng-click="vm.showInstitutionAddForm()" ng-show="vm.roleResearcher == 0">
+      <i class="fa fa-plus"></i> Add institution a project
+    </button>
+        </div>
+      </center>
+
+
 
       <div class="box">
         <div class="panel-group">
@@ -69,7 +74,7 @@
                 <th class="width-30-pct">Institution</th>
                 <th class="width-30-pct">Abbreviation</th>
                 <th class="width-30-pct">Country</th>
-                <th class="text-align-center">Actions</th>
+                <th class="text-align-center" ng-show="vm.roleResearcher == 0">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -86,7 +91,7 @@
                 <td class="width-30-pct">{{ institution.nmInstitution }}</td>
                 <td class="width-30-pct">{{ institution.dsAbbreviation }}</td>
                 <td class="width-30-pct">{{ institution.nmCountry }}</td>
-                <td class="center">
+                <td class="center" ng-show="vm.roleResearcher == 0">
                   <button type="button" class="btn btn-warning" ng-click="vm.showEditInstitutionForm(institution.nmInstitution)">
                 <span class="glyphicon glyphicon-pencil"></span>
                   <button type="button" class="btn btn-danger" ng-click="vm.deleteInstitution(institution.dsKey)"  ng-disabled="true">
@@ -100,7 +105,7 @@
                 <th class="width-30-pct">Institution</th>
                 <th class="width-30-pct">Abbreviation</th>
                 <th class="width-30-pct">Country</th>
-                <th class="text-align-center">Actions</th>
+                <th class="text-align-center" ng-show="vm.roleResearcher == 0">Actions</th>
               </tr>
             </tfoot>
           </table>

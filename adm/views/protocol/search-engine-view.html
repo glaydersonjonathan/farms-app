@@ -4,11 +4,11 @@
 
   <center>
     <div class="form-group">
-      <button type="button" class="btn btn-primary" ng-click="vm.showAddSearchEngineForm()">
+      <button ng-show="vm.roleResearcher == 0" type="button" class="btn btn-primary" ng-click="vm.showAddSearchEngineForm()">
      <i class="fa fa-plus"></i> Add Search Engine a protocol
       </button>
 
-      <button type="button" class="btn btn-primary" ng-click="vm.showCreateSearchEngineForm()" ng-disabled="true">
+      <button ng-show="vm.roleResearcher == 0" type="button" class="btn btn-primary" ng-click="vm.showCreateSearchEngineForm()">
      <i class="fa fa-plus"></i> Create Search Engine
       </button>
     </div>
@@ -19,7 +19,7 @@
       <tr>
         <th class="width-60-pct">Search Engines</th>
         <th class="width-60-pct">Criteria</th>
-        <th class="width-60-pct">Actions</th>
+        <th class="width-60-pct" ng-show="vm.roleResearcher == 0">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@
       <tr ng-repeat="searchEngine in  vm.protocol.searchEngines">
         <td class="width-30-pct">{{ searchEngine.nmSearchEngine }}</td>
         <td class="width-30-pct">{{ searchEngine.dsBaseUseCriteria }}</td>
-        <td class="center">
+        <td class="center" ng-show="vm.roleResearcher == 0">
           <button type="button" class="btn btn-warning" ng-click="vm.editKeyword(searchEngine)" ng-disabled="true">
                 <span class="glyphicon glyphicon-pencil"></span>
             </button>
@@ -44,7 +44,7 @@
       <tr>
         <th class="width-60-pct">Search Engines</th>
         <th class="width-60-pct">Criteria</th>
-        <th class="width-60-pct">Actions</th>
+        <th class="width-60-pct" ng-show="vm.roleResearcher == 0">Actions</th>
       </tr>
     </tfoot>
   </table>

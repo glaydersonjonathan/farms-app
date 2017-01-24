@@ -3,7 +3,7 @@
 
 <center> 
   <div class="form-group">
-    <button type="button" class="btn btn-primary" ng-click="vm.showAddKeywordForm()">
+    <button ng-show="vm.roleResearcher == 0" type="button" class="btn btn-primary" ng-click="vm.showAddKeywordForm()">
      <i class="fa fa-plus"></i> Add Keyword
       </button>
   </div>
@@ -13,7 +13,7 @@
     <thead>
       <tr>
         <th class="width-60-pct">Keywords</th>
-        <th class="width-60-pct">Actions</th>
+        <th class="width-60-pct" ng-show="vm.roleResearcher == 0">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -22,7 +22,7 @@
       </tr>
       <tr ng-repeat="keyword in  vm.protocol.searchKeywords">
         <td class="width-30-pct">{{ keyword.dsSearchKeyword | uppercase }}</td>
-        <td class="center">
+        <td class="center" ng-show="vm.roleResearcher == 0">
           <button type="button" class="btn btn-warning" ng-click="vm.editKeyword(keyword)">
                 <span class="glyphicon glyphicon-pencil"></span>
             </button>
@@ -36,7 +36,7 @@
     <tfoot>
       <tr>
         <th class="width-60-pct">Keywords</th>
-        <th class="width-60-pct">Actions</th>
+        <th class="width-60-pct" ng-show="vm.roleResearcher == 0">Actions</th>
       </tr>
     </tfoot>
   </table>

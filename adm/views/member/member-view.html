@@ -4,15 +4,18 @@
   <div class="row">
     <div class="col-xs-12">
 
-      <!-- Button to display the modal form registration. -->
-      <div class="form-group">
-        <button type="button" class="btn btn-success" ng-click="vm.showMemberInvitationForm()">
-      <i class="fa fa-arrow-circle-down"></i> Member Invitation
-    </button>
-      </div>
-
       <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash"
         ng-bind="flash.message"></div>
+        
+      <center>
+        <!-- Button to display the modal form registration. -->
+        <div class="form-group">
+          <button ng-show="vm.roleResearcher == 0" type="button" class="btn btn-success" ng-click="vm.showMemberInvitationForm()">
+      <i class="fa fa-arrow-circle-down"></i> Member Invitation
+    </button>
+        </div>
+      </center>
+
 
       <div class="box">
         <div class="panel-group">
@@ -70,7 +73,7 @@
                 <th class="width-30-pct">Name</th>
                 <th class="width-30-pct">Username</th>
                 <th class="width-30-pct">Role</th>
-                <th class="text-align-center">Actions</th>
+                <th class="text-align-center" ng-show="vm.roleResearcher == 0">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -87,7 +90,7 @@
                 <td class="width-30-pct">{{ member.nmResearcher }}</td>
                 <td class="width-30-pct">{{ member.dsSSO }}</td>
                 <td class="width-30-pct">{{ member.tpRole }}</td>
-                <td class="center">
+                <td class="center" ng-show="vm.roleResearcher == 0">
                   <button type="button" class="btn btn-warning" ng-click="vm.editMember(member)" ng-disabled="true">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
@@ -102,7 +105,7 @@
                 <th class="width-30-pct">Name</th>
                 <th class="width-30-pct">Username</th>
                 <th class="width-30-pct">Role</th>
-                <th class="text-align-center">Actions</th>
+                <th class="text-align-center" ng-show="vm.roleResearcher == 0">Actions</th>
               </tr>
             </tfoot>
           </table>

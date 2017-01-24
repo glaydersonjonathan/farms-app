@@ -3,7 +3,7 @@
 
   <center>
     <div class="form-group">
-      <button type="button" class="btn btn-primary" ng-click="vm.showAddLanguageForm()">
+      <button type="button" class="btn btn-primary" ng-click="vm.showAddLanguageForm()" ng-show="vm.roleResearcher == 0">
      <i class="fa fa-plus"></i> Add Language
       </button>
     </div>
@@ -13,7 +13,7 @@
     <thead>
       <tr>
         <th class="width-60-pct">Languages</th>
-        <th class="width-60-pct">Actions</th>
+        <th class="width-60-pct" ng-show="vm.roleResearcher == 0" >Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -22,11 +22,11 @@
       </tr>
       <tr ng-repeat="language in  vm.protocol.languages">
         <td class="width-30-pct">{{ language.nmLanguage }}</td>
-        <td class="center">
-          <button type="button" class="btn btn-warning" ng-click="vm.editLanguage(language)" ng-disabled="true">
+        <td class="center" ng-show="vm.roleResearcher == 0">
+          <button type="button" class="btn btn-warning" ng-click="vm.editLanguage(language)"  ng-disabled="true">
                 <span class="glyphicon glyphicon-pencil"></span>
             </button>
-          <button type="button" class="btn btn-danger" ng-click="vm.deleteLanguage(language)" ng-disabled="true">
+          <button type="button" class="btn btn-danger" ng-click="vm.deleteLanguage(language)"  ng-disabled="true">
                 <span class="glyphicon glyphicon-trash"></span>
             </button>
         </td>
@@ -36,7 +36,7 @@
     <tfoot>
       <tr>
         <th class="width-60-pct">Languages</th>
-        <th class="width-60-pct">Actions</th>
+        <th class="width-60-pct" ng-show="vm.roleResearcher == 0">Actions</th>
       </tr>
     </tfoot>
   </table>

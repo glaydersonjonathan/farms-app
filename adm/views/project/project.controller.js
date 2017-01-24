@@ -17,7 +17,7 @@
     vm.project = {}; //usando pra editar
     vm.projects = [];
 
-    //vm.roleResearcher = {};
+    vm.roleResearcher = {};
 
 
     vm.all_countries = [];
@@ -36,9 +36,8 @@
     vm.deleteProject = deleteProject;
     vm.openProject = openProject;
 
-   // vm.getRoleResearcher = getRoleResearcher;
 
-    //vm.getAllInstitutions = getAllInstitutions;
+
     vm.getAllCountries = getAllCountries;
 
     vm.projectsByFilter = projectsByFilter;
@@ -57,6 +56,7 @@
 
     function initController() {
       vm.getAllProjects();
+      getRoleResearcher();
     }
 
     // Forms
@@ -74,7 +74,12 @@
     }
 
 
-    function showEditForm(dsKey) {
+    function showEditForm() {
+      var currentProject = $cookieStore.get("currentProject");
+      var dsKey = {};
+      if (currentProject != null) {
+        dsKey = currentProject.dsKey;
+      }
       ProjectService.GetByDsKey(dsKey).then(function (response) {
         vm.project = response;
       });
@@ -150,6 +155,8 @@
         console.log(response.data);
         if (response.code === 1007) {
           FlashService.Success(response.description, false);
+          $cookieStore.put('currentProject', vm.project);
+         // $window.location.reload();
           vm.project = null;
           closeModal();
           vm.getAllProjects();
@@ -177,7 +184,12 @@
 
 
 
-    function deleteProject(key) {
+    function deleteProject() {
+      var currentProject = $cookieStore.get("currentProject");
+      var dsKey = {};
+      if (currentProject != null) {
+        dsKey = currentProject.dsKey;
+      }
       showConfirmationMessage();
       /*vm.dataLoading = true;
       if (Do you really want to delete this project?) {
@@ -197,7 +209,6 @@
     }
 
 
-    //usando, ok!
     function openProject(dsKey) {
       ProjectService.GetByDsKey(dsKey).then(function (response) {
         var project = response;
@@ -207,28 +218,19 @@
     }
 
 
-    /* function getRoleResearcher() {
-        var currentProject = $cookieStore.get("currentProject");
-        var roleResearcher = {};
-        if (currentProject != null) {
-          roleResearcher.idProject = currentProject.idProject;
-          roleResearcher.dsUserName = $rootScope.globals.currentUser.dsUsername;
-          ProjectService.GetRoleBydsKey(roleResearcher.idProject, roleResearcher.dsUserName).then(function (response) {
-            roleResearcher = response;
-          });
-        }
-         return  roleResearcher;
-    }
-  
-  function getRoleResearcher(dsKey) {     
-          vm.roleResearcher.dsKey = dsKey;
-          vm.roleResearcher.dsUserName = $rootScope.globals.currentUser.dsUsername;
-          ProjectService.GetRoleBydsKey(vm.roleResearcher.dsKey, vm.roleResearcher.dsUserName).then(function (response) {
-            vm.roleResearcher = response;
-          });
-        return  vm.roleResearcher;
-    }*/
 
+
+    function getRoleResearcher() {
+      var currentProject = $cookieStore.get("currentProject");
+      var roleResearcher = {};
+      if (currentProject != null) {
+        roleResearcher.dsKey = currentProject.dsKey;
+      }
+      roleResearcher.dsUserName = $rootScope.globals.currentUser.dsUsername;
+      ProjectService.GetRoleBydsKey(roleResearcher.dsKey, roleResearcher.dsUserName).then(function (response) {
+        vm.roleResearcher = response;
+      });
+    }
 
 
 

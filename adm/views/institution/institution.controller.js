@@ -23,24 +23,24 @@
     // Add Institution a project
     vm.project_member = {};
 
+    //show buttons
+    vm.roleResearcher = {};
+
     vm.clearForm = clearForm;
 
     vm.showInstitutionAddForm = showInstitutionAddForm;
     vm.showEditInstitutionForm = showEditInstitutionForm;
-    //vm.showReadForm = showReadForm;
     vm.closeModal = closeModal;
 
     vm.getAllInstitutions = getAllInstitutions;
     vm.getAllCountries = getAllCountries;
-    vm.getInstitutionByCdCite = getInstitutionByCdCite;
+    //vm.getInstitutionByCdCite = getInstitutionByCdCite;
 
-    //vm.inviteInstitution = inviteInstitution;
-    //vm.readInstitution = readInstitution;
     vm.updateInstitution = updateInstitution;
     vm.deleteInstitution = deleteInstitution;
 
     vm.addInstitutionProject = addInstitutionProject;
-
+    //vm.getRoleResearcher = getRoleResearcher;
 
     vm.institutionsByFilter = institutionsByFilter;
     vm.nmInstitutionSearch = "";
@@ -56,12 +56,12 @@
 
     function initController() {
       vm.getAllInstitutions();
+      getRoleResearcher();
     }
 
     // Forms
     function clearForm() {
       vm.institution = null;
-      //vm.flInstitution = null;
     }
 
 
@@ -88,12 +88,6 @@
       $('#institution-edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
-    /*
-         function showReadForm() {
-           $('#read-modal-title').text("Institution");
-           $('#read-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
-         }*/
-
     function showConfirmationMessage() {
       $('#confirmation-message-modal-title').text("Confirmation");
       $('#confirmation-message-modal').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
@@ -107,6 +101,18 @@
 
 
     // CRUD functions
+
+    function getRoleResearcher() {
+      var currentProject = $cookieStore.get("currentProject");
+      var roleResearcher = {};
+      if (currentProject != null) {
+        roleResearcher.dsKey = currentProject.dsKey;
+      }
+      roleResearcher.dsUserName = $rootScope.globals.currentUser.dsUsername;
+      ProjectService.GetRoleBydsKey(roleResearcher.dsKey, roleResearcher.dsUserName).then(function (response) {
+        vm.roleResearcher = response;
+      });
+    }
 
 
     //todas do projeto aberto
@@ -183,58 +189,20 @@
 
 
 
-    function getInstitutionByCdCite(cdCite) {
-      //vm.dataLoading = true;
-      InstitutionService.GetByCdCite(cdCite).then(function (response) {
-        //console.log(response.data);
-        //if (response.code === 1000) {
-        var institution = response;
-        return institution;
-        //} else {
-        // console.log(response.data);
-        //FlashService.Error(response.description);
-        //vm.dataLoading = false;
-        //}
-      });
-    }
-
-
-
-
-
-
-
-    /*   function inviteInstitution() {
-         //alert(vm.institution.tpReview  + " " + vm.institution.dsKey + " " + vm.institution.dsTitle + " " + vm.institution.dsInstitution);
-         /*vm.dataLoading = true;
-         InstitutionService.Create(vm.institution).then(function (response) {
-           console.log(response.data);
-           if (response.code === 1002) {
-             FlashService.Success(response.description, true);
-             vm.institution = null;
-             $('#create-modal-form').closeModal();
-             vm.getAllInstitutions();
-           } else {
-             FlashService.Error(response.description, true);
-             vm.dataLoading = false;
-           }
-         });
-       };
-   
-       function readInstitution(cdCiteKey) {
-         //vm.dataLoading = true;
-         InstitutionService.GetByCdCiteKey(cdCiteKey).then(function (response) {
-           //console.log(response.data);
-           //if (response.code === 1000) {
-           vm.institution = response;
-           showReadForm();
-           //} else {
-           //FlashService.Error(response.description);
-           //vm.dataLoading = false;
-           //}
-         });
-     }*/
-
+    /*  function getInstitutionByCdCite(cdCite) {
+        //vm.dataLoading = true;
+        InstitutionService.GetByCdCite(cdCite).then(function (response) {
+          //console.log(response.data);
+          //if (response.code === 1000) {
+          var institution = response;
+          return institution;
+          //} else {
+          // console.log(response.data);
+          //FlashService.Error(response.description);
+          //vm.dataLoading = false;
+          //}
+        });
+      }*/
 
 
     function deleteInstitution(cdCiteKey) {
