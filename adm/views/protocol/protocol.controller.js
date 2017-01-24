@@ -13,6 +13,7 @@
 
     // Protocol
     vm.protocol = {};
+    vm.searchEngine = {}; //usado para criar search engine
 
     vm.dataLoading = false;
 
@@ -25,6 +26,7 @@
     vm.showAddCriteriaForm = showAddCriteriaForm;
     vm.showAddLanguageForm = showAddLanguageForm;
     vm.showAddSearchEngineForm = showAddSearchEngineForm;
+    vm.showCreateSearchEngineForm = showCreateSearchEngineForm;
     vm.closeModal = closeModal;
 
     vm.getAllProtocol = getAllProtocol;
@@ -36,6 +38,7 @@
     vm.saveCriteria = saveCriteria;
     vm.saveLanguage = saveLanguage;
     vm.saveEngine = saveEngine;
+    vm.createEngine = createEngine;
 
     initController();
 
@@ -71,11 +74,18 @@
       $('#engine-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
+    function showCreateSearchEngineForm() {
+       vm.searchEngine = null;
+      $('#create-engine-modal-form-title').text("Create Search Engine");
+      $('#create-engine-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
+    }
+
     function closeModal() {
       $('#create-modal-form').modal('hide');
       $('#criteria-modal-form').modal('hide');
       $('#language-modal-form').modal('hide');
       $('#engine-modal-form').modal('hide');
+      $('#create-engine-modal-form').modal('hide');
       //$('#edit-modal-form').modal('hide');
       //$('#confirmation-message-modal').modal('hide');
     }
@@ -277,7 +287,7 @@
     }
 
 
-    
+
     function saveEngine() {
       var currentProject = $cookieStore.get("currentProject");
       if (currentProject != null) {
@@ -297,6 +307,18 @@
       });
     }
 
+    function createEngine() {
+      ProtocolService.CreateEngine(vm.searchEngine).then(function (response) {
+        console.log(response);
+        if (response.code === 1019) {
+          FlashService.Success(response.description, false);
+        }
+        else {
+          FlashService.Error(response.description, false);
+        }
+        closeModal();
+      });
+    }
 
   } /****** End ProtocolController *****/
 

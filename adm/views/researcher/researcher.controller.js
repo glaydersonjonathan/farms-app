@@ -14,6 +14,8 @@
     // Researcher
     vm.researcher = {};
 
+    
+
     // Forms
     vm.showEditForm = showEditForm;
     vm.showChangePassForm = showChangePassForm;
@@ -25,6 +27,8 @@
     vm.editPassword = editPassword;
     vm.deleteResearcher = deleteResearcher;
     vm.yes = yes;
+
+    
 
     initController();
 
@@ -110,8 +114,10 @@
            vm.dataLoading = false;
          }*/
       });
-
     }
+
+
+
 
 
   } /****** End ProjectController *****/

@@ -14,12 +14,14 @@
         service.Delete = Delete;
         service.GetByDsKey = GetByDsKey;
 
-  
+
 
         service.GetAllByDsSsoResearcher = GetAllByDsSsoResearcher;
         service.GetInstitutionsByDsKey = GetInstitutionsByDsKey;
         service.GetMembersByDsKey = GetMembersByDsKey;
         service.GetStudiesByDsKey = GetStudiesByDsKey;
+
+        service.GetRoleBydsKey = GetRoleBydsKey;
 
 
         return service;
@@ -58,7 +60,9 @@
             return $http.get(API_SERVER.url + '/projects/' + dsKey + '/studies').then(handleSuccess, handleError);
         }
 
-
+        function GetRoleBydsKey(dsKey, dsUserName) {
+            return $http.get(API_SERVER.url + '/projects/' + dsKey + "/role/" + dsUserName).then(handleSuccess, handleError);
+        }
 
         // private functions
         function handleSuccess(res) {

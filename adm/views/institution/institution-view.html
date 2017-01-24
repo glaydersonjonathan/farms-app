@@ -1,17 +1,8 @@
-<!-- INSTIRURION - CRUD -->
+<!-- INSTITUTION - CRUD -->
 <div class="content">
 
   <div class="row">
     <div class="col-xs-12">
-     
-      <!--center>
-        <div class="form-group">
-          <button type="button" class="btn btn-primary" ng-click="vm.showCreateInsForm()">
-      <i class="fa fa-plus"></i> Register new Institution
-    </button>
-        </div>
-      </center-->
-
       <!-- Button to display the modal form registration. -->
       <div class="form-group">
         <button type="button" class="btn btn-primary" ng-click="vm.showInstitutionAddForm()">
@@ -96,7 +87,7 @@
                 <td class="width-30-pct">{{ institution.dsAbbreviation }}</td>
                 <td class="width-30-pct">{{ institution.nmCountry }}</td>
                 <td class="center">
-                   <button type="button" class="btn btn-warning" ng-click="vm.editInstitution(institution)" ng-disabled="true">
+                  <button type="button" class="btn btn-warning" ng-click="vm.showEditInstitutionForm(institution.nmInstitution)">
                 <span class="glyphicon glyphicon-pencil"></span>
                   <button type="button" class="btn btn-danger" ng-click="vm.deleteInstitution(institution.dsKey)"  ng-disabled="true">
                 <span class="glyphicon glyphicon-trash"></span>
@@ -119,6 +110,9 @@
 
         <!-- Modal form add a project. -->
         <div ng-include="'adm/views/institution/institution-add-form.html'"></div>
+
+        <!-- Modal form add a project. -->
+        <div ng-include="'adm/views/institution/institution-edit-form.html'"></div>
 
         <!-- Modal confirmation message. -->
         <div ng-include="'adm/views/message/confirmation-message-modal.html'"></div>

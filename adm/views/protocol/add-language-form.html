@@ -24,7 +24,7 @@
             </div>
             <!-- Start - Action buttons. -->
             <div class="modal-footer">
-                <button id="btn-create" type="button" class="btn btn-primary" ng-click="vm.saveLanguage(); form.$setPristine();"><i class="fa fa-check"></i>Add</button>
+                <button id="btn-create" type="button" class="btn btn-primary" ng-click="vm.saveLanguage(); form.$setPristine();" ng-disabled="form.$invalid"><i class="fa fa-check"></i>Add</button>
                 <button type="button" class="btn btn-default" ng-click="vm.getAllProtocol(); form.$setPristine();" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
             </div>
             <!-- End - Action buttons. -->

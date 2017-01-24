@@ -7,14 +7,14 @@
 
   InstitutionController.$inject = ['InstitutionService', 'ProjectService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
 
-  /****** Início InstitutionController *****/
+  /****** Begin InstitutionController *****/
   function InstitutionController(InstitutionService, ProjectService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
     var vm = this;
 
     //vm.dataLoading = true;
 
     vm.all_countries = [];
-    
+
 
     // Institution
     vm.institution = {};
@@ -24,22 +24,23 @@
     vm.project_member = {};
 
     vm.clearForm = clearForm;
-    
+
     vm.showInstitutionAddForm = showInstitutionAddForm;
-    //vm.showEditForm = showEditForm;
+    vm.showEditInstitutionForm = showEditInstitutionForm;
     //vm.showReadForm = showReadForm;
     vm.closeModal = closeModal;
 
     vm.getAllInstitutions = getAllInstitutions;
     vm.getAllCountries = getAllCountries;
     vm.getInstitutionByCdCite = getInstitutionByCdCite;
-   
-    vm.inviteInstitution = inviteInstitution;
-    vm.readInstitution = readInstitution;
+
+    //vm.inviteInstitution = inviteInstitution;
+    //vm.readInstitution = readInstitution;
     vm.updateInstitution = updateInstitution;
     vm.deleteInstitution = deleteInstitution;
- 
+
     vm.addInstitutionProject = addInstitutionProject;
+
 
     vm.institutionsByFilter = institutionsByFilter;
     vm.nmInstitutionSearch = "";
@@ -60,10 +61,10 @@
     // Forms
     function clearForm() {
       vm.institution = null;
-      vm.flInstitution = null;
+      //vm.flInstitution = null;
     }
 
- 
+
     function showInstitutionAddForm() {
       clearForm();
       getAllCountries();
@@ -71,15 +72,27 @@
       $('#institution-add-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
-    /* function showEditForm() {
-       $('#edit-modal-title').text("Update institution");
-       $('#edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
-     }
- 
-     function showReadForm() {
-       $('#read-modal-title').text("Institution");
-       $('#read-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
-     }*/
+    function showEditInstitutionForm(nmInstitution) {
+      clearForm();
+      getAllCountries();
+      var currentProject = $cookieStore.get("currentProject");
+      var dsKey = null;
+      if (currentProject != null) {
+        dsKey = currentProject.dsKey
+      }
+      InstitutionService.GetByNmInstitution(nmInstitution, dsKey).then(function (response) {
+        vm.institution = response;
+      });
+
+      $('#institution-edit-modal-form-title').text("Edit Institution");
+      $('#institution-edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
+    }
+
+    /*
+         function showReadForm() {
+           $('#read-modal-title').text("Institution");
+           $('#read-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
+         }*/
 
     function showConfirmationMessage() {
       $('#confirmation-message-modal-title').text("Confirmation");
@@ -89,6 +102,7 @@
     function closeModal() {
       $('#create-institution').modal('hide');
       $('#institution-add-modal-form').modal('hide');
+      $('#institution-edit-modal-form').modal('hide');
     }
 
 
@@ -127,7 +141,7 @@
       if (currentProject != null) {
         vm.institution.dsKey = currentProject.dsKey;
       }
-      
+
       InstitutionService.AddInstitutionProject(vm.institution).then(function (response) {
         console.log(response.data);
         if (response.code === 1009) {
@@ -144,7 +158,26 @@
 
     }
 
-
+    function updateInstitution(institution) {
+      vm.dataLoading = true;
+      var currentProject = $cookieStore.get("currentProject");
+      if (currentProject != null) {
+        vm.institution.dsKey = currentProject.dsKey;
+      }
+      console.log(vm.institution);
+      InstitutionService.Update(vm.institution).then(function (response) {
+        console.log(response);
+        if (response.code === 1020) {
+          FlashService.Success(response.description, false);
+          vm.institution = null;
+          vm.getAllInstitutions();
+        } else {
+          FlashService.Error(response.description, false);
+          vm.dataLoading = false;
+        }
+        closeModal();
+      });
+    };
 
 
 
@@ -171,54 +204,38 @@
 
 
 
-    function inviteInstitution() {
-      //alert(vm.institution.tpReview  + " " + vm.institution.dsKey + " " + vm.institution.dsTitle + " " + vm.institution.dsInstitution);
-      /*vm.dataLoading = true;
-      InstitutionService.Create(vm.institution).then(function (response) {
-        console.log(response.data);
-        if (response.code === 1002) {
-          FlashService.Success(response.description, true);
-          vm.institution = null;
-          $('#create-modal-form').closeModal();
-          vm.getAllInstitutions();
-        } else {
-          FlashService.Error(response.description, true);
-          vm.dataLoading = false;
-        }
-      });*/
-    };
+    /*   function inviteInstitution() {
+         //alert(vm.institution.tpReview  + " " + vm.institution.dsKey + " " + vm.institution.dsTitle + " " + vm.institution.dsInstitution);
+         /*vm.dataLoading = true;
+         InstitutionService.Create(vm.institution).then(function (response) {
+           console.log(response.data);
+           if (response.code === 1002) {
+             FlashService.Success(response.description, true);
+             vm.institution = null;
+             $('#create-modal-form').closeModal();
+             vm.getAllInstitutions();
+           } else {
+             FlashService.Error(response.description, true);
+             vm.dataLoading = false;
+           }
+         });
+       };
+   
+       function readInstitution(cdCiteKey) {
+         //vm.dataLoading = true;
+         InstitutionService.GetByCdCiteKey(cdCiteKey).then(function (response) {
+           //console.log(response.data);
+           //if (response.code === 1000) {
+           vm.institution = response;
+           showReadForm();
+           //} else {
+           //FlashService.Error(response.description);
+           //vm.dataLoading = false;
+           //}
+         });
+     }*/
 
-    function readInstitution(cdCiteKey) {
-      //vm.dataLoading = true;
-      InstitutionService.GetByCdCiteKey(cdCiteKey).then(function (response) {
-        //console.log(response.data);
-        //if (response.code === 1000) {
-        vm.institution = response;
-        showReadForm();
-        //} else {
-        //FlashService.Error(response.description);
-        //vm.dataLoading = false;
-        //}
-      });
-    }
 
-    function updateInstitution(institution) {
-      alert(vm.institution.tpReview + " " + vm.institution.dsKey + " " + vm.institution.dsTitle + " " + vm.institution.dsInstitution);
-      /*
-      vm.dataLoading = true;
-      InstitutionService.Update(vm.institution).then(function (response) {
-        console.log(response.data);
-        if (response.code === 1002) {
-          FlashService.Success(response.description, true);
-          vm.institution = null;
-          $('#edit-modal-form').closeModal();
-          vm.getAllInstitutions();
-        } else {
-          FlashService.Error(response.description, true);
-          vm.dataLoading = false;
-        }
-      });*/
-    };
 
     function deleteInstitution(cdCiteKey) {
       showConfirmationMessage();

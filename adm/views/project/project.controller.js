@@ -7,8 +7,8 @@
 
   ProjectController.$inject = ['ProjectService', 'InstitutionService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
 
-  /****** Início ProjectController *****/
-  function ProjectController(ProjectService,InstitutionService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
+  /****** Begin ProjectController *****/
+  function ProjectController(ProjectService, InstitutionService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
     var vm = this;
 
     vm.dataLoading = true;
@@ -16,6 +16,8 @@
     // Project
     vm.project = {}; //usando pra editar
     vm.projects = [];
+
+    //vm.roleResearcher = {};
 
 
     vm.all_countries = [];
@@ -33,6 +35,8 @@
     vm.updateProject = updateProject;
     vm.deleteProject = deleteProject;
     vm.openProject = openProject;
+
+   // vm.getRoleResearcher = getRoleResearcher;
 
     //vm.getAllInstitutions = getAllInstitutions;
     vm.getAllCountries = getAllCountries;
@@ -60,9 +64,8 @@
       vm.project = null;
     }
 
-    //ok
+
     function showCreateForm() {
-      //getAllInstitutions();
       getAllCountries();
       clearForm();
 
@@ -70,9 +73,8 @@
       $('#create-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
-    //testando
+
     function showEditForm(dsKey) {
-      //antes de exibir formulário preciso pegar dados projeto
       ProjectService.GetByDsKey(dsKey).then(function (response) {
         vm.project = response;
       });
@@ -115,18 +117,6 @@
       });
     }
 
-    //metodo usado na hora de criar um projeto
-    /* function getAllInstitutions() {
-       ProjectService.GetAllInstitutions().then(function (response) {
-         if (response.code === 2008) {
-           FlashService.Error(response.description, false);
-         }
-         var all_institutions = response;
-         vm.all_institutions = all_institutions;
-         vm.dataLoading = false;
-       });
-     }*/
-
     function getProjectByKey(dsKey) {
       ProjectService.GetByDsKey(dsKey).then(function (response) {
         var project = response;
@@ -141,24 +131,20 @@
       console.log(vm.project);
       vm.dataLoading = true;
       ProjectService.Create(vm.project).then(function (response) {
-        console.log('recebi:');
-        console.log(response);
         if (response.code === 1006) {
           FlashService.Success(response.description, false);
           vm.project = null;
-          closeModal();
           vm.getAllProjects();
         } else {
           FlashService.Error(response.description, false);
           vm.dataLoading = false;
-          closeModal();
         }
+        closeModal();
+        console.log(response);
       });
     };
 
     function updateProject() {
-      console.log('enviei');
-      console.log(vm.project);
       vm.dataLoading = true;
       ProjectService.Update(vm.project).then(function (response) {
         console.log(response.data);
@@ -219,6 +205,32 @@
         $state.go($state.current, {}, { reload: true });
       });
     }
+
+
+    /* function getRoleResearcher() {
+        var currentProject = $cookieStore.get("currentProject");
+        var roleResearcher = {};
+        if (currentProject != null) {
+          roleResearcher.idProject = currentProject.idProject;
+          roleResearcher.dsUserName = $rootScope.globals.currentUser.dsUsername;
+          ProjectService.GetRoleBydsKey(roleResearcher.idProject, roleResearcher.dsUserName).then(function (response) {
+            roleResearcher = response;
+          });
+        }
+         return  roleResearcher;
+    }
+  
+  function getRoleResearcher(dsKey) {     
+          vm.roleResearcher.dsKey = dsKey;
+          vm.roleResearcher.dsUserName = $rootScope.globals.currentUser.dsUsername;
+          ProjectService.GetRoleBydsKey(vm.roleResearcher.dsKey, vm.roleResearcher.dsUserName).then(function (response) {
+            vm.roleResearcher = response;
+          });
+        return  vm.roleResearcher;
+    }*/
+
+
+
 
     /****** Start filter functions *****/
     function projectsByFilter() {

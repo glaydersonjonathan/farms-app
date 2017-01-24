@@ -37,6 +37,8 @@
         service.SaveLanguage = SaveLanguage;
         service.SaveEngine = SaveEngine;
 
+        service.CreateEngine = CreateEngine;
+
         return service;
 
         function GetAll() {
@@ -136,6 +138,10 @@
 
         function SaveEngine(engines) {
             return $http.post(API_SERVER.url + '/protocol/engines/', engines).then(handleSuccess, handleError);
+        }
+
+        function CreateEngine(engine) {
+            return $http.post(API_SERVER.url + '/protocol/createEngine/'+ engine).then(handleSuccess, handleError);
         }
 
         // private functions
