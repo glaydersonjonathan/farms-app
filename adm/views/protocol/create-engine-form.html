@@ -14,7 +14,7 @@
                 <form name="form" ng-submit="send()">
                     <div class="modal-body">
                         <label for="name">Search Engine Name</label>
-                        <input type="text" name="name" id="name" class="form-control" ng-model="vm.searchEngine"
+                        <input maxlength="70" type="text" name="name" id="name" class="form-control" ng-model="vm.searchEngine"
                             required />
                         <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Search engine name is required.</span>
                     </div>

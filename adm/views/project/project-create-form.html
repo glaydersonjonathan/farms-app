@@ -25,7 +25,7 @@
 
           <div class="form-group">
             <label for="ds_key">Key</label>
-            <input type="text" name="ds_key" id="ds_key" class="form-control" ng-model="vm.project.dsKey" required />
+            <input maxlength="10" type="text" name="ds_key" id="ds_key" class="form-control" ng-model="vm.project.dsKey" required />
             <span ng-show="form.ds_key.$dirty && form.ds_key.$error.required" class="help-block">Key is required.</span>
           </div>
           <div class="form-group">
@@ -53,13 +53,13 @@
 
               <div class="form-group">
                 <label for="ds_name_ins">Institution Name</label>
-                <input type="text" name="ds_name_ins" id="ds_name_ins" class="form-control" ng-model="vm.project.nmInstitution" required />
+                <input maxlength="200" type="text" name="ds_name_ins" id="ds_name_ins" class="form-control" ng-model="vm.project.nmInstitution" required />
                 <span ng-show="form.ds_name_ins.$dirty && form.ds_name_ins.$error.required" class="help-block">Institution name is required.</span>
               </div>
 
               <div class="form-group">
                 <label for="ds_abbr">Institution Abbreviation</label>
-                <input type="text" name="ds_abbr" id="ds_abbr" class="form-control" ng-model="vm.project.dsAbbreviation" required />
+                <input maxlength="10"  type="text" name="ds_abbr" id="ds_abbr" class="form-control" ng-model="vm.project.dsAbbreviation" required />
                 <span ng-show="form.ds_abbr.$dirty && form.ds_abbr.$error.required" class="help-block">Institution abbreviation is required.</span>
               </div>
             </div>

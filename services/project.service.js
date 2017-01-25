@@ -15,27 +15,25 @@
         service.GetByDsKey = GetByDsKey;
 
 
-
         service.GetAllByDsSsoResearcher = GetAllByDsSsoResearcher;
         service.GetInstitutionsByDsKey = GetInstitutionsByDsKey;
         service.GetMembersByDsKey = GetMembersByDsKey;
-        service.GetStudiesByDsKey = GetStudiesByDsKey;
 
         service.GetRoleBydsKey = GetRoleBydsKey;
 
 
         return service;
-        //testando
+        
         function Create(project) {
             return $http.post(API_SERVER.url + '/projects', project).then(handleSuccess, handleError);
         }
 
-        //testando
+        
         function Update(project) {
             return $http.put(API_SERVER.url + '/projects/', project).then(handleSuccess, handleError);
         }
 
-        //OK!
+        
         function GetByDsKey(dsKey) {
             return $http.get(API_SERVER.url + '/projects/' + dsKey).then(handleSuccess, handleError);
         }
@@ -43,7 +41,7 @@
         function GetAllByDsSsoResearcher(dsSso) {
             return $http.get(API_SERVER.url + '/projects/' + dsSso + '/projects').then(handleSuccess, handleError);
         }
-        //OK!
+        
         function GetInstitutionsByDsKey(dsKey) {
             return $http.get(API_SERVER.url + '/projects/' + dsKey + '/institutions').then(handleSuccess, handleError);
         }
@@ -56,9 +54,6 @@
             return $http.get(API_SERVER.url + '/projects/' + dsKey + '/members').then(handleSuccess, handleError);
         }
 
-        function GetStudiesByDsKey(dsKey) {
-            return $http.get(API_SERVER.url + '/projects/' + dsKey + '/studies').then(handleSuccess, handleError);
-        }
 
         function GetRoleBydsKey(dsKey, dsUserName) {
             return $http.get(API_SERVER.url + '/projects/' + dsKey + "/role/" + dsUserName).then(handleSuccess, handleError);

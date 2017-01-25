@@ -9,13 +9,19 @@
     function StudyService($http, API_SERVER) {
         var service = {};
 
+        service.GetStudiesByDsKey = GetStudiesByDsKey;
         service.GetAll = GetAll;
         service.GetByNmStudy = GetByNmStudy;
+        service.Import = Import;
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
 
         return service;
+
+        function GetStudiesByDsKey(dsKey) {
+            return $http.get(API_SERVER.url + '/studies/' + dsKey).then(handleSuccess, handleError);
+        }
 
         function GetAll() {
             return $http.get(API_SERVER.url + '/studies').then(handleSuccess, handleError);
@@ -23,6 +29,9 @@
 
         function GetByNmStudy(nmStudy) {
             return $http.get(API_SERVER.url + '/studies/' + nmStudy).then(handleSuccess, handleError);
+        }
+        function Import(file) {
+            return $http.post(API_SERVER.url + '/studies/upload-study/',file).then(handleSuccess, handleError);
         }
 
         function Create(study) {
@@ -43,7 +52,7 @@
         }
 
         function handleError(error) {
-            return res.data;
+            return error.data;
         }
     }
 

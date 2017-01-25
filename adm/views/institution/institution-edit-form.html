@@ -24,13 +24,13 @@
 
                     <div class="form-group">
                         <label for="ds_name">Name</label>
-                        <input type="text" name="ds_name" id="ds_name" class="form-control" ng-model="vm.institution.nmInstitution" required />
+                        <input maxlength="200" type="text" name="ds_name" id="ds_name" class="form-control" ng-model="vm.institution.nmInstitution" required />
                         <span ng-show="form.ds_name.$dirty && form.ds_name.$error.required" class="help-block">Name is required.</span>
                     </div>
 
                     <div class="form-group">
                         <label for="ds_abbr">Abbreviation</label>
-                        <input type="text" name="ds_abbr" id="ds_abbr" class="form-control" ng-model="vm.institution.dsAbbreviation" required />
+                        <input maxlength="10" type="text" name="ds_abbr" id="ds_abbr" class="form-control" ng-model="vm.institution.dsAbbreviation" required />
                         <span ng-show="form.ds_abbr.$dirty && form.ds_abbr.$error.required" class="help-block">Abbreviation is required.</span>
                     </div>
 

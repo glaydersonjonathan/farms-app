@@ -16,12 +16,12 @@
           <div class="form-group">
             <div class="form-group">
               <label for="ds_name">Name: </label>
-              <input type="text" name="ds_name" id="ds_name" class="form-control" ng-model="vm.researcher.nmResearcher" required />
+              <input maxlength="70" type="text" name="ds_name" id="ds_name" class="form-control" ng-model="vm.researcher.nmResearcher" required />
               <span ng-show="form.ds_name.$dirty && form.ds_name.$error.required" class="help-block">Name is required.</span>
             </div>
             <!--div class="form-group">
               <label for="ds_email">Email: </label>
-              <input type="email" name="ds_email" id="ds_email" class="form-control" ng-model="vm.researcher.dsEmail" required />
+              <input maxlength="70" type="email" name="ds_email" id="ds_email" class="form-control" ng-model="vm.researcher.dsEmail" required />
               <span ng-show="form.ds_email.$dirty && form.ds_email.$error.required" class="help-block">Email is required.</span>
               <span class="help-block" ng-show="form.ds_email.$error.email"> Invalid email format.</span>
             </div-->

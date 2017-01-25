@@ -7,7 +7,7 @@
 
   StudyController.$inject = ['StudyService', 'ProjectService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
 
-  /****** Início StudyController *****/
+  /****** Begin StudyController *****/
   function StudyController(StudyService, ProjectService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
     var vm = this;
 
@@ -91,9 +91,11 @@
       if (currentProject != null) {
         dsKey = currentProject.dsKey;
       }
-      ProjectService.GetStudiesByDsKey(dsKey).then(function (response) {
+      console.log(dsKey);
+      StudyService.GetStudiesByDsKey(dsKey).then(function (response) {
         //if (response.code === 1000) {
           var studies = response;
+          console.log(response);
           vm.studies = studies;
           vm.dataLoading = false;
         //} else {
@@ -137,9 +139,9 @@
     };
 
     function importStudy() {
-      //alert(vm.study.tpReview  + " " + vm.study.dsKey + " " + vm.study.dsTitle + " " + vm.study.dsStudy);
-      /*vm.dataLoading = true;
-      StudyService.Create(vm.study).then(function (response) {
+      vm.dataLoading = true;
+      console.log(vm.study);
+      StudyService.Import(vm.study).then(function (response) {
         console.log(response.data);
         if (response.code === 1002) {
           FlashService.Success(response.description, true);
@@ -150,7 +152,7 @@
           FlashService.Error(response.description, true);
           vm.dataLoading = false;
         }
-      });*/
+      });
     };
 
     function readStudy(cdCiteKey) {
