@@ -9,13 +9,6 @@
     function ProtocolService($http, API_SERVER) {
         var service = {};
 
-        service.Create = Create;
-        service.Update = Update;
-        service.Delete = Delete;
-
-        service.GetAll = GetAll;
-        service.GetByNmProtocol = GetByNmProtocol;
-
         service.GetAllLanguages = GetAllLanguages;
         service.GetAllEngines = GetAllEngines;
 
@@ -39,29 +32,15 @@
 
         service.CreateEngine = CreateEngine;
 
+        service.DeleteKeyword = DeleteKeyword;
+        service.DeleteLanguage = DeleteLanguage;
+        service.DeleteEngine = DeleteEngine;
+        service.DeleteSelectionCriteria = DeleteSelectionCriteria;
+        service.EditKeyword = EditKeyword;
+        service.EditEngine = EditEngine;
+        service.EditCriteria = EditCriteria;
+
         return service;
-
-        function GetAll() {
-            return $http.get(API_SERVER.url + '/protocol').then(handleSuccess, handleError);
-        }
-
-        function GetByNmProtocol(nmProtocol) {
-            return $http.get(API_SERVER.url + '/protocol/' + nmProtocol).then(handleSuccess, handleError);
-        }
-
-        function Create(protocol) {
-            return $http.post(API_SERVER.url + '/protocol', protocol).then(handleSuccess, handleError);
-        }
-
-        function Update(idProtocol) {
-            return $http.put(API_SERVER.url + '/protocol/' + protocol.idProtocol, protocol).then(handleSuccess, handleError);
-        }
-
-        function Delete(idProtocol) {
-            return $http.delete(API_SERVER.url + '/protocol/' + idProtocol).then(handleSuccess, handleError);
-        }
-
-
 
         function GetAllLanguages() {
             return $http.get(API_SERVER.url + '/protocol/allLanguages').then(handleSuccess, handleError);
@@ -141,7 +120,35 @@
         }
 
         function CreateEngine(engine) {
-            return $http.post(API_SERVER.url + '/protocol/createEngine/'+ engine).then(handleSuccess, handleError);
+            return $http.post(API_SERVER.url + '/protocol/createEngine/' + engine).then(handleSuccess, handleError);
+        }
+
+        function DeleteKeyword(dsProjectKey, dsSearchKeyword, idSearchKeyword) {
+            return $http.delete(API_SERVER.url + '/protocol/deleteKeyword' + '/' + dsProjectKey + '/' + dsSearchKeyword + '/' + idSearchKeyword);
+        }
+
+        function DeleteLanguage(dsProjectKey, idLanguage) {
+            return $http.delete(API_SERVER.url + '/protocol/deleteLanguage' + '/' + dsProjectKey + '/' + idLanguage);
+        }
+
+        function DeleteEngine(dsProjectKey, idEngine) {
+            return $http.delete(API_SERVER.url + '/protocol/deleteEngine' + '/' + dsProjectKey + '/' + idEngine);
+        }
+
+        function DeleteSelectionCriteria(dsProjectKey, dsSelectionCriteria, tpCriteria) {
+            return $http.delete(API_SERVER.url + '/protocol/deleteSelectionCriteria' + '/' + dsProjectKey + '/' + dsSelectionCriteria + '/' + tpCriteria);
+        }
+
+        function EditKeyword(keyword) {
+            return $http.put(API_SERVER.url + '/protocol/editKeyword', keyword);
+        }
+
+        function EditEngine(engine) {
+            return $http.put(API_SERVER.url + '/protocol/editEngine', engine);
+        }
+
+        function EditCriteria(criteria) {
+            return $http.put(API_SERVER.url + '/protocol/editCriteria', criteria);
         }
 
         // private functions

@@ -1,12 +1,12 @@
-<!-- Keyword registration form. -->
-<div class="modal fade" id="keyword-modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- Keyword edit form. -->
+<div class="modal fade" id="edit-keyword-modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Form title. -->
             <div class="modal-header">
                 <!--button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button-->
-                <h4 class="keyword-modal-form-title" id="keyword-modal-form-title">title</h4>
+                <h4 class="edit-keyword-modal-form-title" id="edit-keyword-modal-form-title">title</h4>
             </div>
 
             <!-- Start - Fields form -->
@@ -22,7 +22,7 @@
             </div>
             <!-- Start - Action buttons. -->
             <div class="modal-footer">
-                <button id="btn-create" type="button" class="btn btn-primary" ng-click="vm.saveKeyword(); form.$setPristine();"><i class="fa fa-check" ng-disabled="form.$invalid"></i>Add</button>
+                <button id="btn-create" type="button" class="btn btn-primary" ng-click="vm.editKeyword(); form.$setPristine();"><i class="fa fa-check" ng-disabled="form.$invalid"></i>Edit</button>
                 <button type="button" class="btn btn-default" ng-click="vm.getAllProtocol(); form.$setPristine();" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
             </div>
             <!-- End - Action buttons. -->

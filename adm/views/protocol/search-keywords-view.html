@@ -23,7 +23,7 @@
       <tr ng-repeat="keyword in  vm.protocol.searchKeywords">
         <td class="width-30-pct">{{ keyword.dsSearchKeyword | uppercase }}</td>
         <td class="center" ng-show="vm.roleResearcher == 0">
-          <button type="button" class="btn btn-warning" ng-click="vm.editKeyword(keyword)">
+          <button type="button" class="btn btn-warning" ng-click="vm.showEditKeywordForm(keyword)">
                 <span class="glyphicon glyphicon-pencil"></span>
             </button>
           <button type="button" class="btn btn-danger" ng-click="vm.deleteKeyword(keyword)">

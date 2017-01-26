@@ -91,18 +91,10 @@
       if (currentProject != null) {
         dsKey = currentProject.dsKey;
       }
-      console.log(dsKey);
       StudyService.GetStudiesByDsKey(dsKey).then(function (response) {
-        //if (response.code === 1000) {
           var studies = response;
-          console.log(response);
           vm.studies = studies;
           vm.dataLoading = false;
-        //} else {
-          // console.log(response.data);
-          //FlashService.Error(response.description);
-          //vm.lDataLoading = false;
-        //}
       });
     }
 

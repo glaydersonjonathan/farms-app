@@ -31,6 +31,10 @@
     vm.showCreateSearchEngineForm = showCreateSearchEngineForm;
     vm.closeModal = closeModal;
 
+    vm.showEditKeywordForm = showEditKeywordForm;
+    vm.showEditEngineForm = showEditEngineForm;
+    vm.showEditSelectionCriteriaForm = showEditSelectionCriteriaForm;
+
     vm.getAllProtocol = getAllProtocol;
     vm.saveObjectives = saveObjectives;
     vm.saveMainQuestion = saveMainQuestion;
@@ -41,6 +45,16 @@
     vm.saveLanguage = saveLanguage;
     vm.saveEngine = saveEngine;
     vm.createEngine = createEngine;
+
+    vm.deleteKeyword = deleteKeyword;
+    vm.deleteLanguage = deleteLanguage;
+    vm.deleteEngine = deleteEngine;
+    vm.deleteSelectionCriteria = deleteSelectionCriteria;
+
+    vm.editKeyword = editKeyword;
+    vm.editEngine = editEngine;
+    vm.editCriteria = editCriteria;
+
 
     initController();
 
@@ -53,8 +67,26 @@
 
     function showAddKeywordForm() {
       clearForm();
-      $('#create-modal-form-title').text("Add Keyword");
-      $('#create-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
+      $('#keyword-modal-form-title').text("Add Keyword");
+      $('#keyword-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
+    }
+
+    function showEditKeywordForm(keyword) {
+      vm.protocol.searchKeywords = keyword;
+      $('#edit-keyword-modal-form-title').text("Edit Keyword");
+      $('#edit-keyword-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
+    }
+
+    function showEditEngineForm(engine) {
+      vm.protocol.searchEngines = engine;
+      $('#edit-engine-modal-form-title').text("Edit Search Engine");
+      $('#edit-engine-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
+    }
+
+    function showEditSelectionCriteriaForm(criteria) {
+      vm.protocol.selectionCriterias = criteria;
+      $('#edit-criteria-modal-form-title').text("Edit Selection Criteria");
+      $('#edit-criteria-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     function showAddCriteriaForm() {
@@ -84,12 +116,14 @@
     }
 
     function closeModal() {
-      $('#create-modal-form').modal('hide');
+      $('#keyword-modal-form').modal('hide');
       $('#criteria-modal-form').modal('hide');
       $('#language-modal-form').modal('hide');
       $('#engine-modal-form').modal('hide');
       $('#create-engine-modal-form').modal('hide');
-      //$('#edit-modal-form').modal('hide');
+      $('#edit-keyword-modal-form').modal('hide');
+      $('#edit-engine-modal-form').modal('hide');
+      $('#edit-criteria-modal-form').modal('hide');
       //$('#confirmation-message-modal').modal('hide');
     }
 
@@ -252,13 +286,13 @@
       if (currentProject != null) {
         vm.protocol.searchKeywords.dsProjectKey = currentProject.dsKey;
       }
-      console.log(vm.protocol);
       ProtocolService.SaveKeyword(vm.protocol.searchKeywords).then(function (response) {
         if (response.code === 1015) {
-          FlashService.Success(response.description, false);
           getAllProtocol();
+          FlashService.Success(response.description, false);
         }
         else {
+          getAllProtocol();
           FlashService.Error(response.description, false);
         }
         closeModal();
@@ -332,6 +366,125 @@
         }
         else {
           FlashService.Error(response.description, false);
+        }
+        closeModal();
+      });
+    }
+
+
+    function deleteKeyword(keyword) {
+      var currentProject = $cookieStore.get("currentProject");
+      if (currentProject != null) {
+        keyword.dsProjectKey = currentProject.dsKey;
+      }
+      ProtocolService.DeleteKeyword(keyword.dsProjectKey, keyword.dsSearchKeyword, keyword.idSearchKeyword).then(function (response) {
+        if (response.data.code === 1021) {
+          getAllProtocol();
+          FlashService.Success(response.data.description, false);
+        }
+        else {
+          getAllProtocol();
+          FlashService.Error(response.data.description, false);
+        }
+      });
+    }
+
+    function deleteLanguage(language) {
+      var currentProject = $cookieStore.get("currentProject");
+      if (currentProject != null) {
+        language.dsProjectKey = currentProject.dsKey;
+      }
+      ProtocolService.DeleteLanguage(language.dsProjectKey, language.idLanguage).then(function (response) {
+        if (response.data.code === 1022) {
+          getAllProtocol();
+          FlashService.Success(response.data.description, false);
+        }
+        else {
+          getAllProtocol();
+          FlashService.Error(response.data.description, false);
+        }
+      });
+    }
+
+    function deleteEngine(engine) {
+      var currentProject = $cookieStore.get("currentProject");
+      if (currentProject != null) {
+        engine.dsProjectKey = currentProject.dsKey;
+      }
+      ProtocolService.DeleteEngine(engine.dsProjectKey, engine.idSearchEngine).then(function (response) {
+        if (response.data.code === 1023) {
+          getAllProtocol();
+          FlashService.Success(response.data.description, false);
+        }
+        else {
+          getAllProtocol();
+          FlashService.Error(response.data.description, false);
+        }
+      });
+    }
+
+    function deleteSelectionCriteria(selectionCriteria) {
+      var currentProject = $cookieStore.get("currentProject");
+      if (currentProject != null) {
+        selectionCriteria.dsProjectKey = currentProject.dsKey;
+      }
+      console.log(selectionCriteria);
+      ProtocolService.DeleteSelectionCriteria(selectionCriteria.dsProjectKey, selectionCriteria.dsSelectionCriteria,
+        selectionCriteria.tpCriteria).then(function (response) {
+          if (response.data.code === 1024) {
+            getAllProtocol();
+            FlashService.Success(response.data.description, false);
+          }
+          else {
+            getAllProtocol();
+            FlashService.Error(response.data.description, false);
+          }
+        });
+    }
+
+
+
+
+    function editKeyword() {
+      ProtocolService.EditKeyword(vm.protocol.searchKeywords).then(function (response) {
+        if (response.data.code === 1015) {
+          getAllProtocol();
+          FlashService.Success(response.data.description, false);
+        }
+        else {
+          getAllProtocol();
+          FlashService.Error(response.data.description, false);
+        }
+        closeModal();
+      });
+    }
+
+    function editEngine() {
+      console.log(vm.protocol.searchEngines);
+      ProtocolService.EditEngine(vm.protocol.searchEngines).then(function (response) {
+        if (response.data.code === 1018) {
+          getAllProtocol();
+          FlashService.Success(response.data.description, false);
+        }
+        else {
+          getAllProtocol();
+          FlashService.Error(response.data.description, false);
+        }
+        closeModal();
+      });
+    }
+
+
+    function editCriteria() {
+      console.log(vm.protocol.selectionCriterias);
+      ProtocolService.EditCriteria(vm.protocol.selectionCriterias).then(function (response) {
+        if (response.data.code === 1016) {
+          getAllProtocol();
+          FlashService.Success(response.data.description, false);
+        }
+        else {
+          getAllProtocol();
+          FlashService.Error(response.data.description, false);
         }
         closeModal();
       });

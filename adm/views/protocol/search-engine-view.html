@@ -30,10 +30,10 @@
         <td class="width-30-pct">{{ searchEngine.nmSearchEngine }}</td>
         <td class="width-30-pct">{{ searchEngine.dsBaseUseCriteria }}</td>
         <td class="center" ng-show="vm.roleResearcher == 0">
-          <button type="button" class="btn btn-warning" ng-click="vm.editKeyword(searchEngine)" ng-disabled="true">
+          <button type="button" class="btn btn-warning" ng-click="vm.showEditEngineForm(searchEngine)">
                 <span class="glyphicon glyphicon-pencil"></span>
             </button>
-          <button type="button" class="btn btn-danger" ng-click="vm.deleteKeyword(searchEngine)" ng-disabled="true">
+          <button type="button" class="btn btn-danger" ng-click="vm.deleteEngine(searchEngine)" >
                 <span class="glyphicon glyphicon-trash"></span>
             </button>
         </td>
