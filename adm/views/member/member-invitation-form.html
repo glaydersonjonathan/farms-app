@@ -16,7 +16,7 @@
           <div class="form-group">
             <div class="form-group">
               <label for="ds_email">Email</label>
-              <input type="email" id="fl_invite" class="form-control" ng-model="vm.invite.dsEmail" required />
+              <input type="email" id="ds_email" name="ds_email" class="form-control" ng-model="vm.invite.dsEmail" required />
               <span ng-show="form.ds_email.$dirty && form.ds_email.$error.required" class="help-block">Email is required.</span>
               <span ng-show="form.ds_email.$error.email" class="help-block"> Invalid email format.</span>
             </div>

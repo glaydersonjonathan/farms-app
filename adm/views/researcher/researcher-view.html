@@ -22,7 +22,7 @@
                 <th class="width-30-pct">Name</th>
                 <th class="width-30-pct">Email</th>
                 <th class="width-30-pct">Change Password</th>
-                <th class="text-align-center">Actions</th>
+                <th class="text-align-center">Edit</th>
               </tr>
             </thead>
 
@@ -40,16 +40,23 @@
                   <button type="button" class="btn btn-warning" ng-click="vm.showEditForm()">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
-                  <button type="button" class="btn btn-danger" ng-click="vm.deleteResearcher(researcher.nmResearcher)" ng-disabled="true">
-                <span class="glyphicon glyphicon-trash"></span>
-              </button>
+
                 </td>
               </tr>
             </tbody>
           </table>
 
-
-
+          </br>
+          <center>
+            <div class="form-group">
+              <button type="button" class="btn btn-danger" ng-click="vm.deleteResearcher(researcher.nmResearcher)" ng-disabled="true">
+               Inative Register
+                <span class="glyphicon glyphicon-trash"></span>
+              </button>
+            </div>
+          </center>
+          </br>
+          </br>
 
           <!-- Modal form edit. -->
           <div ng-include="'adm/views/researcher/researcher-edit-form.html'"></div>

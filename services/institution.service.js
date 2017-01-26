@@ -41,8 +41,8 @@
             return $http.put(API_SERVER.url + '/institutions/', institution).then(handleSuccess, handleError);
         }
 
-        function Delete(idInstitution) {
-            return $http.delete(API_SERVER.url + '/institutions/' + idInstitution).then(handleSuccess, handleError);
+        function Delete(dsKey, idInstitution) {
+            return $http.delete(API_SERVER.url + '/institutions/delete' + '/' + dsKey + '/' + idInstitution).then(handleSuccess, handleError);
         }
 
         // private functions

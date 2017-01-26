@@ -185,6 +185,28 @@
       });
     };
 
+    function deleteInstitution(institution) {
+      // showConfirmationMessage();
+      vm.dataLoading = true;
+      var currentProject = $cookieStore.get("currentProject");
+      if (currentProject != null) {
+        institution.dsKey = currentProject.dsKey;
+      }
+      //if (Do you really want to delete this institution?) {
+      console.log(institution);
+      InstitutionService.Delete(institution.dsKey, institution.idInstitution).then(function (response) {
+        console.log(response.data);
+        if (response.code === 1025) {
+          FlashService.Success(response.description, false);
+          getAllInstitutions();
+        } else {
+          FlashService.Error(response.description, false);
+          vm.dataLoading = false;
+        }
+        //closeModal();
+      });
+      //}
+    }
 
 
 
@@ -205,24 +227,7 @@
       }*/
 
 
-    function deleteInstitution(cdCiteKey) {
-      showConfirmationMessage();
-      /*vm.dataLoading = true;
-      if (Do you really want to delete this institution?) {
-      InstitutionService.Delete(vm.institution).then(function (response) {
-        console.log(response.data);
-        if (response.code === 1002) {
-          FlashService.Success(response.description, true);
-          vm.institution = null;
-          $('#create-modal-form').closeModal();
-          vm.getAllInstitutions();
-        } else {
-          FlashService.Error(response.description, true);
-          vm.dataLoading = false;
-        }
-      });
-    }*/
-    }
+
 
     /****** Start filter functions *****/
     function institutionsByFilter() {
