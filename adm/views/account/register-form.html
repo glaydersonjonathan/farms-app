@@ -14,8 +14,9 @@
         </div>
         <div class="form-group" ng-class="{ 'has-error': register_form.ruser_ds_email.$dirty && register_form.ruser_ds_email.$error.required }">
             <label for="ruser_ds_email">Email</label>
-            <input maxlength="70" type="text" name="ruser_ds_email" id="ruser_ds_email" class="form-control" ng-model="vm.ruser.dsEmail" required />
+            <input maxlength="70" type="email" name="ruser_ds_email" id="ruser_ds_email" class="form-control" ng-model="vm.ruser.dsEmail" required />
             <span ng-show="register_form.ruser_ds_email.$dirty && register_form.ruser_ds_email.$error.required" class="help-block">Email is required.</span>
+             <span ng-show="register_form.ruser_ds_email.$error.email" class="help-block"> Invalid email format.</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': register_form.ds_password.$dirty && register_form.ds_password.$error.required }">
             <label for="ruser_ds_password">Password</label>

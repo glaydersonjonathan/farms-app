@@ -15,7 +15,7 @@
         <form name="form" ng-submit="send()">
           <div class="form-group">
             <label for="tp_review">Review type</label>
-            <select id="tp_review" name="tp_review" class="form-control" ng-model="vm.project.tpReview">
+            <select id="tp_review" name="tp_review" class="form-control" ng-model="vm.project.tpReview" required>
             <option value="">All types</option>
             <option value="0">Not Systematic</option>
             <option value="1">Systematic Mapping</option>
