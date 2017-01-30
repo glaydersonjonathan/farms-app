@@ -17,6 +17,8 @@
         service.Update = Update;
         service.Delete = Delete;
 
+        service.GetByCdCiteKey = GetByCdCiteKey;
+
         return service;
 
         function GetStudiesByDsKey(dsKey) {
@@ -44,6 +46,10 @@
 
         function Delete(idStudy) {
             return $http.delete(API_SERVER.url + '/studies/' + idStudy).then(handleSuccess, handleError);
+        }
+
+        function GetByCdCiteKey (cdCiteKey){
+            return $http.get(API_SERVER.url + '/studies/read/' + cdCiteKey).then(handleSuccess, handleError);
         }
 
         // private functions

@@ -11,7 +11,7 @@
           <button type="button" class="btn btn-success" ng-click="vm.showImportForm()" ng-disabled="true">
       <i class="fa fa-arrow-circle-down"></i> Import
     </button>
-          <button type="button" class="btn btn-primary" ng-click="vm.showCreateForm()" ng-disabled="true">
+          <button type="button" class="btn btn-primary" ng-click="vm.showCreateForm()" >
       <i class="fa fa-plus"></i> Create
     </button>
         </div>
@@ -113,9 +113,9 @@
                 <td class="width-30-pct">{{ study.nrYear }}</td>
                 <td class="width-30-pct">{{ study.nmAuthor }}</td>
                 <td class="center">
-                  <!--button type="button" class="btn btn-default" ng-click="vm.readStudy(study.dsKey)">
+                  <button type="button" class="btn btn-default" ng-click="vm.showReadForm(study)">
                 <span class="glyphicon glyphicon-eye-open"></span>
-              </button-->
+              </button>
                   <button type="button" class="btn btn-warning" ng-click="vm.editStudy(study)" ng-disabled="true">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
@@ -140,13 +140,13 @@
         <!-- End project list -->
 
         <!-- Modal form registration. -->
-        <!--div ng-include="'adm/views/study/study-create-form.html'"></div-->
+        <div ng-include="'adm/views/study/study-create-form.html'"></div>
 
         <!-- Importation Modal form. -->
         <div ng-include="'adm/views/study/study-import-form.html'"></div>
 
         <!-- Modal form details. -->
-        <!--div ng-include="'adm/views/study/study-details-form.html'"></div-->
+        <div ng-include="'adm/views/study/study-details-form.html'"></div>
 
         <!-- Modal confirmation message. -->
         <div ng-include="'adm/views/message/confirmation-message-modal.html'"></div>

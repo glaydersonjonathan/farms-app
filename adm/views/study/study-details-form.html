@@ -1,0 +1,84 @@
+<!-- Read study form. -->
+<div class="modal fade" id="read-modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Form title. -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="read-modal-form-title" id="read-modal-form-title">title</h3>
+                <h5> Reading Rate: {{vm.study.tpReadingRate}} - Status: {{vm.study.tpStatus}}</h5>
+                <h5 ng-if="vm.study.nrSearch == 1"> Insertion type: Manual </h5>
+                <h5 ng-if="vm.study.nrSearch != 1"> Insertion type: Automatic </h5>
+            </div>
+
+            <!-- Start - Fields form -->
+            <div class="modal-body">
+                <div class="form-group">
+                    <label> Title: </label> {{vm.study.dsTitle}}
+                </div>
+
+                <div class="form-group">
+                    <label>Cite Key: </label> {{vm.study.cdCiteKey}}
+                </div>
+
+                <div class="form-group">
+                    <label>Year: </label> {{vm.study.nrYear}}
+                </div>
+
+                <div class="form-group">
+                    <label>Keywords: </label> {{vm.study.dsKeyword}}
+                </div>
+
+                <div class="form-group">
+                    <label>Author: </label> {{vm.study.nmAuthor}}
+                </div>
+
+                <div class="form-group">
+                    <label>Abstract: </label> {{vm.study.dsAbstract}}
+                </div>
+
+
+                <div class="form-group">
+                    <label>DOI: </label> {{vm.study.cdDoi}}
+                </div>
+
+                <div class="form-group">
+                    <label>Issn/Isbn: </label> {{vm.study.cdIssnIsbn}}
+                </div>
+
+                <div class="form-group">
+                    <label>Venue: </label> {{vm.study.tpVenue}}
+                </div>
+
+                <div class="form-group">
+                    <label>Journal: </label> {{vm.study.dsJournal}}
+                </div>
+
+                <div class="form-group">
+                    <label>Volume: </label> {{vm.study.dsVolume}}
+                </div>
+
+                <div class="form-group">
+                    <label>Page: </label> {{vm.study.dsPage}}
+                </div>
+
+
+                <div class="form-group">
+                    <label>Type: </label> {{vm.study.dsType}}
+                </div>
+
+                <div class="form-group">
+                    <label>Url: </label> {{vm.study.dsUrl}}
+                </div>
+
+                <hr width=90%>
+                <div class="form-group">
+                    <label>Researcher Comment: </label> {{vm.study.dsComment}}
+                </div>
+            </div>
+
+            <!-- End - Fields form -->
+        </div>
+    </div>
+</div>

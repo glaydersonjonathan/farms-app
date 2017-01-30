@@ -35,7 +35,7 @@
     vm.getMemberByCdCite = getMemberByCdCite;
 
     vm.inviteMember = inviteMember;
-    vm.readMember = readMember;
+    //vm.readMember = readMember;
     vm.updateMember = updateMember;
     vm.deleteMember = deleteMember;
 
@@ -162,19 +162,19 @@
     }
 
 
-    function readMember(cdCiteKey) {
+//    function readMember(cdCiteKey) {
       //vm.dataLoading = true;
-      MemberService.GetByCdCiteKey(cdCiteKey).then(function (response) {
+     // MemberService.GetByCdCiteKey(cdCiteKey).then(function (response) {
         //console.log(response.data);
         //if (response.code === 1000) {
-        vm.member = response;
+     //   vm.member = response;
         showReadForm();
         //} else {
         //FlashService.Error(response.description);
         //vm.dataLoading = false;
         //}
-      });
-    }
+   ///   });
+   // }
 
     function updateMember(member) {
       alert(vm.member.tpReview + " " + vm.member.dsKey + " " + vm.member.dsTitle + " " + vm.member.dsMember);
