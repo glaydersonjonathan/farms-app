@@ -17,7 +17,7 @@
     vm.study = {};
     vm.studies = [];
 
-    vm.clearForm = clearForm;
+    
     vm.showCreateForm = showCreateForm;
     vm.showImportForm = showImportForm;
     vm.showEditForm = showEditForm;
@@ -116,11 +116,11 @@
       StudyService.Create(vm.study).then(function (response) {
         console.log(response.data);
         if (response.code === 1026) {
-          FlashService.Success(response.description, true);
+          FlashService.Success(response.description, false);
           vm.study = null;
           vm.getAllStudies();
         } else {
-          FlashService.Error(response.description, true);
+          FlashService.Error(response.description, false);
           vm.dataLoading = false;
         }
         closeModal();

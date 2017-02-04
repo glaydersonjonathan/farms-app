@@ -112,7 +112,7 @@
       })
       .state('adm.selection', {
         url: "/project/selection",
-        controller: 'ProtocolController',
+        controller: 'SelectionController',
         templateUrl: "adm/views/selection/selection-view.html",
         controllerAs: 'vm',
         title: 'Selection',
