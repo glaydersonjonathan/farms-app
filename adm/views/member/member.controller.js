@@ -136,13 +136,16 @@
         if (response.code === 1010) {
           FlashService.Success(response.description, false);
           vm.invite = null;
-          closeModal();
           vm.getAllMembers();
-        } else {
+        } else if (response.code === 2009) {
+          FlashService.Warning(response.description, false);
+        }
+        else {
           FlashService.Error(response.description, false);
           vm.dataLoading = false;
-          closeModal();
         }
+        closeModal();
+        vm.dataLoading = false;
       });
     };
 
@@ -162,19 +165,19 @@
     }
 
 
-//    function readMember(cdCiteKey) {
-      //vm.dataLoading = true;
-     // MemberService.GetByCdCiteKey(cdCiteKey).then(function (response) {
-        //console.log(response.data);
-        //if (response.code === 1000) {
-     //   vm.member = response;
-        showReadForm();
-        //} else {
-        //FlashService.Error(response.description);
-        //vm.dataLoading = false;
-        //}
-   ///   });
-   // }
+    //    function readMember(cdCiteKey) {
+    //vm.dataLoading = true;
+    // MemberService.GetByCdCiteKey(cdCiteKey).then(function (response) {
+    //console.log(response.data);
+    //if (response.code === 1000) {
+    //   vm.member = response;
+    showReadForm();
+    //} else {
+    //FlashService.Error(response.description);
+    //vm.dataLoading = false;
+    //}
+    ///   });
+    // }
 
     function updateMember(member) {
       alert(vm.member.tpReview + " " + vm.member.dsKey + " " + vm.member.dsTitle + " " + vm.member.dsMember);

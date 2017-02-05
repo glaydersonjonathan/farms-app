@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-xs-12">
 
-      <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash"
+      <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error', 'alert-warning': flash.type === 'warning' }" ng-if="flash"
         ng-bind="flash.message"></div>
         
       <center>

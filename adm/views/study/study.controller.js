@@ -100,7 +100,10 @@
       var dsKey = null;
       if (currentProject != null) {
         dsKey = currentProject.dsKey;
+      } else {
+        FlashService.Error('Open a project before view and edit studies', false);
       }
+
       StudyService.GetStudiesByDsKey(dsKey).then(function (response) {
         var studies = response;
         vm.studies = studies;
