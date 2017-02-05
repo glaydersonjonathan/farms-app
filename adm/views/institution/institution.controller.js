@@ -38,9 +38,10 @@
 
     vm.updateInstitution = updateInstitution;
     vm.deleteInstitution = deleteInstitution;
+    vm.deleteConfirm = deleteConfirm;
 
     vm.addInstitutionProject = addInstitutionProject;
-    //vm.getRoleResearcher = getRoleResearcher;
+
 
     vm.institutionsByFilter = institutionsByFilter;
     vm.nmInstitutionSearch = "";
@@ -89,7 +90,8 @@
     }
 
     function showConfirmationMessage() {
-      $('#confirmation-message-modal-title').text("Confirmation");
+      $('#confirmation-message-modal-title').text("Confirmation delete institution project");
+      $('#confirmation-message-modal-message').text("Do you really want to delete '" + vm.institution.nmInstitution + "' ?");
       $('#confirmation-message-modal').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
@@ -97,6 +99,7 @@
       $('#create-institution').modal('hide');
       $('#institution-add-modal-form').modal('hide');
       $('#institution-edit-modal-form').modal('hide');
+      $('#confirmation-message-modal').modal('hide');
     }
 
 
@@ -185,16 +188,15 @@
       });
     };
 
-    function deleteInstitution(institution) {
-      // showConfirmationMessage();
+
+    function deleteConfirm() {
       vm.dataLoading = true;
       var currentProject = $cookieStore.get("currentProject");
       if (currentProject != null) {
-        institution.dsKey = currentProject.dsKey;
+        vm.institution.dsKey = currentProject.dsKey;
       }
-      //if (Do you really want to delete this institution?) {
-      console.log(institution);
-      InstitutionService.Delete(institution.dsKey, institution.idInstitution).then(function (response) {
+      console.log(vm.institution);
+      InstitutionService.Delete(vm.institution.dsKey, vm.institution.idInstitution).then(function (response) {
         console.log(response.data);
         if (response.code === 1025) {
           FlashService.Success(response.description, false);
@@ -203,9 +205,15 @@
           FlashService.Error(response.description, false);
           vm.dataLoading = false;
         }
-        //closeModal();
+        closeModal();
+        vm.institution = null;
       });
-      //}
+    }
+
+    
+    function deleteInstitution(institution) {
+      vm.institution = institution;
+      showConfirmationMessage();
     }
 
 

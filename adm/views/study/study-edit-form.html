@@ -1,0 +1,129 @@
+<!-- Study editform. -->
+<div class="modal fade" id="study-edit-modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Form title. -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="study-create-edit-form-title" id="study-edit-modal-form-title">title</h4>
+            </div>
+
+            <!-- Start - Fields form -->
+            <div class="modal-body">
+                <form name="form" ng-submit="send()">
+                    <div class="form-group">
+                        <label for="ds_title">Title</label>
+                        <input type="text" name="ds_title" id="ds_title" class="form-control" ng-model="vm.study.dsTitle" required />
+                        <span ng-show="form.ds_title.$dirty && form.ds_title.$error.required" class="help-block">Title is required.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rate">Reading Rate</label>
+                        <select id="rate" name="rate" class="form-control" ng-model="vm.study.tpReadingRate" required>
+                            <option value="0">Very High</option>
+                            <option value="1">High</option>
+                            <option value="2">Low</option>
+                            <option value="3">Very Low</option>
+                         </select>
+                        <span ng-show="form.rate.$dirty && form.rate.$error.required" class="help-block">Reading rate is required.</span>
+                    </div>
+
+                    <!--div class="form-group">
+                        <label for="ds_cite">Cite Key</label>
+                        <input maxlength="50" type="text" name="ds_cite" id="ds_cite" class="form-control" ng-model="vm.study.cdCiteKey" required
+                        />
+                        <span ng-show="form.ds_cite.$dirty && form.ds_cite.$error.required" class="help-block">Cite Key is required.</span>
+                    </div-->
+
+                    <div class="form-group">
+                        <label for="abstract">Abstract</label>
+                        <textarea id="abstract" name="abstract" ng-model="vm.study.dsAbstract" class="form-control" rows="5"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="year">Year</label>
+                        <input maxlength="4" type="number" name="year" id="year" class="form-control" ng-model="vm.study.nrYear" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="author">Author(s) Name(s)</label>
+                        <textarea id="author" name="author" ng-model="vm.study.nmAuthor" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="keyword">Keyword(s)</label>
+                        <textarea id="keyword" name="keyword" ng-model="vm.study.dsKeyword" class="form-control" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="volume">Volume</label>
+                        <input type="text" name="volume" id="volume" class="form-control" ng-model="vm.study.dsVolume" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="venue">Venue</label>
+                        <select id="venue" name="venue" class="form-control" ng-model="vm.study.tpVenue">
+                            <option value=""> Select a option </option>
+                            <option value="0">Journal</option>
+                            <option value="1">Conference Proceedings</option>
+                            <option value="2">Technical Report</option>
+                            <option value="3">Thesis</option>
+                            <option value="4">Book</option>
+                         </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="journal">Journal</label>
+                        <input type="text" name="journal" id="journal" class="form-control" ng-model="vm.study.dsJournal" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <input type="text" name="type" id="type" class="form-control" ng-model="vm.study.dsType" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="page">Page</label>
+                        <input type="text" name="page" id="page" class="form-control" ng-model="vm.study.dsPage" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="doi">DOI</label>
+                        <input maxlength="70" type="text" name="doi" id="doi" class="form-control" ng-model="vm.study.cdDoi" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ixxn">ISSN/ISBN</label>
+                        <input maxlength="70" type="text" name="ixxn" id="ixxn" class="form-control" ng-model="vm.study.cdIssnIsbn" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="url">URL</label>
+                        <input type="text" name="url" id="url" class="form-control" ng-model="vm.study.dsUrl" />
+                    </div>
+
+                    <hr width=90%>
+                    <div class="form-group">
+                        <label for="comment">Researcher Comment</label>
+                        <textarea name="comment" id="comment" class="form-control" ng-model="vm.study.dsComment" class="form-control" rows="3"></textarea>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Start - Action buttons. -->
+            <div class="modal-footer">
+                <button id="btn-create" class="btn btn-primary" ng-click="vm.updateStudy(); form.$setPristine();"><i class="fa fa-check"  type="submit" ng-disabled="form.$invalid"></i>Edit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
+            </div>
+            <!-- End - Action buttons. -->
+
+
+        </div>
+        <!-- End - Fields form -->
+        <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+        />
+    </div>
+</div>
+</div>

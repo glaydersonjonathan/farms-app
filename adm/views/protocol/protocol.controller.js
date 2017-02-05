@@ -51,6 +51,12 @@
     vm.deleteEngine = deleteEngine;
     vm.deleteSelectionCriteria = deleteSelectionCriteria;
 
+    vm.deleteConfirm = deleteConfirm;
+    vm.keywordToDelete = null;
+    vm.languageToDelete = null;
+    vm.engineToDelete = null;
+    vm.criteriaToDelete = null;
+
     vm.editKeyword = editKeyword;
     vm.editEngine = editEngine;
     vm.editCriteria = editCriteria;
@@ -115,6 +121,13 @@
       $('#create-engine-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
+    function showConfirmationMessage(message) {
+      $('#confirmation-message-modal-title').text("Confirmation delete");
+      $('#confirmation-message-modal-message').text("Do you really want to delete " + message + " ?");
+      $('#confirmation-message-modal').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
+    }
+
+
     function closeModal() {
       $('#keyword-modal-form').modal('hide');
       $('#criteria-modal-form').modal('hide');
@@ -124,7 +137,7 @@
       $('#edit-keyword-modal-form').modal('hide');
       $('#edit-engine-modal-form').modal('hide');
       $('#edit-criteria-modal-form').modal('hide');
-      //$('#confirmation-message-modal').modal('hide');
+      $('#confirmation-message-modal').modal('hide');
     }
 
     function clearForm() {
@@ -372,66 +385,16 @@
     }
 
 
-    function deleteKeyword(keyword) {
-      var currentProject = $cookieStore.get("currentProject");
-      if (currentProject != null) {
-        keyword.dsProjectKey = currentProject.dsKey;
-      }
-      ProtocolService.DeleteKeyword(keyword.dsProjectKey, keyword.dsSearchKeyword, keyword.idSearchKeyword).then(function (response) {
-        if (response.data.code === 1021) {
-          getAllProtocol();
-          FlashService.Success(response.data.description, false);
-        }
-        else {
-          getAllProtocol();
-          FlashService.Error(response.data.description, false);
-        }
-      });
-    }
+    function deleteConfirm() {
 
-    function deleteLanguage(language) {
-      var currentProject = $cookieStore.get("currentProject");
-      if (currentProject != null) {
-        language.dsProjectKey = currentProject.dsKey;
-      }
-      ProtocolService.DeleteLanguage(language.dsProjectKey, language.idLanguage).then(function (response) {
-        if (response.data.code === 1022) {
-          getAllProtocol();
-          FlashService.Success(response.data.description, false);
+      if (vm.keywordToDelete != null) {
+        var currentProject = $cookieStore.get("currentProject");
+        if (currentProject != null) {
+          vm.keywordToDelete.dsProjectKey = currentProject.dsKey;
         }
-        else {
-          getAllProtocol();
-          FlashService.Error(response.data.description, false);
-        }
-      });
-    }
-
-    function deleteEngine(engine) {
-      var currentProject = $cookieStore.get("currentProject");
-      if (currentProject != null) {
-        engine.dsProjectKey = currentProject.dsKey;
-      }
-      ProtocolService.DeleteEngine(engine.dsProjectKey, engine.idSearchEngine).then(function (response) {
-        if (response.data.code === 1023) {
-          getAllProtocol();
-          FlashService.Success(response.data.description, false);
-        }
-        else {
-          getAllProtocol();
-          FlashService.Error(response.data.description, false);
-        }
-      });
-    }
-
-    function deleteSelectionCriteria(selectionCriteria) {
-      var currentProject = $cookieStore.get("currentProject");
-      if (currentProject != null) {
-        selectionCriteria.dsProjectKey = currentProject.dsKey;
-      }
-      console.log(selectionCriteria);
-      ProtocolService.DeleteSelectionCriteria(selectionCriteria.dsProjectKey, selectionCriteria.dsSelectionCriteria,
-        selectionCriteria.tpCriteria).then(function (response) {
-          if (response.data.code === 1024) {
+        ProtocolService.DeleteKeyword(vm.keywordToDelete.dsProjectKey, vm.keywordToDelete.dsSearchKeyword, vm.keywordToDelete.idSearchKeyword).then(function (response) {
+          if (response.data.code === 1021) {
+            vm.keywordToDelete = null;
             getAllProtocol();
             FlashService.Success(response.data.description, false);
           }
@@ -440,6 +403,85 @@
             FlashService.Error(response.data.description, false);
           }
         });
+      }
+
+      if (vm.languageToDelete != null) {
+        var currentProject = $cookieStore.get("currentProject");
+        if (currentProject != null) {
+          vm.languageToDelete.dsProjectKey = currentProject.dsKey;
+        }
+        ProtocolService.DeleteLanguage(vm.languageToDelete.dsProjectKey, vm.languageToDelete.idLanguage).then(function (response) {
+          if (response.data.code === 1022) {
+            vm.languageToDelete = null;
+            getAllProtocol();
+            FlashService.Success(response.data.description, false);
+          }
+          else {
+            getAllProtocol();
+            FlashService.Error(response.data.description, false);
+          }
+        });
+      }
+
+      if (vm.engineToDelete != null) {
+        var currentProject = $cookieStore.get("currentProject");
+        if (currentProject != null) {
+          vm.engineToDelete.dsProjectKey = currentProject.dsKey;
+        }
+        ProtocolService.DeleteEngine(vm.engineToDelete.dsProjectKey, vm.engineToDelete.idSearchEngine).then(function (response) {
+          if (response.data.code === 1023) {
+            vm.engineToDelete = null;
+            getAllProtocol();
+            FlashService.Success(response.data.description, false);
+          }
+          else {
+            getAllProtocol();
+            FlashService.Error(response.data.description, false);
+          }
+        });
+      }
+
+      if (vm.criteriaToDelete != null) {
+        var currentProject = $cookieStore.get("currentProject");
+        if (currentProject != null) {
+          vm.criteriaToDelete.dsProjectKey = currentProject.dsKey;
+        }
+        ProtocolService.DeleteSelectionCriteria(vm.criteriaToDelete.dsProjectKey, vm.criteriaToDelete.dsSelectionCriteria,
+          vm.criteriaToDelete.tpCriteria).then(function (response) {
+            if (response.data.code === 1024) {
+              vm.criteriaToDelete = null;
+              getAllProtocol();
+              FlashService.Success(response.data.description, false);
+            }
+            else {
+              getAllProtocol();
+              FlashService.Error(response.data.description, false);
+            }
+          });
+      }
+
+      closeModal();
+    }
+
+    function deleteKeyword(keyword) {
+      vm.keywordToDelete = keyword;
+      showConfirmationMessage("keyword '" + vm.keywordToDelete.dsSearchKeyword + "'");
+
+    }
+
+    function deleteLanguage(language) {
+      vm.languageToDelete = language;
+      showConfirmationMessage("language '" + vm.languageToDelete.nmLanguage + "'");
+    }
+
+    function deleteEngine(engine) {
+      vm.engineToDelete = engine;
+      showConfirmationMessage("search engine '" + vm.engineToDelete.nmSearchEngine + "'");
+    }
+
+    function deleteSelectionCriteria(selectionCriteria) {
+      vm.criteriaToDelete = selectionCriteria;
+      showConfirmationMessage("selection criteria '" + vm.criteriaToDelete.dsSelectionCriteria + "'");
     }
 
 

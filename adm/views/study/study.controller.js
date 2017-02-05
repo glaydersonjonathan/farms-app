@@ -20,7 +20,7 @@
     
     vm.showCreateForm = showCreateForm;
     vm.showImportForm = showImportForm;
-    vm.showEditForm = showEditForm;
+    vm.showEditStudyForm = showEditStudyForm;
     vm.showReadForm = showReadForm;
     vm.clearForm = clearForm;
 
@@ -67,9 +67,11 @@
       $('#import-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
-    function showEditForm() {
-      $('#edit-modal-title').text("Update study");
-      $('#edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
+    function showEditStudyForm(study) {
+       clearForm();
+      vm.study = study;
+      $('#study-edit-modal-form-title').text("Edit study");
+      $('#study-edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     function showReadForm(study) {
@@ -112,7 +114,6 @@
       if (currentProject != null) {
         vm.study.dsKey = currentProject.dsKey;
       }
-      console.log(vm.study);
       StudyService.Create(vm.study).then(function (response) {
         console.log(response.data);
         if (response.code === 1026) {
@@ -177,22 +178,25 @@
 
 
 
-    function updateStudy(study) {
-      alert(vm.study.tpReview + " " + vm.study.dsKey + " " + vm.study.dsTitle + " " + vm.study.dsStudy);
-      /*
+    function updateStudy() {      
       vm.dataLoading = true;
+       var currentProject = $cookieStore.get("currentProject");
+      if (currentProject != null) {
+        vm.study.dsKeyProject = currentProject.dsKey;
+      }
+      console.log(vm.study);
       StudyService.Update(vm.study).then(function (response) {
         console.log(response.data);
-        if (response.code === 1002) {
+        if (response.code === 1026) {
           FlashService.Success(response.description, true);
-          vm.study = null;
-          $('#edit-modal-form').closeModal();
+          vm.study = null;  
           vm.getAllStudies();
         } else {
           FlashService.Error(response.description, true);
           vm.dataLoading = false;
         }
-      });*/
+        closeModal();
+      });
     }
 
     function deleteStudy(cdCiteKey) {

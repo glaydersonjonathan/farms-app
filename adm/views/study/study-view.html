@@ -116,7 +116,7 @@
                   <button type="button" class="btn btn-default" ng-click="vm.showReadForm(study)">
                 <span class="glyphicon glyphicon-eye-open"></span>
               </button>
-                  <button type="button" class="btn btn-warning" ng-click="vm.editStudy(study)" ng-disabled="true">
+                  <button type="button" class="btn btn-warning" ng-click="vm.showEditStudyForm(study)">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
                   <button type="button" class="btn btn-danger" ng-click="vm.deleteStudy(study.dsKey)" ng-disabled="true">
@@ -141,6 +141,9 @@
 
         <!-- Modal form registration. -->
         <div ng-include="'adm/views/study/study-create-form.html'"></div>
+
+        <!-- Modal form edit. -->
+        <div ng-include="'adm/views/study/study-edit-form.html'"></div>
 
         <!-- Importation Modal form. -->
         <div ng-include="'adm/views/study/study-import-form.html'"></div>

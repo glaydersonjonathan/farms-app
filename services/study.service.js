@@ -40,8 +40,8 @@
             return $http.post(API_SERVER.url + '/studies', study).then(handleSuccess, handleError);
         }
 
-        function Update(idStudy) {
-            return $http.put(API_SERVER.url + '/studies/' + study.idStudy, study).then(handleSuccess, handleError);
+        function Update(study) {
+            return $http.put(API_SERVER.url + '/studies/', study).then(handleSuccess, handleError);
         }
 
         function Delete(idStudy) {
