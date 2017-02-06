@@ -17,7 +17,7 @@
     vm.study = {};
     vm.studies = [];
 
-    
+
     vm.showCreateForm = showCreateForm;
     vm.showImportForm = showImportForm;
     vm.showEditStudyForm = showEditStudyForm;
@@ -31,6 +31,7 @@
     //vm.readStudy = readStudy;
     vm.updateStudy = updateStudy;
     vm.deleteStudy = deleteStudy;
+    vm.deleteConfirm = deleteConfirm;
 
     vm.studiesByFilter = studiesByFilter;
     vm.dsTitleSearch = "";
@@ -68,7 +69,7 @@
     }
 
     function showEditStudyForm(study) {
-       clearForm();
+      clearForm();
       vm.study = study;
       $('#study-edit-modal-form-title').text("Edit study");
       $('#study-edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
@@ -81,15 +82,16 @@
       $('#read-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
-    function showConfirmationMessage() {
+    function showConfirmationMessage(message) {
       $('#confirmation-message-modal-title').text("Confirmation");
+      $('#confirmation-message-modal-message').text("Do you really want to delete " + message + " ?");
       $('#confirmation-message-modal').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
     function closeModal() {
       $('#study-create-modal-form').modal('hide');
-      //$('#edit-modal-form').modal('hide');
-      //$('#confirmation-message-modal').modal('hide');
+      $('#study-edit-modal-form').modal('hide');
+      $('#confirmation-message-modal').modal('hide');
     }
 
     // CRUD functions
@@ -181,9 +183,9 @@
 
 
 
-    function updateStudy() {      
+    function updateStudy() {
       vm.dataLoading = true;
-       var currentProject = $cookieStore.get("currentProject");
+      var currentProject = $cookieStore.get("currentProject");
       if (currentProject != null) {
         vm.study.dsKeyProject = currentProject.dsKey;
       }
@@ -192,7 +194,7 @@
         console.log(response.data);
         if (response.code === 1026) {
           FlashService.Success(response.description, true);
-          vm.study = null;  
+          vm.study = null;
           vm.getAllStudies();
         } else {
           FlashService.Error(response.description, true);
@@ -202,23 +204,24 @@
       });
     }
 
-    function deleteStudy(cdCiteKey) {
-      showConfirmationMessage();
-      /*vm.dataLoading = true;
-      if (Do you really want to delete this study?) {
-      StudyService.Delete(vm.study).then(function (response) {
+    function deleteConfirm() {
+      StudyService.Delete(vm.study.idStudy).then(function (response) {
         console.log(response.data);
-        if (response.code === 1002) {
+        if (response.code === 1027) {
           FlashService.Success(response.description, true);
           vm.study = null;
-          $('#create-modal-form').closeModal();
           vm.getAllStudies();
         } else {
           FlashService.Error(response.description, true);
-          vm.dataLoading = false;
         }
+        closeModal();
       });
-    }*/
+    }
+
+
+    function deleteStudy(study) {
+      showConfirmationMessage("study '" + study.dsTitle + "' ");
+      vm.study = study;
     }
 
     /****** Start filter functions *****/
