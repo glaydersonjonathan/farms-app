@@ -29,7 +29,7 @@
     vm.editEmail = editEmail;
     
     vm.deleteResearcher = deleteResearcher;
-    vm.yes = yes;
+    vm.deleteConfirm = deleteConfirm;
 
     
 
@@ -106,7 +106,7 @@
         });
       }
     
-    //falta o confirm password funcionar
+  
     function editPassword() {
       ResearcherService.UpdatePassword(vm.researcher).then(function (response) {
         if (response.code === 1001) {
@@ -124,19 +124,12 @@
     function deleteResearcher() {
       showConfirmationMessage();
     }
-    //entra caso usuário confirme no modal
-    function yes() {
+    
+    function deleteConfirm() {
       closeModal();
       ResearcherService.Delete(vm.researcher.idResearcher).then(function (response) {
         console.log(response.data);
-        // AuthenticationService.ClearCredentials();
-        /* if (response.code === 1004) {
-           FlashService.Success(response.description, true);
-          
-         } else {
-           FlashService.Error(response.description, true);
-           vm.dataLoading = false;
-         }*/
+         AuthenticationService.ClearCredentials();
       });
     }
 
