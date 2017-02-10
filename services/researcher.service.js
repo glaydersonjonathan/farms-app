@@ -16,6 +16,7 @@
         service.Update = Update;
         service.UpdateResearcher = UpdateResearcher;
         service.UpdatePassword = UpdatePassword;
+        service.UpdateEmail = UpdateEmail;
         service.Delete = Delete;
 
         
@@ -50,6 +51,10 @@
 
         function UpdatePassword(researcher) {
             return $http.put(API_SERVER.url + '/researchers/pass', researcher).then(handleSuccess, handleError);
+        }
+        
+        function UpdateEmail(researcher) {
+            return $http.put(API_SERVER.url + '/researchers/email', researcher).then(handleSuccess, handleError);
         }
 
         

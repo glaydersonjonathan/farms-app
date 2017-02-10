@@ -28,7 +28,6 @@
     vm.clearForm = clearForm;
     vm.closeModal = closeModal;
     vm.showMemberInvitationForm = showMemberInvitationForm;
-    vm.showEditForm = showEditForm;
     vm.showReadForm = showReadForm;
 
     vm.getAllMembers = getAllMembers;
@@ -36,7 +35,6 @@
 
     vm.inviteMember = inviteMember;
     //vm.readMember = readMember;
-    vm.updateMember = updateMember;
     vm.deleteMember = deleteMember;
 
     vm.membersByFilter = membersByFilter;
@@ -73,10 +71,6 @@
       $('#member-invitation-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
-    function showEditForm() {
-      $('#edit-modal-title').text("Update member");
-      $('#edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
-    }
 
     function showReadForm() {
       $('#read-modal-title').text("Member");
@@ -171,7 +165,7 @@
     //console.log(response.data);
     //if (response.code === 1000) {
     //   vm.member = response;
-    showReadForm();
+    //showReadForm();
     //} else {
     //FlashService.Error(response.description);
     //vm.dataLoading = false;
@@ -179,23 +173,7 @@
     ///   });
     // }
 
-    function updateMember(member) {
-      alert(vm.member.tpReview + " " + vm.member.dsKey + " " + vm.member.dsTitle + " " + vm.member.dsMember);
-      /*
-      vm.dataLoading = true;
-      MemberService.Update(vm.member).then(function (response) {
-        console.log(response.data);
-        if (response.code === 1002) {
-          FlashService.Success(response.description, true);
-          vm.member = null;
-          $('#edit-modal-form').closeModal();
-          vm.getAllMembers();
-        } else {
-          FlashService.Error(response.description, true);
-          vm.dataLoading = false;
-        }
-      });*/
-    };
+ 
 
     function deleteMember(cdCiteKey) {
       showConfirmationMessage();

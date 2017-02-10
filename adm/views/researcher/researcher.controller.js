@@ -18,6 +18,7 @@
 
     // Forms
     vm.showEditForm = showEditForm;
+    vm.showEditEmailForm = showEditEmailForm;
     vm.showChangePassForm = showChangePassForm;
     vm.closeModal = closeModal;
 
@@ -25,6 +26,8 @@
     vm.getBydsSso = getBydsSso;
     vm.editResearcher = editResearcher;
     vm.editPassword = editPassword;
+    vm.editEmail = editEmail;
+    
     vm.deleteResearcher = deleteResearcher;
     vm.yes = yes;
 
@@ -38,9 +41,14 @@
 
     // Forms
     function showEditForm() {
-      $('#create-modal-form-title').text("Edit Researcher");
+      $('#create-modal-form-title').text("Edit Name Researcher");
       $('#create-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
+    
+    function showEditEmailForm() {
+        $('#edit-modal-form-title').text("Edit Email Researcher");
+        $('#edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
+      }
 
     function showChangePassForm() {
       vm.researcher.dsPassword = null;
@@ -57,6 +65,7 @@
     function closeModal() {
       $('#create-modal-form').modal('hide');
       $('#change-modal-form').modal('hide');
+      $('#edit-modal-form').modal('hide');
       $('#confirmation-message-modal').modal('hide');
       getBydsSso();
     }
@@ -70,11 +79,12 @@
       });
     }
 
-    //falta verificar corretmanet no back se email já existe
+    
     function editResearcher() {
       ResearcherService.UpdateResearcher(vm.researcher).then(function (response) {
         if (response.code === 1003) {
           FlashService.Success(response.description, false);
+          getBydsSso();
           closeModal();
         } else {
           FlashService.Error(response.description, false);
@@ -82,6 +92,20 @@
         }
       });
     }
+    
+    function editEmail() {
+        ResearcherService.UpdateEmail(vm.researcher).then(function (response) {
+          if (response.code === 1003) {
+            FlashService.Success(response.description, false);
+            getBydsSso();
+            closeModal();
+          } else {
+            FlashService.Error(response.description, false);
+            closeModal();
+          }
+        });
+      }
+    
     //falta o confirm password funcionar
     function editPassword() {
       ResearcherService.UpdatePassword(vm.researcher).then(function (response) {

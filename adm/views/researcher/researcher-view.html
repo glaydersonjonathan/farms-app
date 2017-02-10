@@ -22,7 +22,8 @@
                 <th class="width-30-pct">Name</th>
                 <th class="width-30-pct">Email</th>
                 <th class="width-30-pct">Change Password</th>
-                <th class="text-align-center">Edit</th>
+                <th class="text-align-center">Edit Name</th>
+                <th class="text-align-center">Edit Email</th>
               </tr>
             </thead>
 
@@ -40,7 +41,12 @@
                   <button type="button" class="btn btn-warning" ng-click="vm.showEditForm()">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
-
+                </td>
+                
+                <td class="center">
+                  <button type="button" class="btn btn-warning" ng-click="vm.showEditEmailForm()">
+                <span class="glyphicon glyphicon-envelope"></span>
+              </button>
                 </td>
               </tr>
             </tbody>
@@ -60,6 +66,8 @@
 
           <!-- Modal form edit. -->
           <div ng-include="'adm/views/researcher/researcher-edit-form.html'"></div>
+          <!-- Modal form edit. -->
+          <div ng-include="'adm/views/researcher/researcher-edit-email-form.html'"></div>
           <!-- Modal form change password. -->
           <div ng-include="'adm/views/researcher/researcher-change_password-form.html'"></div>
           <!-- Modal confirmation message. -->

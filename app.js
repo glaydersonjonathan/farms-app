@@ -110,6 +110,16 @@
           displayName: 'Protocol'
         }
       })
+      .state('adm.configuration_selection', {
+        url: "/project/selection",
+        controller: 'SelectionController',
+        templateUrl: "adm/views/selection/selection-configuration-view.html",
+        controllerAs: 'vm',
+        title: 'Selection Configuration',
+        data: {
+          displayName: 'Selection Configuration'
+        }
+      })
       .state('adm.selection', {
         url: "/project/selection",
         controller: 'SelectionController',
