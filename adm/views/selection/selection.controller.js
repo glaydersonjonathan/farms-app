@@ -5,14 +5,16 @@
         .module('app')
         .controller('SelectionController', SelectionController);
 
-    SelectionController.$inject = ['StudyService', 'ProjectService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
+    SelectionController.$inject = ['SelectionService', 'StudyService', 'ProjectService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
 
     /****** Begin SelectionController *****/
-    function SelectionController(StudyService, ProjectService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
+    function SelectionController(SelectionService,StudyService, ProjectService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
         var vm = this;
 
         vm.studies = [];
         vm.study = {};
+        
+        vm.selection = {};
 
         vm.getAllStudies = getAllStudies;
         vm.studiesByFilter = studiesByFilter;
@@ -30,6 +32,8 @@
 
         vm.showReadForm = showReadForm;
         vm.clearForm = clearForm;
+        
+        vm.saveConfiguration = saveConfiguration;
 
         initController();
 
@@ -64,6 +68,26 @@
                 vm.studies = studies;
                 vm.dataLoading = false;
             });
+        }
+        
+        function saveConfiguration(){
+        	var currentProject = $cookieStore.get("currentProject");
+            if (currentProject != null) {
+              vm.selection.dsKey = currentProject.dsKey;
+            }
+            console.log(vm.selection);
+            SelectionService.Save(vm.selection).then(function (response) {
+              console.log(response.data);
+              if (response.code === 1028) {
+                FlashService.Success(response.description, false);
+                vm.selection = response.data;
+
+              } else {
+                FlashService.Error(response.description, false);
+                vm.dataLoading = false;
+              }
+            });
+        	
         }
 
 
