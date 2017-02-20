@@ -15,35 +15,47 @@
           <h3 class="box-title">Studies</h3>
         </div>
 
-        <div class="panel-body">
 
-          <!-- DsTilte filter -->
-          <div class="form-group">
-            <label for="ds_title">Title</label>
-            <input id="ds_title" name="ds_title" type="text" ng-model="vm.dsTitleSearch" class="form-control">
-          </div>
+        <center>
+          <label class="radio-inline">
+                <input type="radio" name="optradio" ng-click="vm.page = false">Studies in List 
+                </label>
+          <label class="radio-inline">
+                <input id="teste" type="radio" name="optradio"  ng-click="vm.page = true">Studies in Pages
+               </label>
+          </center>
 
-          <div class="row">
 
-            <!-- Year filter -->
-            <div class="form-group col-xs-6">
-              <label for="ds_title">Year</label>
-              <input id="nr_year" name="nr_year" type="text" ng-model="vm.nrYearSearch" class="form-control">
+
+            <div class="panel-body" ng-if="!vm.page">
+
+              <!-- DsTilte filter -->
+              <div class="form-group" ng-if="!vm.page">
+                <label for="ds_title">Title</label>
+                <input id="ds_title" name="ds_title" type="text" ng-model="vm.dsTitleSearch" class="form-control">
+              </div>
+
+              <div class="row">
+
+                <!-- Year filter -->
+                <div class="form-group col-xs-6">
+                  <label for="ds_title">Year</label>
+                  <input id="nr_year" name="nr_year" type="text" ng-model="vm.nrYearSearch" class="form-control">
+                </div>
+
+                <!-- Author filter -->
+                <div class="form-group col-xs-6">
+                  <label for="nm_author">Author</label>
+                  <input id="nm_author" name="nm_author" type="text" ng-model="vm.nmAuthorSearch" class="form-control">
+                </div>
+
+              </div>
+
             </div>
-
-            <!-- Author filter -->
-            <div class="form-group col-xs-6">
-              <label for="nm_author">Author</label>
-              <input id="nm_author" name="nm_author" type="text" ng-model="vm.nmAuthorSearch" class="form-control">
-            </div>
-
-          </div>
-
-        </div>
       </div>
       <!-- End filter the list of studies. -->
       <!-- Star pager -->
-      <div class="text-center">
+      <div class="text-center" ng-if="!vm.page">
         <ul class="pagination" ng-if="vm.studiesByFilter().length > 0">
           <li ng-class="{disabled:vm.currentPage === 0}">
             <a href ng-click="vm.setPage(0)">««</a>
@@ -74,12 +86,12 @@
 
       <!-- Start study list -->
       <div class="box-body">
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover" ng-if="!vm.page">
           <thead>
             <tr>
               <!--th class="width-60-pct">#</th-->
               <th class="width-30-pct">Title</th>
-              <th class="width-30-pct">Abstract</th>
+              <th class="width-30-pct">Year</th>
               <th class="text-align-center">Details</th>
               <th class="width-30-pct">Status</th>
             </tr>
@@ -97,7 +109,7 @@
             <tr ng-repeat="study in vm.studiesByFilter() | pagination : vm.currentPage*vm.itemsPerPage | limitTo: vm.itemsPerPage">
               <!--td class="width-30-pct">{{ $index + 1 }}</td-->
               <td class="width-30-pct">{{ study.dsTitle }}</td>
-              <td class="width-30-pct">{{ study.dsAbstract}}</td>
+              <td class="width-30-pct">{{ study.nrYear}}</td>
               <td class="center">
                 <button type="button" class="btn btn-default" ng-click="vm.showReadForm(study)">
                 <span class="glyphicon glyphicon-eye-open"></span>
@@ -122,13 +134,58 @@
               <!--th class="width-60-pct">#</th-->
 
               <th class="width-30-pct">Title</th>
-              <th class="width-30-pct">Abstract</th>
+              <th class="width-30-pct">Year</th>
               <th class="text-align-center">Details</th>
             </tr>
           </tfoot>
         </table>
+
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" ng-if="vm.page">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <label> teste</label>
+            </div>
+
+            <div class="item">
+              <label> teste1</label>
+            </div>
+
+            <div class="item">
+              <label> teste 2</label>
+            </div>
+
+            <div class="item">
+              <label> teste3</label>
+            </div>
+          </div>
+
+          <!-- Left and right controls -->
+          <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+
+
+
+
+
       </div>
       <!-- End project list -->
+      
       <!-- Modal form details. -->
       <div ng-include="'adm/views/study/study-details-form.html'"></div>
 

@@ -8,15 +8,21 @@
     SelectionController.$inject = ['SelectionService', 'StudyService', 'ProjectService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
 
     /****** Begin SelectionController *****/
-    function SelectionController(SelectionService,StudyService, ProjectService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
+    function SelectionController(SelectionService, StudyService, ProjectService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
         var vm = this;
 
         vm.studies = [];
         vm.study = {};
-        
+
+vm.page = false;
+
+
         vm.selection = {};
 
         vm.getAllStudies = getAllStudies;
+
+        vm.getConfiguration = getConfiguration;
+
         vm.studiesByFilter = studiesByFilter;
         vm.dsTitleSearch = "";
         vm.nrYearSearch = "";
@@ -32,7 +38,7 @@
 
         vm.showReadForm = showReadForm;
         vm.clearForm = clearForm;
-        
+
         vm.saveConfiguration = saveConfiguration;
 
         initController();
@@ -51,6 +57,7 @@
 
         function initController() {
             vm.getAllStudies();
+            vm.getConfiguration();
         }
 
         vm.getAllStudies = getAllStudies;
@@ -69,25 +76,43 @@
                 vm.dataLoading = false;
             });
         }
-        
-        function saveConfiguration(){
-        	var currentProject = $cookieStore.get("currentProject");
-            if (currentProject != null) {
-              vm.selection.dsKey = currentProject.dsKey;
-            }
-            console.log(vm.selection);
-            SelectionService.Save(vm.selection).then(function (response) {
-              console.log(response.data);
-              if (response.code === 1028) {
-                FlashService.Success(response.description, false);
-                vm.selection = response.data;
 
-              } else {
-                FlashService.Error(response.description, false);
+        function getConfiguration() {
+            vm.dataLoading = true;
+            var currentProject = $cookieStore.get("currentProject");
+            var dsKey = null;
+            if (currentProject != null) {
+                dsKey = currentProject.dsKey;
+            }
+            SelectionService.GetConfiguration(dsKey).then(function (response) {
+                console.log(response);
+                vm.selection = response;
+                vm.selection.dhStartSelectionStep = new Date(vm.selection.dhStartSelectionStep);
+                vm.selection.dhEndSelectionStep = new Date(vm.selection.dhEndSelectionStep);
+                vm.selection.dhConflictsSolvingEnd = new Date(vm.selection.dhConflictsSolvingEnd);
+                vm.selection.dhReviewEnd = new Date(vm.selection.dhReviewEnd);
                 vm.dataLoading = false;
-              }
             });
-        	
+        }
+
+
+        function saveConfiguration() {
+          //  var currentProject = $cookieStore.get("currentProject");
+           // if (currentProject != null) {
+           //     vm.selection.dsKey = currentProject.dsKey;
+          //  }
+            console.log(vm.selection);
+            SelectionService.SaveConfiguration(vm.selection).then(function (response) {
+                console.log(response.data);
+                if (response.code === 1028) {
+                    FlashService.Success(response.description, false);
+                    vm.selection = response.data;
+                } else {
+                    FlashService.Error(response.description, false);
+                    vm.dataLoading = false;
+                }
+            });
+
         }
 
 

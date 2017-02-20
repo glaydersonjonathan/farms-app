@@ -121,7 +121,7 @@
         }
       })
       .state('adm.selection', {
-        url: "/project/selection",
+        url: "/project/selection/review",
         controller: 'SelectionController',
         templateUrl: "adm/views/selection/selection-view.html",
         controllerAs: 'vm',
