@@ -57,8 +57,8 @@
     }
 
     function showConfirmationMessage() {
-      $('#confirmation-message-modal-title').text("Confirmation delete researcher");
-      $('#confirmation-message-modal-message').text("Do you really want to delete this researcher?");
+      $('#confirmation-message-modal-title').text("Do you really want to delete your account?");
+      $('#confirmation-message-modal-message').text("You will not be able to participate in any project any more.");
       $('#confirmation-message-modal').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
@@ -129,7 +129,9 @@
       closeModal();
       ResearcherService.Delete(vm.researcher.idResearcher).then(function (response) {
         console.log(response.data);
-         AuthenticationService.ClearCredentials();
+         //AuthenticationService.ClearCredentials();
+        // $cookieStore.remove('globals');
+      //$cookieStore.remove('currentProject');
       });
     }
 
