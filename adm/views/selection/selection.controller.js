@@ -14,7 +14,7 @@
         vm.studies = [];
         vm.study = {};
 
-vm.page = false;
+        vm.page = false;
 
 
         vm.selection = {};
@@ -60,7 +60,7 @@ vm.page = false;
             vm.getConfiguration();
         }
 
-        vm.getAllStudies = getAllStudies;
+        
 
         function getAllStudies() {
             vm.dataLoading = true;
@@ -97,16 +97,20 @@ vm.page = false;
 
 
         function saveConfiguration() {
-          //  var currentProject = $cookieStore.get("currentProject");
-           // if (currentProject != null) {
-           //     vm.selection.dsKey = currentProject.dsKey;
-          //  }
+            var currentProject = $cookieStore.get("currentProject");
+            if (currentProject != null) {
+                vm.selection.idProject = currentProject.idProject;
+            }
+            vm.selection.dhStartSelectionStep = new Date(vm.selection.dhStartSelectionStep);
+            vm.selection.dhEndSelectionStep = new Date(vm.selection.dhEndSelectionStep);
+            vm.selection.dhConflictsSolvingEnd = new Date(vm.selection.dhConflictsSolvingEnd);
+            vm.selection.dhReviewEnd = new Date(vm.selection.dhReviewEnd);
             console.log(vm.selection);
             SelectionService.SaveConfiguration(vm.selection).then(function (response) {
                 console.log(response.data);
                 if (response.code === 1028) {
                     FlashService.Success(response.description, false);
-                    vm.selection = response.data;
+                    getConfiguration();
                 } else {
                     FlashService.Error(response.description, false);
                     vm.dataLoading = false;

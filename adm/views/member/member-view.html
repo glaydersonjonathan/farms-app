@@ -73,13 +73,10 @@
                 <th class="width-30-pct">Name</th>
                 <th class="width-30-pct">Username</th>
                 <th class="width-30-pct">Role</th>
-                <th class="text-align-center" ng-show="vm.roleResearcher == 0">Actions</th>
+                <th class="text-align-center" ng-show="vm.roleResearcher == 0">Inactive Member</th>
               </tr>
             </thead>
             <tbody>
-              <!--tr ng-hide="vm.membersByFilter().length > 0">
-            <td align="center" colspan="5">No member found.</td>
-          </tr-->
               <tr ng-if="vm.dataLoading">
                 <td colspan="9" align="center">
                   <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
@@ -102,7 +99,7 @@
                 <th class="width-30-pct">Name</th>
                 <th class="width-30-pct">Username</th>
                 <th class="width-30-pct">Role</th>
-                <th class="text-align-center" ng-show="vm.roleResearcher == 0">Actions</th>
+                <th class="text-align-center" ng-show="vm.roleResearcher == 0">Inactive Member</th>
               </tr>
             </tfoot>
           </table>

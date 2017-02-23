@@ -33,7 +33,6 @@
     vm.createProject = createProject;
     vm.readProject = readProject;
     vm.updateProject = updateProject;
-    vm.deleteProject = deleteProject;
     vm.openProject = openProject;
 
 
@@ -180,32 +179,6 @@
         //vm.dataLoading = false;
         //}
       });
-    }
-
-
-
-    function deleteProject() {
-      var currentProject = $cookieStore.get("currentProject");
-      var dsKey = {};
-      if (currentProject != null) {
-        dsKey = currentProject.dsKey;
-      }
-      showConfirmationMessage();
-      /*vm.dataLoading = true;
-      if (Do you really want to delete this project?) {
-      ProjectService.Delete(vm.project).then(function (response) {
-        console.log(response.data);
-        if (response.code === 1002) {
-          FlashService.Success(response.description, true);
-          vm.project = null;
-          $('#create-modal-form').closeModal();
-          vm.getAllProjects();
-        } else {
-          FlashService.Error(response.description, true);
-          vm.dataLoading = false;
-        }
-      });
-    }*/
     }
 
 

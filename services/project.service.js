@@ -11,7 +11,7 @@
 
         service.Create = Create;
         service.Update = Update;
-        service.Delete = Delete;
+       
         service.GetByDsKey = GetByDsKey;
 
 
@@ -46,9 +46,6 @@
             return $http.get(API_SERVER.url + '/projects/' + dsKey + '/institutions').then(handleSuccess, handleError);
         }
 
-        function Delete(dsKey) {
-            return $http.delete(API_SERVER.url + '/projects/' + dsKey).then(handleSuccess, handleError);
-        }
 
         function GetMembersByDsKey(dsKey) {
             return $http.get(API_SERVER.url + '/projects/' + dsKey + '/members').then(handleSuccess, handleError);

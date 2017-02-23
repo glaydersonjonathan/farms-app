@@ -14,7 +14,7 @@
     // Researcher
     vm.researcher = {};
 
-    
+
 
     // Forms
     vm.showEditForm = showEditForm;
@@ -27,11 +27,11 @@
     vm.editResearcher = editResearcher;
     vm.editPassword = editPassword;
     vm.editEmail = editEmail;
-    
-    vm.deleteResearcher = deleteResearcher;
+
+    vm.inactiveResearcher = inactiveResearcher;
     vm.deleteConfirm = deleteConfirm;
 
-    
+
 
     initController();
 
@@ -44,11 +44,11 @@
       $('#create-modal-form-title').text("Edit Name Researcher");
       $('#create-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
-    
+
     function showEditEmailForm() {
-        $('#edit-modal-form-title').text("Edit Email Researcher");
-        $('#edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
-      }
+      $('#edit-modal-form-title').text("Edit Email Researcher");
+      $('#edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
+    }
 
     function showChangePassForm() {
       vm.researcher.dsPassword = null;
@@ -79,7 +79,7 @@
       });
     }
 
-    
+
     function editResearcher() {
       ResearcherService.UpdateResearcher(vm.researcher).then(function (response) {
         if (response.code === 1003) {
@@ -92,21 +92,21 @@
         }
       });
     }
-    
+
     function editEmail() {
-        ResearcherService.UpdateEmail(vm.researcher).then(function (response) {
-          if (response.code === 1003) {
-            FlashService.Success(response.description, false);
-            getBydsSso();
-            closeModal();
-          } else {
-            FlashService.Error(response.description, false);
-            closeModal();
-          }
-        });
-      }
-    
-  
+      ResearcherService.UpdateEmail(vm.researcher).then(function (response) {
+        if (response.code === 1003) {
+          FlashService.Success(response.description, false);
+          getBydsSso();
+          closeModal();
+        } else {
+          FlashService.Error(response.description, false);
+          closeModal();
+        }
+      });
+    }
+
+
     function editPassword() {
       ResearcherService.UpdatePassword(vm.researcher).then(function (response) {
         if (response.code === 1001) {
@@ -121,17 +121,20 @@
 
 
 
-    function deleteResearcher() {
+    function inactiveResearcher() {
       showConfirmationMessage();
     }
-    
+
     function deleteConfirm() {
       closeModal();
       ResearcherService.Delete(vm.researcher.idResearcher).then(function (response) {
-        console.log(response.data);
-         //AuthenticationService.ClearCredentials();
-        // $cookieStore.remove('globals');
-      //$cookieStore.remove('currentProject');
+        if (response.code === 1004) {
+          vm.researcher = null;
+          FlashService.Success(response.description, false);
+          AuthenticationService.ClearCredentials();
+        } else {
+          FlashService.Error(response.description, false);
+        }
       });
     }
 
