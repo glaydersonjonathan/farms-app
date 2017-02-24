@@ -15,6 +15,17 @@
         vm.study = {};
 
         vm.page = false;
+        vm.assign_manually = false;
+        vm.change = change;
+        function change (){
+            if (vm.assign_manually ==true){
+                vm.assign_manually = false;
+            } else{
+                vm.assign_manually =true;
+            }
+
+        }
+        vm.teste = {};
 
 
         vm.selection = {};

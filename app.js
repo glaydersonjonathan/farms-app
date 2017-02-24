@@ -120,14 +120,24 @@
           displayName: 'Selection Configuration'
         }
       })
+      .state('adm.assign', {
+        url: "/project/selection/assign",
+        controller: 'SelectionController',
+        templateUrl: "adm/views/selection/selection-assign-view.html",
+        controllerAs: 'vm',
+        title: 'Assign',
+        data: {
+          displayName: 'Assign'
+        }
+      })
       .state('adm.selection', {
         url: "/project/selection/review",
         controller: 'SelectionController',
         templateUrl: "adm/views/selection/selection-view.html",
         controllerAs: 'vm',
-        title: 'Selection',
+        title: 'Review',
         data: {
-          displayName: 'Selection'
+          displayName: 'Review'
         }
       })
       .state('adm.charts', {
