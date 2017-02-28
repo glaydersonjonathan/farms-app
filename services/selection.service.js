@@ -11,6 +11,8 @@
 
         service.SaveConfiguration = SaveConfiguration;
         service.GetConfiguration = GetConfiguration;
+        service.GetAllRated = GetAllRated;
+        service.AssignManual = AssignManual;
 
         return service;
 
@@ -19,10 +21,16 @@
         }
 
         function GetConfiguration(dsKey) {
-            return $http.get(API_SERVER.url + '/selections/'+ dsKey).then(handleSuccess, handleError);
+            return $http.get(API_SERVER.url + '/selections/' + dsKey).then(handleSuccess, handleError);
         }
 
+        function GetAllRated() {
+            return $http.get(API_SERVER.url + '/selections/rated').then(handleSuccess, handleError);
+        }
 
+        function AssignManual(review) {
+            return $http.post(API_SERVER.url + '/selections/assignManual', review).then(handleSuccess, handleError);
+        }
 
         // private functions
         function handleSuccess(res) {
