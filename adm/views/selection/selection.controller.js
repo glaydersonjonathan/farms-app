@@ -22,12 +22,15 @@
 
         vm.review = {};
 
+        vm.reviews = [];
+
 
         vm.selection = {};
 
         vm.getAllStudies = getAllStudies;
         vm.getAllRated = getAllRated;
         vm.getAllMembers = getAllMembers;
+        vm.getAllReviews = getAllReviews;
 
         vm.getConfiguration = getConfiguration;
         vm.saveConfiguration = saveConfiguration;
@@ -71,6 +74,7 @@
             vm.getConfiguration();
             vm.getAllRated();
             vm.getAllMembers();
+            vm.getAllReviews();
         }
 
         function getAllRated() {
@@ -130,6 +134,21 @@
             });
         }
 
+        function getAllReviews() {
+            vm.dataLoading = true;
+            var currentProject = $cookieStore.get("currentProject");
+            var dsKey = null;
+            if (currentProject != null) {
+                dsKey = currentProject.dsKey;
+            }
+            var dsSSO = $rootScope.globals.currentUser.dsUsername;
+            SelectionService.GetReviews(dsKey, dsSSO).then(function (response) {
+                console.log(response);
+                vm.reviews = response;
+                vm.dataLoading = false;
+            });
+        }
+
 
         function saveConfiguration() {
             var currentProject = $cookieStore.get("currentProject");
@@ -178,13 +197,13 @@
 
         /****** Start filter functions *****/
         function studiesByFilter() {
-            return vm.studies.filter(function (study) {
-                return (study.dsTitle.toString().indexOf(vm.dsTitleSearch) > -1
-                    || study.dsTitle.toLowerCase().indexOf(vm.dsTitleSearch.toLowerCase()) > -1)
-                    && (study.nrYear == null || study.nrYear.toString().indexOf(vm.nrYearSearch) > -1
-                        || study.nrYear.toString().toLowerCase().indexOf(vm.nrYearSearch.toLowerCase()) > -1)
-                    && (study.nmAuthor == null || study.nmAuthor.toString().indexOf(vm.nmAuthorSearch) > -1
-                        || study.nmAuthor.toString().toLowerCase().indexOf(vm.nmAuthorSearch.toLowerCase()) > -1);
+            return vm.reviews.filter(function (study) {
+                return (study.study.dsTitle.toString().indexOf(vm.dsTitleSearch) > -1
+                    || study.study.dsTitle.toLowerCase().indexOf(vm.dsTitleSearch.toLowerCase()) > -1)
+                    && (study.study.nrYear == null || study.study.nrYear.toString().indexOf(vm.nrYearSearch) > -1
+                        || study.study.nrYear.toString().toLowerCase().indexOf(vm.nrYearSearch.toLowerCase()) > -1)
+                    && (study.study.nmAuthor == null || study.study.nmAuthor.toString().indexOf(vm.nmAuthorSearch) > -1
+                        || study.study.nmAuthor.toString().toLowerCase().indexOf(vm.nmAuthorSearch.toLowerCase()) > -1);
             });
         }
         /****** End filters functions *****/

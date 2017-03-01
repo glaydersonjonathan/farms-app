@@ -23,12 +23,12 @@
 
                 </br>
                 <label ng-if="vm.assign_manually" for="sel2">Studies Mutiple select list (hold shift to select more than one):</label>
-                <select ng-if="vm.assign_manually" multiple class="form-control" id="sel2" ng-model="vm.review.studies" ng-options="study.idStudy as study.dsTitle for study in vm.studies">
+                <select style="height: 500px" ng-if="vm.assign_manually" multiple class="form-control" id="sel2" ng-model="vm.review.studies" ng-options="study.idStudy as study.dsTitle for study in vm.studies">
                 </select> 
 
 
                 <div class="box-body" ng-if="vm.assign_manually">
-                    <h5 class="box-title">Assign To: </h5>
+                    <label>Assign To: </label>
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>

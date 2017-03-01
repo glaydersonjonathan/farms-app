@@ -13,7 +13,8 @@
         service.GetConfiguration = GetConfiguration;
         service.GetAllRated = GetAllRated;
         service.AssignManual = AssignManual;
-
+        service.GetReviews = GetReviews;
+        
         return service;
 
         function SaveConfiguration(selection) {
@@ -30,6 +31,10 @@
 
         function AssignManual(review) {
             return $http.post(API_SERVER.url + '/selections/assignManual', review).then(handleSuccess, handleError);
+        }
+
+        function GetReviews(dsKey, dsSSO) {
+            return $http.get(API_SERVER.url + '/selections/review/' + dsKey + "/" + dsSSO).then(handleSuccess, handleError);
         }
 
         // private functions
