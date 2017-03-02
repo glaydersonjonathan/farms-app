@@ -7,151 +7,151 @@
         ng-bind="flash.message"></div>
 
 
-    <div class="box">
-      <div class="panel-group">
-        <!-- Start filter the list of studies. -->
+      <div class="box">
+        <div class="panel-group">
+          <!-- Start filter the list of studies. -->
 
-        <div class="box-header">
-          <h3 class="box-title">Studies</h3>
-        </div>
+          <div class="box-header">
+            <h3 class="box-title">Studies</h3>
+          </div>
 
 
-        <center>
-          <label class="radio-inline">
-                <input type="radio" name="optradio"  checked="true" ng-click="vm.page = false">Studies in List 
+          <center>
+            <label class="radio-inline">
+                <input type="radio" id="list" name="opt"  checked="true" ng-click="vm.page = false">Studies in List 
                 </label>
-          <label class="radio-inline">
-                <input id="teste" type="radio" name="optradio"  ng-click="vm.page = true">Studies in Pages
+            <label class="radio-inline">
+                <input  type="radio" id="pages" name="opt"  ng-click="vm.page = true">Studies in Pages
                </label>
           </center>
 
 
 
-            <div class="panel-body" ng-if="!vm.page">
+          <div class="panel-body" ng-if="!vm.page">
 
-              <!-- DsTilte filter -->
-              <div class="form-group" ng-if="!vm.page">
-                <label for="ds_title">Title</label>
-                <input id="ds_title" name="ds_title" type="text" ng-model="vm.dsTitleSearch" class="form-control">
+            <!-- DsTilte filter -->
+            <div class="form-group" ng-if="!vm.page">
+              <label for="ds_title">Title</label>
+              <input id="ds_title" name="ds_title" type="text" ng-model="vm.dsTitleSearch" class="form-control">
+            </div>
+
+            <div class="row">
+
+              <!-- Year filter -->
+              <div class="form-group col-xs-6">
+                <label for="ds_title">Year</label>
+                <input id="nr_year" name="nr_year" type="text" ng-model="vm.nrYearSearch" class="form-control">
               </div>
 
-              <div class="row">
-
-                <!-- Year filter -->
-                <div class="form-group col-xs-6">
-                  <label for="ds_title">Year</label>
-                  <input id="nr_year" name="nr_year" type="text" ng-model="vm.nrYearSearch" class="form-control">
-                </div>
-
-                <!-- Author filter -->
-                <div class="form-group col-xs-6">
-                  <label for="nm_author">Author</label>
-                  <input id="nm_author" name="nm_author" type="text" ng-model="vm.nmAuthorSearch" class="form-control">
-                </div>
-
+              <!-- Author filter -->
+              <div class="form-group col-xs-6">
+                <label for="nm_author">Author</label>
+                <input id="nm_author" name="nm_author" type="text" ng-model="vm.nmAuthorSearch" class="form-control">
               </div>
 
             </div>
-      </div>
-      <!-- End filter the list of studies. -->
-      <!-- Star pager -->
-      <div class="text-center" ng-if="!vm.page">
-        <ul class="pagination" ng-if="vm.studiesByFilter().length > 0">
-          <li ng-class="{disabled:vm.currentPage === 0}">
-            <a href ng-click="vm.setPage(0)">««</a>
-          </li>
-          <li ng-class="{disabled: vm.currentPage === 0}">
-            <a href ng-click="vm.prevPage()">«</a>
-          </li>
-          <li ng-repeat="n in vm.range()" ng-class="{active: n == vm.currentPage}">
-            <a href ng-click="vm.setPage(n)">{{n+1}}</a>
-          </li>
-          <li ng-class="{disabled:vm.currentPage === vm.pageCount()}">
-            <a href ng-click="vm.nextPage()">»</a>
-          </li>
-          <li ng-class="{disabled:vm.currentPage === vm.pageCount()}">
-            <a href ng-click="vm.setPage(vm.pageCount())">»»</a>
-          </li>
-        </ul>
 
-        <div ng-show="(vm.studiesByFilter().length == 0 || vm.studiesByFilter().length == 1)">
-          <b>{{ "The query returned " + vm.studiesByFilter().length + " study." }}</b>
+          </div>
         </div>
+        <!-- End filter the list of studies. -->
+        <!-- Star pager -->
+        <div class="text-center" ng-if="!vm.page">
+          <ul class="pagination" ng-if="vm.studiesByFilter().length > 0">
+            <li ng-class="{disabled:vm.currentPage === 0}">
+              <a href ng-click="vm.setPage(0)">««</a>
+            </li>
+            <li ng-class="{disabled: vm.currentPage === 0}">
+              <a href ng-click="vm.prevPage()">«</a>
+            </li>
+            <li ng-repeat="n in vm.range()" ng-class="{active: n == vm.currentPage}">
+              <a href ng-click="vm.setPage(n)">{{n+1}}</a>
+            </li>
+            <li ng-class="{disabled:vm.currentPage === vm.pageCount()}">
+              <a href ng-click="vm.nextPage()">»</a>
+            </li>
+            <li ng-class="{disabled:vm.currentPage === vm.pageCount()}">
+              <a href ng-click="vm.setPage(vm.pageCount())">»»</a>
+            </li>
+          </ul>
 
-        <div ng-show="vm.studiesByFilter().length > 1">
-          <b>{{ "The query returned " + vm.studiesByFilter().length + " studies." }}</b>
+          <div ng-show="(vm.studiesByFilter().length == 0 || vm.studiesByFilter().length == 1)">
+            <b>{{ "The query returned " + vm.studiesByFilter().length + " study." }}</b>
+          </div>
+
+          <div ng-show="vm.studiesByFilter().length > 1">
+            <b>{{ "The query returned " + vm.studiesByFilter().length + " studies." }}</b>
+          </div>
         </div>
-      </div>
-      <!-- End pager -->
+        <!-- End pager -->
 
-      <!-- Start study list -->
-      <div class="box-body">
-        <table class="table table-bordered table-hover" ng-if="!vm.page">
-          <thead>
-            <tr>
-              <!--th class="width-60-pct">#</th-->
-              <th class="width-30-pct">Title</th>
-              <th class="width-30-pct">Year</th>
-              <th class="text-align-center">Details</th>
-              <th class="width-30-pct">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!--tr ng-hide="vm.studiesByFilter().length > 0">
+        <!-- Start study list -->
+        <div class="box-body">
+          <table class="table table-bordered table-hover" ng-if="!vm.page">
+            <thead>
+              <tr>
+                <!--th class="width-60-pct">#</th-->
+                <th class="width-30-pct">Title</th>
+                <th class="width-30-pct">Year</th>
+                <th class="text-align-center">Details</th>
+                <th class="width-30-pct">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--tr ng-hide="vm.studiesByFilter().length > 0">
             <td align="center" colspan="5">No study found.</td>
           </tr-->
-            <tr ng-if="vm.dataLoading">
-              <td colspan="9" align="center">
-                <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-                />
-              </td>
-            </tr>
-            <tr ng-repeat="study in vm.studiesByFilter() | pagination : vm.currentPage*vm.itemsPerPage | limitTo: vm.itemsPerPage">
-              <!--td class="width-30-pct">{{ $index + 1 }}</td-->
-              <td class="width-30-pct">{{ study.dsTitle }}</td>
-              <td class="width-30-pct">{{ study.nrYear}}</td>
-              <td class="center">
-                <button type="button" class="btn btn-default" ng-click="vm.showReadForm(study)">
+              <tr ng-if="vm.dataLoading">
+                <td colspan="9" align="center">
+                  <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                  />
+                </td>
+              </tr>
+              <tr ng-repeat="study in vm.studiesByFilter() | pagination : vm.currentPage*vm.itemsPerPage | limitTo: vm.itemsPerPage">
+                <!--td class="width-30-pct">{{ $index + 1 }}</td-->
+                <td class="width-30-pct">{{ study.study.dsTitle }}</td>
+                <td class="width-30-pct">{{ study.study.nrYear}}</td>
+                <td class="center">
+                  <button type="button" class="btn btn-default" ng-click="vm.showReadForm(study.study)">
                 <span class="glyphicon glyphicon-eye-open"></span>
               </button>
-              </td>
-              <td class="width-30-pct">
-                <label class="radio-inline">
-                <input type="radio" name="optradio">Rejected
+                </td>
+                <td class="width-30-pct">
+                  <label class="radio-inline">
+                <input type="radio" ng-click="vm.reviews.tpStatus = 2" checked="vm.reviews.tpStatus == 2"  >Rejected
                 </label>
-                <label class="radio-inline">
-                <input type="radio" name="optradio">Unclassified
+                  <label class="radio-inline">
+                <input type="radio" ng-click="vm.reviews.tpStatus = 0" checked="vm.reviews.tpStatus == 0"  >Unclassified 
                </label>
-                <label class="radio-inline">
-                <input type="radio" name="optradio">Accepted
+                  <label class="radio-inline" ng-click="vm.reviews.tpStatus = 1" checked="vm.reviews.tpStatus == 1"  >
+                <input type="radio" >Accepted
                </label>
-              </td>
+                </td>
 
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <!--th class="width-60-pct">#</th-->
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <!--th class="width-60-pct">#</th-->
 
-              <th class="width-30-pct">Title</th>
-              <th class="width-30-pct">Year</th>
-              <th class="text-align-center">Details</th>
-              <th class="width-30-pct">Status</th>
-            </tr>
-          </tfoot>
-        </table>
+                <th class="width-30-pct">Title</th>
+                <th class="width-30-pct">Year</th>
+                <th class="text-align-center">Details</th>
+                <th class="width-30-pct">Status</th>
+              </tr>
+            </tfoot>
+          </table>
 
-        <div id="myCarousel" class="carousel slide" data-ride="carousel" ng-if="vm.page">
-          <!-- Indicators -->
-          <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-            <li data-target="#myCarousel" data-slide-to="3"></li>
-          </ol>
+          <!--div id="myCarousel" class="carousel slide" data-ride="carousel" ng-if="vm.page">
+         
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="2"></li>
+              <li data-target="#myCarousel" data-slide-to="3"></li>
+            </ol>
 
-          <!-- Wrapper for slides -->
-          <div class="carousel-inner" role="listbox">
+           
+            <div class="carousel-inner" role="listbox">
             <div class="item active">
               <label> teste</label>
             </div>
@@ -169,7 +169,7 @@
             </div>
           </div>
 
-          <!-- Left and right controls -->
+
           <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
@@ -178,7 +178,19 @@
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>
-        </div>
+        </div-->
+
+            <div ng-if="vm.page">
+              <carousel interval="myInterval">
+                <slide ng-repeat="slide in slides" active="slide.active">
+                  <img ng-src="{{slide.image}}">
+                  <div class="carousel-caption">
+                    <h4>Slide {{$index+1}}</h4>
+                  </div>
+                </slide>
+              </carousel>
+            </div>
+      
 
 
 
@@ -186,7 +198,7 @@
 
       </div>
       <!-- End project list -->
-      
+
       <!-- Modal form details. -->
       <div ng-include="'adm/views/study/study-details-form.html'"></div>
 

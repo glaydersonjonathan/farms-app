@@ -11,12 +11,12 @@
 				<div class="box-header">
 					<h3 class="box-title">Configuration Selection Step</h3>
 				</div>
-
+{{vm.selection}}
 				<div class="panel-body">
 					<form name="form" ng-submit="send()">
 						<div class="form-group">
 							<label for="start_date">Review Start Date</label>
-							<input type="date" name="start_date" ng-model="vm.selection.dhStartSelectionStep" required/>
+							<input type="date" name="start_date" ng-model="vm.selection.dhStartSelectionStep"  required/>
 							<span ng-show="form.start_date.$dirty && form.start_date.$error.required" class="help-block">Review Start Date is required.</span>
 						</div>
 
