@@ -5,10 +5,10 @@
         .module('app')
         .controller('SelectionController', SelectionController);
 
-    SelectionController.$inject = ['SelectionService', 'StudyService', 'ProjectService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
+    SelectionController.$inject = ['SelectionService', 'StudyService', 'ProjectService', 'ProtocolService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
 
     /****** Begin SelectionController *****/
-    function SelectionController(SelectionService, StudyService, ProjectService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
+    function SelectionController(SelectionService, StudyService, ProjectService, ProtocolService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
         var vm = this;
 
         vm.studies = [];
@@ -193,6 +193,33 @@
                     FlashService.Error(response.description, false);
                 }
             });
+        }
+
+
+        vm.testee = false;
+        vm.loadCriteria = loadCriteria;
+        vm.criterias = [];
+
+
+        function loadCriteria(criteria) {
+            var currentProject = $cookieStore.get("currentProject");
+            var dsKey = {};
+            if (currentProject != null) {
+                dsKey = currentProject.dsKey;
+            }
+            //console.log(dsKey);
+            ProtocolService.GetSelectionCriteriasByDsKey(dsKey).then(function (response) {
+               vm.criterias = response;
+               // angular.forEach(vm.criterias, function (value, key) {
+                 //   if (criteria == 2 && value.tpCriteria == 0){
+                  //      console.log(value);
+                       // vm.criterias = value;
+                 //   }
+
+               // });
+               
+            });
+            vm.testee = true;
         }
 
         /****** Start filter functions *****/

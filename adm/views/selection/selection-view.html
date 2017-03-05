@@ -25,7 +25,7 @@
                </label>
           </center>
 
-
+          {{vm.testee}}
 
           <div class="panel-body" ng-if="!vm.page">
 
@@ -94,6 +94,7 @@
                 <th class="width-30-pct">Year</th>
                 <th class="text-align-center">Details</th>
                 <th class="width-30-pct">Status</th>
+                <th class="width-30-pct" ng-if="vm.testee">Criteria</th>
               </tr>
             </thead>
             <tbody>
@@ -117,15 +118,29 @@
                 </td>
                 <td class="width-30-pct">
                   <label class="radio-inline">
-                <input type="radio" ng-click="vm.reviews.tpStatus = 2" checked="vm.reviews.tpStatus == 2"  >Rejected
+                <input type="radio" ng-click="vm.loadCriteria(2)" checked="vm.reviews.tpStatus == 2"  >Rejected
                 </label>
                   <label class="radio-inline">
                 <input type="radio" ng-click="vm.reviews.tpStatus = 0" checked="vm.reviews.tpStatus == 0"  >Unclassified 
                </label>
-                  <label class="radio-inline" ng-click="vm.reviews.tpStatus = 1" checked="vm.reviews.tpStatus == 1"  >
+                  <label class="radio-inline" ng-click="vm.reviews.tpStatus = 1" checked="vm.reviews.tpStatus == 1">
                 <input type="radio" >Accepted
                </label>
                 </td>
+
+
+                <td ng-if="vm.testee">
+                  <select id="criteria" name="criteria" ng-model="vm.reviews.criterias" class="form-control" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias"
+                    required>'
+            <option value="">Select a criteria</option>
+           </select>
+                  <textarea id="coment" name="coment" class="form-control" rows="2"></textarea>
+                  <button type="button" class="btn btn-primary" ng-click="vm.review()">
+                   <i class="glyphicon glyphicon-ok"></i> Finish
+                  </button>
+
+                </td>
+
 
               </tr>
             </tbody>
@@ -137,6 +152,7 @@
                 <th class="width-30-pct">Year</th>
                 <th class="text-align-center">Details</th>
                 <th class="width-30-pct">Status</th>
+                <th class="width-30-pct" ng-if="vm.testee">Criteria</th>
               </tr>
             </tfoot>
           </table>
@@ -152,58 +168,51 @@
 
            
             <div class="carousel-inner" role="listbox">
-            <div class="item active">
-              <label> teste</label>
+            <div class="item active" ng-repeat="review in vm.reviews">
+             {{review.study.dsTitle}}
             </div>
 
-            <div class="item">
-              <label> teste1</label>
-            </div>
 
-            <div class="item">
-              <label> teste 2</label>
-            </div>
-
-            <div class="item">
-              <label> teste3</label>
-            </div>
-          </div>
-
-
-          <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+          <a class="left carousel-control" href="adm/project/selection/review/#myCarousel" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
           </a>
-          <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+          <a class="right carousel-control" href="adm/project/selection/review/#myCarousel" role="button" data-slide="next">
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>
         </div-->
 
-            <div ng-if="vm.page">
-              <carousel interval="myInterval">
-                <slide ng-repeat="slide in slides" active="slide.active">
-                  <img ng-src="{{slide.image}}">
-                  <div class="carousel-caption">
-                    <h4>Slide {{$index+1}}</h4>
-                  </div>
-                </slide>
-              </carousel>
+          <div class="jcarousel-skin-default" ng-if="vm.page">
+            <div id="class1" class="jcarousel">
+              <ul>
+                <li>
+                  <div ng-repeat="review in vm.reviews" id="ribbon-item">{{review.study.dsTitle}}</div>
+                </li>
+              </ul>
             </div>
-      
+            <a class="btn" href="#" onclick="$('#class1').jcarousel('scroll', '-=1'); return false;"><i class="icon-step-backward"></i></a>
+            <a class="btn" href="#" onclick="$('#class1').jcarousel('scroll', '+=1'); return false;"><i class="icon-step-forward"></i></a>
+          </div>
 
 
+<script>
+  $(function() {
+    $('#class1').jcarousel({
+        // Configuration goes here
+    });
+});
+  </script>
 
 
+        </div>
+        <!-- End project list -->
 
+        <!-- Modal form details. -->
+        <div ng-include="'adm/views/study/study-details-form.html'"></div>
+
+        <!-- end col s12 -->
       </div>
-      <!-- End project list -->
-
-      <!-- Modal form details. -->
-      <div ng-include="'adm/views/study/study-details-form.html'"></div>
-
-      <!-- end col s12 -->
+      <!-- end row -->
     </div>
-    <!-- end row -->
-  </div>
-  <!-- end container -->
+    <!-- end container -->
