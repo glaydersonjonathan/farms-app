@@ -10,7 +10,7 @@
     /****** Begin SelectionController *****/
     function SelectionController(SelectionService, StudyService, ProjectService, ProtocolService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
         var vm = this;
-
+        vm.roleResearcher = {};
         vm.studies = [];
         vm.study = {};
         vm.members = [];
@@ -75,8 +75,21 @@
             vm.getAllRated();
             vm.getAllMembers();
             vm.getAllReviews();
+            getRoleResearcher();
         }
 
+        function getRoleResearcher() {
+            var currentProject = $cookieStore.get("currentProject");
+            var roleResearcher = {};
+            if (currentProject != null) {
+                roleResearcher.dsKey = currentProject.dsKey;
+            }
+            roleResearcher.dsUserName = $rootScope.globals.currentUser.dsUsername;
+            ProjectService.GetRoleBydsKey(roleResearcher.dsKey, roleResearcher.dsUserName).then(function (response) {
+                vm.roleResearcher = response;
+            });
+        }
+        
         function getAllRated() {
             SelectionService.GetAllRated().then(function (response) {
                 vm.all_rated = response;
@@ -209,15 +222,15 @@
             }
             //console.log(dsKey);
             ProtocolService.GetSelectionCriteriasByDsKey(dsKey).then(function (response) {
-               vm.criterias = response;
-               // angular.forEach(vm.criterias, function (value, key) {
-                 //   if (criteria == 2 && value.tpCriteria == 0){
-                  //      console.log(value);
-                       // vm.criterias = value;
-                 //   }
+                vm.criterias = response;
+                // angular.forEach(vm.criterias, function (value, key) {
+                //   if (criteria == 2 && value.tpCriteria == 0){
+                //      console.log(value);
+                // vm.criterias = value;
+                //   }
 
-               // });
-               
+                // });
+
             });
             vm.testee = true;
         }

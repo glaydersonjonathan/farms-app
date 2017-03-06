@@ -94,7 +94,6 @@
                 <th class="width-30-pct">Year</th>
                 <th class="text-align-center">Details</th>
                 <th class="width-30-pct">Status</th>
-                <th class="width-30-pct" ng-if="vm.testee">Criteria</th>
               </tr>
             </thead>
             <tbody>
@@ -118,28 +117,33 @@
                 </td>
                 <td class="width-30-pct">
                   <label class="radio-inline">
-                <input type="radio" ng-click="vm.loadCriteria(2)" checked="vm.reviews.tpStatus == 2"  >Rejected
+                <input type="radio" ng-click="vm.loadCriteria(2)" checked="study.tpStatus == 2"  >Rejected
                 </label>
                   <label class="radio-inline">
-                <input type="radio" ng-click="vm.reviews.tpStatus = 0" checked="vm.reviews.tpStatus == 0"  >Unclassified 
+                <input type="radio" ng-click="study.tpStatus = 0" checked="study.tpStatus == 0"  >Unclassified 
                </label>
-                  <label class="radio-inline" ng-click="vm.reviews.tpStatus = 1" checked="vm.reviews.tpStatus == 1">
+                  <label class="radio-inline" ng-click="study.tpStatus = 1" checked="study.tpStatus == 1">
                 <input type="radio" >Accepted
                </label>
-                </td>
 
+                  <div ng-if="vm.testee">
+                    </br>
+                    <div ng-repeat="criteria in vm.criterias">
 
-                <td ng-if="vm.testee">
-                  <select id="criteria" name="criteria" ng-model="vm.reviews.criterias" class="form-control" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias"
-                    required>'
-            <option value="">Select a criteria</option>
-           </select>
-                  <textarea id="coment" name="coment" class="form-control" rows="2"></textarea>
-                  <button type="button" class="btn btn-primary" ng-click="vm.review()">
+                        <label ng-show="criteria.tpCriteria == 0 && study.tpStatus == 0" ><input type="checkbox" value="">{{criteria.dsSelectionCriteria}} </label>
+              
+                    </div>
+                    </br>
+                    <textarea id="coment" name="coment" class="form-control" rows="2"></textarea>
+                    <button type="button" class="btn btn-primary" ng-click="vm.review()">
+                      </br>
                    <i class="glyphicon glyphicon-ok"></i> Finish
                   </button>
-
+                  </div>
                 </td>
+
+
+
 
 
               </tr>
@@ -152,7 +156,6 @@
                 <th class="width-30-pct">Year</th>
                 <th class="text-align-center">Details</th>
                 <th class="width-30-pct">Status</th>
-                <th class="width-30-pct" ng-if="vm.testee">Criteria</th>
               </tr>
             </tfoot>
           </table>
@@ -196,13 +199,13 @@
           </div>
 
 
-<script>
-  $(function() {
-    $('#class1').jcarousel({
-        // Configuration goes here
-    });
-});
-  </script>
+          <script>
+                                             $(function () {
+                                               $('#class1').jcarousel({
+                                                 // Configuration goes here
+                                               });
+                                             });
+          </script>
 
 
         </div>

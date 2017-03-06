@@ -16,28 +16,28 @@
 					<form name="form" ng-submit="send()">
 						<div class="form-group">
 							<label for="start_date">Review Start Date</label>
-							<input type="date" name="start_date" ng-model="vm.selection.dhStartSelectionStep"  required/>
+							<input ng-readonly="vm.roleResearcher != 0" type="date" name="start_date" ng-model="vm.selection.dhStartSelectionStep"  required/>
 							<span ng-show="form.start_date.$dirty && form.start_date.$error.required" class="help-block">Review Start Date is required.</span>
 						</div>
 
 
 						<div class="form-group">
 							<label for="end_date">Review End Date</label>
-							<input type="date" name="end_date" ng-model="vm.selection.dhEndSelectionStep" required/>
+							<input  ng-readonly="vm.roleResearcher != 0" type="date" name="end_date" ng-model="vm.selection.dhEndSelectionStep" required/>
 							<span ng-show="form.end_date.$dirty && form.end_date.$error.required" class="help-block">Review End Date is required.</span>
 							<span ng-show="form.end_date.$dirty && form.end_date.$invalid <= form.start_date.$invalid" class="help-block">Review End Date is Lower than Review Start Date.</span>
 						</div>
 
 						<div class="form-group">
 							<label for="conflict_end_date">Conflict Solving End Date</label>
-							<input type="date" name="conflict_end_date" ng-model="vm.selection.dhConflictsSolvingEnd" required />
+							<input ng-readonly="vm.roleResearcher != 0" type="date" name="conflict_end_date" ng-model="vm.selection.dhConflictsSolvingEnd" required />
 							<span ng-show="form.conflict_end_date.$dirty && form.conflict_end_date.$error.required" class="help-block">Conflict Solving End Date is required.</span>
 							<span ng-show="form.conflict_end_date.$dirty && form.conflict_end_date.$invalid <= form.end_date.$invalid" class="help-block">Conflict Solving End Date is Lower than Review End Date.</span>
 						</div>
 
 						<div class="form-group">
 							<label for="step_end_date">Selection Step End Date</label>
-							<input type="date" name="step_end_date" ng-model="vm.selection.dhReviewEnd"required />
+							<input ng-readonly="vm.roleResearcher != 0" type="date" name="step_end_date" ng-model="vm.selection.dhReviewEnd"required />
 							<span ng-show="form.step_end_date.$dirty && form.step_end_date.$error.required" class="help-block">Selection Step End Date is required.</span>
 							<span ng-show="form.step_end_date.$dirty && form.step_end_date.$invalid <= form.conflict_end_date.$invalid" class="help-block">Selection Step End Date is Lower than Conflict Solving End Date.</span>
 						</div>
@@ -46,7 +46,7 @@
 
 						<div class="form-group">
 							<label for="amount_reviews">Amount reviews per study</label>
-							<input type="number" name="amount_reviews" ng-model="vm.selection.qtReview" required />
+							<input ng-readonly="vm.roleResearcher != 0" type="number" name="amount_reviews" ng-model="vm.selection.qtReview" required />
 							<span ng-show="form.amount_reviews.$dirty && form.amount_reviews.$error.required" class="help-block">Amount reviews per study is required.</span>
 						</div>
 
@@ -54,7 +54,7 @@
 
 						<div class="form-group">
 							<label for="rated">Rated Content</label>
-							<select id="rated" name="rated" ng-model="vm.selection.idRatedContent" class="form-control" ng-options="rated.idRatedContent as rated.dsRatedContent for rated in vm.all_rated"
+							<select ng-readonly="vm.roleResearcher != 0" id="rated" name="rated" ng-model="vm.selection.idRatedContent" class="form-control" ng-options="rated.idRatedContent as rated.dsRatedContent for rated in vm.all_rated"
 								required>'
 								<option value="">Select rated content</option>
 								</select>
@@ -64,7 +64,7 @@
 
 					<!-- Start - Action buttons -->
 					<div class="modal-footer">
-						<button id="btn-save-configuration" type="button" class="btn btn-primary" ng-click="vm.saveConfiguration(); form.$setPristine();" ng-disabled="form.$invalid">
+						<button ng-show="vm.roleResearcher == 0" id="btn-save-configuration" type="button" class="btn btn-primary" ng-click="vm.saveConfiguration(); form.$setPristine();" ng-disabled="form.$invalid">
         				<i class="fa fa-check"></i>Save
     					</button>
 					</div>
