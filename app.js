@@ -139,6 +139,16 @@
         data: {
           displayName: 'Review'
         }
+        })
+      .state('adm.finalization', {
+        url: "/project/selection/finalization",
+        controller: 'SelectionController',
+        templateUrl: "adm/views/selection/selection-conflicts-end-view.html",
+        controllerAs: 'vm',
+        title: 'Conflicts Solving and End Selection Step',
+        data: {
+          displayName: 'Finalization'
+        }
       })
       .state('adm.charts', {
         url: "/project/charts",

@@ -126,7 +126,6 @@
       }
 
       MemberService.Invite(vm.invite).then(function (response) {
-        console.log(response.data);
         if (response.code === 1010) {
           FlashService.Success(response.description, false);
           vm.invite = null;

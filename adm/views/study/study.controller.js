@@ -5,10 +5,10 @@
     .module('app')
     .controller('StudyController', StudyController);
 
-  StudyController.$inject = ['StudyService', 'ProjectService', 'FlashService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
+  StudyController.$inject = ['StudyService', 'ProjectService', 'FlashService','ProtocolService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
 
   /****** Begin StudyController *****/
-  function StudyController(StudyService, ProjectService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
+  function StudyController(StudyService, ProjectService, FlashService,ProtocolService, $rootScope, $http, $location, $cookieStore, $state) {
     var vm = this;
 
     vm.dataLoading = true;
@@ -33,6 +33,9 @@
     vm.deleteStudy = deleteStudy;
     vm.deleteConfirm = deleteConfirm;
 
+    vm.getStandardQuery = getStandardQuery;
+    vm.standardQuery = {};
+
     vm.studiesByFilter = studiesByFilter;
     vm.dsTitleSearch = "";
     vm.nrYearSearch = "";
@@ -49,6 +52,7 @@
 
     function initController() {
       vm.getAllStudies();
+      getStandardQuery();
     }
 
     // Forms
@@ -130,6 +134,19 @@
           vm.dataLoading = false;
         }
         closeModal();
+      });
+    }
+
+
+    function getStandardQuery() {
+      var currentProject = $cookieStore.get("currentProject");
+      var dsKey = null;
+      if (currentProject != null) {
+        dsKey = currentProject.dsKey;
+      }
+      ProtocolService.GetStandardQueryByDsKey(dsKey).then(function (response) {
+        var standardQuery = response;
+        vm.standardQuery = standardQuery[0];
       });
     }
 

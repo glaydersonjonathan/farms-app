@@ -24,9 +24,6 @@
                 <input  type="radio" id="pages" name="opt"  ng-click="vm.page = true">Studies in Pages
                </label>
           </center>
-
-          {{vm.testee}}
-
           <div class="panel-body" ng-if="!vm.page">
 
             <!-- DsTilte filter -->
@@ -86,6 +83,7 @@
 
         <!-- Start study list -->
         <div class="box-body">
+          {{vm.testee}}
           <table class="table table-bordered table-hover" ng-if="!vm.page">
             <thead>
               <tr>
@@ -106,37 +104,33 @@
                   />
                 </td>
               </tr>
-              <tr ng-repeat="study in vm.studiesByFilter() | pagination : vm.currentPage*vm.itemsPerPage | limitTo: vm.itemsPerPage">
+              <tr ng-repeat="review in vm.studiesByFilter()| pagination : vm.currentPage*vm.itemsPerPage | limitTo: vm.itemsPerPage">
                 <!--td class="width-30-pct">{{ $index + 1 }}</td-->
-                <td class="width-30-pct">{{ study.study.dsTitle }}</td>
-                <td class="width-30-pct">{{ study.study.nrYear}}</td>
+                <td class="width-30-pct">{{ review.study.dsTitle }}</td>
+                <td class="width-30-pct">{{ review.study.nrYear}}</td>
                 <td class="center">
-                  <button type="button" class="btn btn-default" ng-click="vm.showReadForm(study.study)">
+                  <button type="button" class="btn btn-default" ng-click="vm.showReadForm(review.study)">
                 <span class="glyphicon glyphicon-eye-open"></span>
               </button>
                 </td>
                 <td class="width-30-pct">
-                  <label class="radio-inline">
-                <input type="radio" ng-click="vm.loadCriteria(2)" checked="study.tpStatus == 2"  >Rejected
-                </label>
-                  <label class="radio-inline">
-                <input type="radio" ng-click="study.tpStatus = 0" checked="study.tpStatus == 0"  >Unclassified 
-               </label>
-                  <label class="radio-inline" ng-click="study.tpStatus = 1" checked="study.tpStatus == 1">
-                <input type="radio" >Accepted
-               </label>
+                  <select id="status" name="status" class="form-control" ng-model="review.tpStatus" ng-change="vm.testee=true">
+            <option value="0">Unclassified</option>
+            <option value="1">Accepted</option>
+            <option value="2">Rejected</option>
+          </select>
 
                   <div ng-if="vm.testee">
                     </br>
                     <div ng-repeat="criteria in vm.criterias">
-
-                        <label ng-show="criteria.tpCriteria == 0 && study.tpStatus == 0" ><input type="checkbox" value="">{{criteria.dsSelectionCriteria}} </label>
-              
+                      <label ng-show="criteria.tpCriteria == 0 && review.tpStatus == 2">
+                        <input type="checkbox" value="criteria.idSelectionCriteria" ng-model="review.criteria">{{criteria.dsSelectionCriteria}} 
+                        </label>
                     </div>
                     </br>
-                    <textarea id="coment" name="coment" class="form-control" rows="2"></textarea>
-                      </br>
-                    <button type="button" class="btn btn-primary" ng-click="vm.review()"> 
+                    <textarea id="coment" name="coment" class="form-control" rows="2" ng-model="review.comment"></textarea>
+                    </br>
+                    <button type="button" class="btn btn-primary" ng-click="vm.review(review)"> 
                    <i class="glyphicon glyphicon-ok"></i> Finish
                   </button>
                   </div>

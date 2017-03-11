@@ -129,10 +129,7 @@
     }
 
     function createProject() {
-      //usuario atualmente logado
       vm.project.dsSsoResearcher = $rootScope.globals.currentUser.dsUsername;
-
-      console.log(vm.project);
       vm.dataLoading = true;
       ProjectService.Create(vm.project).then(function (response) {
         if (response.code === 1006) {
@@ -144,14 +141,12 @@
           vm.dataLoading = false;
         }
         closeModal();
-        console.log(response);
       });
     };
 
     function updateProject() {
       vm.dataLoading = true;
       ProjectService.Update(vm.project).then(function (response) {
-        console.log(response.data);
         if (response.code === 1007) {
           FlashService.Success(response.description, false);
           $cookieStore.put('currentProject', vm.project);

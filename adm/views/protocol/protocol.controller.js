@@ -226,7 +226,6 @@
       if (currentProject != null) {
         vm.protocol.objective.dsKey = currentProject.dsKey;
       }
-      console.log(vm.protocol);
       ProtocolService.SaveObjectives(vm.protocol.objective).then(function (response) {
         if (response.code === 1011) {
           FlashService.Success(response.description, false);
@@ -244,7 +243,6 @@
       if (currentProject != null) {
         vm.protocol.mainQuestion.dsProjectKey = currentProject.dsKey;
       }
-      console.log(vm.protocol);
       ProtocolService.SaveMainQuestion(vm.protocol.mainQuestion).then(function (response) {
         if (response.code === 1012) {
           FlashService.Success(response.description, false);
@@ -262,7 +260,6 @@
       if (currentProject != null) {
         vm.protocol.secondaryQuestion.dsProjectKey = currentProject.dsKey;
       }
-      console.log(vm.protocol);
       ProtocolService.SaveSecondaryQuestion(vm.protocol.secondaryQuestion).then(function (response) {
         if (response.code === 1013) {
           FlashService.Success(response.description, false);
@@ -280,7 +277,6 @@
       if (currentProject != null) {
         vm.protocol.standardQuery.dsProjectKey = currentProject.dsKey;
       }
-      console.log(vm.protocol);
       ProtocolService.SaveStandardQuery(vm.protocol.standardQuery).then(function (response) {
         if (response.code === 1014) {
           FlashService.Success(response.description, false);
@@ -318,7 +314,6 @@
       if (currentProject != null) {
         vm.protocol.selectionCriterias.dsProjectKey = currentProject.dsKey;
       }
-      console.log(vm.protocol);
       ProtocolService.SaveCriteria(vm.protocol.selectionCriterias).then(function (response) {
         if (response.code === 1016) {
           FlashService.Success(response.description, false);
@@ -336,9 +331,7 @@
       if (currentProject != null) {
         vm.protocol.languages.dsProjectKey = currentProject.dsKey;
       }
-      console.log(vm.protocol);
       ProtocolService.SaveLanguage(vm.protocol.languages).then(function (response) {
-        console.log(response);
         if (response.code === 1017) {
           FlashService.Success(response.description, false);
           getAllProtocol();
@@ -357,9 +350,7 @@
       if (currentProject != null) {
         vm.protocol.searchEngines.dsProjectKey = currentProject.dsKey;
       }
-      console.log(vm.protocol);
       ProtocolService.SaveEngine(vm.protocol.searchEngines).then(function (response) {
-        console.log(response);
         if (response.code === 1018) {
           FlashService.Success(response.description, false);
           getAllProtocol();
@@ -373,7 +364,6 @@
 
     function createEngine() {
       ProtocolService.CreateEngine(vm.searchEngine).then(function (response) {
-        console.log(response);
         if (response.code === 1019) {
           FlashService.Success(response.description, false);
         }
@@ -502,7 +492,6 @@
     }
 
     function editEngine() {
-      console.log(vm.protocol.searchEngines);
       ProtocolService.EditEngine(vm.protocol.searchEngines).then(function (response) {
         if (response.data.code === 1018) {
           getAllProtocol();
@@ -518,7 +507,6 @@
 
 
     function editCriteria() {
-      console.log(vm.protocol.selectionCriterias);
       ProtocolService.EditCriteria(vm.protocol.selectionCriterias).then(function (response) {
         if (response.data.code === 1016) {
           getAllProtocol();

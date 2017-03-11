@@ -1,17 +1,30 @@
 <!-- Researchers - CRUD -->
 <div class="content">
-
   <div class="row">
     <div class="col-xs-12">
-
-
       <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash"
         ng-bind="flash.message"></div>
-
       <div class="box">
         <div class="panel-group">
-          Coming soon.
-
-          <!-- end row -->
+          <h2 style="text-align: center ">{{vm.standardQuery.dsStandardQuery}} </h2>
+          <div class="panel-body">
+            <button type="button" class="btn btn-success" ng-click="" ng-disabled="true">
+              <i class="fa fa-arrow-circle-down"></i> Adapt Query and Search in IEEE
+           </button>
+            <button type="button" class="btn btn-success" ng-click="" ng-disabled="true">
+              <i class="fa fa-arrow-circle-down"></i> Adapt Query and Search in Scopus
+            </button>
+          </div>
+          <div class="panel-body">
+            <button type="button" class="btn btn-success" ng-click="" ng-disabled="true">
+              <i class="fa fa-arrow-circle-down"></i> Adapt Query and Search in ACM
+            </button>
+            <button type="button" class="btn btn-success" ng-click="" ng-disabled="true">
+              <i class="fa fa-arrow-circle-down"></i> Adapt Query and Search in Web of Science
+            </button>
+          </div>
         </div>
-        <!-- end container -->
+      </div>
+    </div>
+  </div>
+</div>

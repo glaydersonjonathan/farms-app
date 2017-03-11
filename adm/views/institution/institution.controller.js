@@ -131,7 +131,6 @@
           FlashService.Error(response.description, false);
         }
         var institutions = response;
-        //console.log(institutions);
         vm.institutions = institutions;
         vm.dataLoading = false;
       });
@@ -152,7 +151,6 @@
       }
 
       InstitutionService.AddInstitutionProject(vm.institution).then(function (response) {
-        console.log(response.data);
         if (response.code === 1009) {
           FlashService.Success(response.description, false);
           vm.institution = null;
@@ -173,9 +171,7 @@
       if (currentProject != null) {
         vm.institution.dsKey = currentProject.dsKey;
       }
-      console.log(vm.institution);
       InstitutionService.Update(vm.institution).then(function (response) {
-        console.log(response);
         if (response.code === 1020) {
           FlashService.Success(response.description, false);
           vm.institution = null;
@@ -195,9 +191,7 @@
       if (currentProject != null) {
         vm.institution.dsKey = currentProject.dsKey;
       }
-      console.log(vm.institution);
       InstitutionService.Delete(vm.institution.dsKey, vm.institution.idInstitution).then(function (response) {
-        console.log(response.data);
         if (response.code === 1025) {
           FlashService.Success(response.description, false);
           getAllInstitutions();

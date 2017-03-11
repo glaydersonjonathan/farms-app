@@ -54,6 +54,9 @@
         vm.clearForm = clearForm;
 
 
+        vm.testee = false;
+        vm.loadCriteria = loadCriteria;
+        vm.criterias = [];
 
         initController();
 
@@ -76,6 +79,7 @@
             vm.getAllMembers();
             vm.getAllReviews();
             getRoleResearcher();
+            vm.loadCriteria();
         }
 
         function getRoleResearcher() {
@@ -89,7 +93,7 @@
                 vm.roleResearcher = response;
             });
         }
-        
+
         function getAllRated() {
             SelectionService.GetAllRated().then(function (response) {
                 vm.all_rated = response;
@@ -202,37 +206,33 @@
             SelectionService.AssignManual(vm.review).then(function (response) {
                 if (response.code === 1029) {
                     FlashService.Success(response.description, false);
+                    alert(response.description);
                 } else {
                     FlashService.Error(response.description, false);
+                    alert(response.description);
                 }
             });
         }
 
 
-        vm.testee = false;
-        vm.loadCriteria = loadCriteria;
-        vm.criterias = [];
+        vm.review = review;
+
+        function review(review) {
+            console.log('Review: ');
+            console.log(review);
+            vm.testee = false;
+        }
 
 
-        function loadCriteria(criteria) {
+        function loadCriteria() {
             var currentProject = $cookieStore.get("currentProject");
             var dsKey = {};
             if (currentProject != null) {
                 dsKey = currentProject.dsKey;
             }
-            //console.log(dsKey);
             ProtocolService.GetSelectionCriteriasByDsKey(dsKey).then(function (response) {
                 vm.criterias = response;
-                // angular.forEach(vm.criterias, function (value, key) {
-                //   if (criteria == 2 && value.tpCriteria == 0){
-                //      console.log(value);
-                // vm.criterias = value;
-                //   }
-
-                // });
-
             });
-            vm.testee = true;
         }
 
         /****** Start filter functions *****/
