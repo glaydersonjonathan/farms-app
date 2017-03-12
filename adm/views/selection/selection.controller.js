@@ -214,10 +214,9 @@
             });
         }
 
+        vm.realizeReview = realizeReview;
 
-        vm.review = review;
-
-        function review(review) {
+        function realizeReview(review) {
             console.log('Review: ');
             console.log(review);
             vm.testee = false;

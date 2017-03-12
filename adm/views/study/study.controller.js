@@ -5,10 +5,10 @@
     .module('app')
     .controller('StudyController', StudyController);
 
-  StudyController.$inject = ['StudyService', 'ProjectService', 'FlashService','ProtocolService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
+  StudyController.$inject = ['StudyService', 'ProjectService', 'FlashService', 'ProtocolService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
 
   /****** Begin StudyController *****/
-  function StudyController(StudyService, ProjectService, FlashService,ProtocolService, $rootScope, $http, $location, $cookieStore, $state) {
+  function StudyController(StudyService, ProjectService, FlashService, ProtocolService, $rootScope, $http, $location, $cookieStore, $state) {
     var vm = this;
 
     vm.dataLoading = true;
@@ -106,15 +106,15 @@
       var dsKey = null;
       if (currentProject != null) {
         dsKey = currentProject.dsKey;
+        StudyService.GetStudiesByDsKey(dsKey).then(function (response) {
+          var studies = response;
+          vm.studies = studies;
+          vm.dataLoading = false;
+        });
       } else {
+        vm.dataLoading = false;
         FlashService.Error('Open a project before view and edit studies', false);
       }
-
-      StudyService.GetStudiesByDsKey(dsKey).then(function (response) {
-        var studies = response;
-        vm.studies = studies;
-        vm.dataLoading = false;
-      });
     }
 
     function createStudy() {

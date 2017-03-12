@@ -83,7 +83,6 @@
 
         <!-- Start study list -->
         <div class="box-body">
-          {{vm.testee}}
           <table class="table table-bordered table-hover" ng-if="!vm.page">
             <thead>
               <tr>
@@ -126,11 +125,15 @@
                       <label ng-show="criteria.tpCriteria == 0 && review.tpStatus == 2">
                         <input type="checkbox" value="criteria.idSelectionCriteria" ng-model="review.criteria">{{criteria.dsSelectionCriteria}} 
                         </label>
+
+                      <label ng-show="criteria.tpCriteria == 1 && review.tpStatus == 1">
+                        <input type="checkbox" ng-true-value="'criteria.dsSelectionCriteria'" ng-false-value="'null'" ng-model="review.criteria">{{criteria.dsSelectionCriteria}} 
+                        </label>
                     </div>
                     </br>
                     <textarea id="coment" name="coment" class="form-control" rows="2" ng-model="review.comment"></textarea>
                     </br>
-                    <button type="button" class="btn btn-primary" ng-click="vm.review(review)"> 
+                    <button type="button" class="btn btn-primary" ng-click="vm.realizeReview(review)"> 
                    <i class="glyphicon glyphicon-ok"></i> Finish
                   </button>
                   </div>
