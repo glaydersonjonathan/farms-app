@@ -10,6 +10,9 @@
     /****** Begin SelectionController *****/
     function SelectionController(SelectionService, StudyService, ProjectService, ProtocolService, FlashService, $rootScope, $http, $location, $cookieStore, $state) {
         var vm = this;
+
+        vm.dataLoading = false;
+
         vm.roleResearcher = {};
         vm.studies = [];
         vm.study = {};

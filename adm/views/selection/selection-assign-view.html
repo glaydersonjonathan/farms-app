@@ -23,7 +23,7 @@
 
                 </br>
                 <label ng-if="vm.assign_manually" for="sel2">Studies Mutiple select list (hold shift to select more than one):</label>
-                <select style="height: 350px" ng-if="vm.assign_manually" multiple class="form-control" id="sel2" ng-model="vm.review.studies" ng-options="study.idStudy as study.dsTitle for study in vm.studies">
+                <select style="height: 350px" ng-if="vm.assign_manually" multiple class="form-control" id="sel2" ng-model="vm.review.studies" ng-options="study.idStudy as study.dsTitle +  ' ( ' +(study.nrYear)+' ) ' + ' - ' + study.nmAuthor for study in vm.studies">
                 </select> 
 
 
