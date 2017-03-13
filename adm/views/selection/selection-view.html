@@ -123,11 +123,11 @@
                     </br>
                     <div ng-repeat="criteria in vm.criterias">
                       <label ng-show="criteria.tpCriteria == 0 && review.tpStatus == 2">
-                        <input type="checkbox" value="criteria.idSelectionCriteria" ng-model="review.criteria">{{criteria.dsSelectionCriteria}} 
+                        <input type="checkbox" ng-true-value="'{{criteria}}'" ng-false-value="'null'" ng-model="review.criteria">{{criteria.dsSelectionCriteria}} 
                         </label>
 
                       <label ng-show="criteria.tpCriteria == 1 && review.tpStatus == 1">
-                        <input type="checkbox" ng-true-value="'criteria.dsSelectionCriteria'" ng-false-value="'null'" ng-model="review.criteria">{{criteria.dsSelectionCriteria}} 
+                        <input type="checkbox" ng-true-value="'{{criteria}}'" ng-false-value="'null'" ng-model="review.criteria">{{criteria.dsSelectionCriteria}} 
                         </label>
                     </div>
                     </br>
@@ -181,9 +181,9 @@
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>
-        </div-->
+        </div>
 
-          <div class="jcarousel-skin-default" ng-if="vm.page">
+          <!--div class="jcarousel-skin-default" ng-if="vm.page">
             <div id="class1" class="jcarousel">
               <ul>
                 <li>
@@ -202,7 +202,40 @@
                                                  // Configuration goes here
                                                });
                                              });
-          </script>
+          </script-->
+
+<!--https://dzone.com/articles/carousel-array-javascript-->
+
+          <body>
+            <div id="text-carousel" class="carousel slide" data-ride="carousel" ng-if="vm.page">
+              <!-- Wrapper for slides -->
+              <div class="row">
+                <div class="col-xs-offset-3 col-xs-6">
+                  <div class="carousel-inner" ng-repeat="review in vm.reviews">
+                    <div class="item active">
+                      <div class="carousel-content">
+                        <div>
+                          <p>{{review.study.dsTitle}} </p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <!-- Controls -->
+              <a class="left carousel-control" href="adm/project/selection/review/#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </a>
+              <a class="right carousel-control" href="adm/project/selection/review/#text-carousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </a>
+
+            </div>
+          </body>
+
+
+
 
 
         </div>

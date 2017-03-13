@@ -1,6 +1,8 @@
 <!-- CSS -->
-<link rel="stylesheet" href="assets/css/ionicons.min.css">   <!-- Ionicons -->
-<link rel="stylesheet" href="adm/dist/css/AdminLTE.min.css"> <!-- Theme style -->
+<link rel="stylesheet" href="assets/css/ionicons.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="adm/dist/css/AdminLTE.min.css">
+<!-- Theme style -->
 <link rel="stylesheet" href="adm/dist/css/skins/skin-green.min.css">
 
 <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -16,7 +18,8 @@ apply the skin class to the body tag so the changes take effect.
 <![endif]-->
 
 <!-- REQUIRED JS SCRIPTS -->
-<script src="adm/dist/js/app.min.js"></script>   <!-- AdminLTE App -->
+<script src="adm/dist/js/app.min.js"></script>
+<!-- AdminLTE App -->
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
 Both of these plugins are recommended to enhance the
@@ -79,6 +82,10 @@ desired effect
               </div>
             </label>
           </div>
+          <select id="projects" name="projects" class="form-control" ng-model="vm.project" ng-click="vm.getAllProjects()" ng-options="project.dsTitle for project in vm.projects"
+            ng-change="vm.openProject()">
+            <option value="">Change Project</option>
+          </select>
         </div>
 
         <!-- Navbar Right Menu -->
@@ -145,12 +152,13 @@ desired effect
             <li class="header">MAIN NAVIGATION</li>
 
             <!-- Home -->
-            <li class="active"><a ui-sref="adm"><i class="fa fa-dashboard"></i> <span>Home</span></a></li>
+            <li class="active"><a ui-sref="adm"><i class="fa fa-dashboard"></i> <span>Home</span></a>
+            </li>
 
             <!-- Project definition -->
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-folder"></i> <span>Project definition</span>
+                <i class="fa fa-folder"></i> <span>Project Definition</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
@@ -162,7 +170,7 @@ desired effect
 
             <!-- Protocol -->
             <li><a ui-sref=".protocol" ui-sref-active="active"><i class="fa fa-book"></i><span>Protocol</span></a></li>
-              
+
             <!-- Studies Identification -->
             <li class="treeview">
               <a href="#">
@@ -170,7 +178,7 @@ desired effect
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a ui-sref=".searches" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Search</span></a></li>
+                <li><a ui-sref=".searches" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Automatic Search</span></a></li>
                 <li><a ui-sref=".studies" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Studies</span></a></li>
               </ul>
             </li>
@@ -182,7 +190,7 @@ desired effect
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-              	<li><a ui-sref=".configuration_selection" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Step Configuration</span></a></li>
+                <li><a ui-sref=".configuration_selection" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Step Configuration</span></a></li>
                 <li><a ui-sref=".assign" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Assign Studies</span></a></li>
                 <li><a ui-sref=".selection" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Review</span></a></li>
                 <li><a ui-sref=".finalization" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Solve Conflicts and End Step</span></a></li>
@@ -196,12 +204,12 @@ desired effect
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a ui-sref=".extractions" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Data required</span></a></li>
+                <li><a ui-sref=".extractions" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Data Required</span></a></li>
                 <li><a ui-sref=".extractions" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Category</span></a></li>
                 <li><a ui-sref=".extractions" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Option</span></a></li>
                 <li><a ui-sref=".extractions" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Classification</span></a></li>
                 <li><a ui-sref=".extractions" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Study Data</span></a></li>
-                <li><a ui-sref=".extractions" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Required data</span></a></li>
+                <li><a ui-sref=".extractions" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Required Data</span></a></li>
                 <li><a ui-sref=".extractions" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Author</span></a></li>
                 <li><a ui-sref=".extractions" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Study Summary</span></a></li>
                 <li><a ui-sref=".extractions" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Extraction</span></a></li>
@@ -219,41 +227,45 @@ desired effect
                 <li><a ui-sref=".reports" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Report</span></a></li>
               </ul>
             </li>
-          </ul><!-- /.sidebar-menu -->
-        </section>
-        <!-- /.sidebar -->
-      </aside>
+          </ul>
+          <!-- /.sidebar-menu -->
+          </section>
+          <!-- /.sidebar -->
+          </aside>
 
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">
+          <!-- Content Wrapper. Contains page content -->
+          <div class="content-wrapper">
 
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-          <h1>
-            {{$state.current.title}}
-          </h1>
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+              <h1>
+                {{$state.current.title}}
+              </h1>
 
-          <!-- begin-breadcrumb -->
-          <ui-breadcrumbs displayname-property="data.displayName"></ui-breadcrumbs>
-          <!-- end-breadcrumb -->
-        </section>
+              <!-- begin-breadcrumb -->
+              <ui-breadcrumbs displayname-property="data.displayName"></ui-breadcrumbs>
+              <!-- end-breadcrumb -->
+            </section>
 
-        <!-- Main content -->
-        <!--section class="content"-->
+            <!-- Main content -->
+            <!--section class="content"-->
 
-        <div ui-view>
-          <div ng-include="'adm/views/dashboard/dashboard.view.html'"></div>
+            <div ui-view>
+              <div ng-include="'adm/views/dashboard/dashboard.view.html'"></div>
+            </div>
+
+            <!--/section-->
+            <!-- /.content -->
+
+          </div>
+          <!-- /.content-wrapper -->
+
+          <!-- Main Footer -->
+          <footer class="main-footer ">
+            <!-- Default to the left -->
+            <strong>&copy; <a href="http://www.dcomp.ufs.br" target="_blank">DComp - Department of Computer - UFS</a> - {{vm.year}}.</strong>            This project is open source.
+          </footer>
+
         </div>
-
-        <!--/section--><!-- /.content -->
-
-      </div><!-- /.content-wrapper -->
-
-      <!-- Main Footer -->
-      <footer class="main-footer ">
-        <!-- Default to the left -->
-        <strong>&copy; <a href="http://www.dcomp.ufs.br" target="_blank">DComp - Department of Computer - UFS</a> - {{vm.year}}.</strong> This project is open source.
-      </footer>
-
-    </div><!-- ./wrapper -->
+        <!-- ./wrapper -->
   </div>
