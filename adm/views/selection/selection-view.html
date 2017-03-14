@@ -121,15 +121,16 @@
 
                   <div ng-if="vm.testee">
                     </br>
-                    <div ng-repeat="criteria in vm.criterias">
-                      <label ng-show="criteria.tpCriteria == 0 && review.tpStatus == 2">
-                        <input type="checkbox" ng-true-value="'{{criteria}}'" ng-false-value="'null'" ng-model="review.criteria">{{criteria.dsSelectionCriteria}} 
-                        </label>
+                     <div ng-repeat="criteria in vm.criterias">
+                      <label for="criteria-" ng-show="criteria.tpCriteria == 0 && review.tpStatus == 2">
+                      <input ng-model="review.criteria[criteria.idSelectionCriteria]" ng-true-value="'{{criteria}}'" type="checkbox" id="criteria-" ng-checked="criteria.checked">
+                      {{criteria.dsSelectionCriteria}}</label>
 
-                      <label ng-show="criteria.tpCriteria == 1 && review.tpStatus == 1">
-                        <input type="checkbox" ng-true-value="'{{criteria}}'" ng-false-value="'null'" ng-model="review.criteria">{{criteria.dsSelectionCriteria}} 
-                        </label>
+                      <label for="criteria-" ng-show="criteria.tpCriteria == 1 && review.tpStatus == 1">
+                      <input ng-model="review.criteria[criteria.idSelectionCriteria]" ng-true-value="'{{criteria}}'" type="checkbox" id="criteria-" ng-checked="criteria.checked">
+                      {{criteria.dsSelectionCriteria}}</label>
                     </div>
+
                     </br>
                     <textarea id="coment" name="coment" class="form-control" rows="2" ng-model="review.comment"></textarea>
                     </br>
@@ -138,9 +139,6 @@
                   </button>
                   </div>
                 </td>
-
-
-
 
 
               </tr>
@@ -204,7 +202,7 @@
                                              });
           </script-->
 
-<!--https://dzone.com/articles/carousel-array-javascript-->
+          <!--https://dzone.com/articles/carousel-array-javascript-->
 
           <body>
             <div id="text-carousel" class="carousel slide" data-ride="carousel" ng-if="vm.page">
