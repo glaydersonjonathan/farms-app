@@ -3,66 +3,67 @@
         <div class="col-xs-12">
             <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash"
                 ng-bind="flash.message"></div>
-        <div class="box">
-            <div class="panel-group">
+            <div class="box">
+                <div class="panel-group">
 
-                <div class="box-header">
-                    <h3 class="box-title">Assign Studies to Researcher</h3>
-                </div>
+                    <div class="box-header">
+                        <h3 class="box-title">Assign Studies to Researcher</h3>
+                    </div>
 
-                <center>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <button type="button" class="btn btn-primary" ng-click="vm.showCreateForm()" ng-disabled="true">
+                    <center>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary" ng-click="vm.showCreateForm()" ng-disabled="true">
                         <i class="fa fa-plus"></i> Assign Studies Automatically
                     </button>
-                            <button class="btn btn-primary" ng-click="vm.changeAssignType()" type="button" ng-disabled="vm.roleResearcher != 0">
+                                <button class="btn btn-primary" ng-click="vm.changeAssignType()" type="button" ng-disabled="vm.roleResearcher != 0">
                     <i class="fa fa-plus"></i> Assign Studies Manually
                     </button>
-                </center>
+                    </center>
 
-                </br>
-                <label ng-if="vm.assign_manually" for="sel2">Studies Mutiple select list (hold shift to select more than one):</label>
-                <select style="height: 350px" ng-if="vm.assign_manually" multiple class="form-control" id="sel2" ng-model="vm.review.studies" ng-options="study.idStudy as study.dsTitle +  ' ( ' +(study.nrYear)+' ) ' + ' - ' + study.nmAuthor for study in vm.studies">
-                </select> 
-
-
-                <div class="box-body" ng-if="vm.assign_manually">
-                    <label>Assign To: </label>
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th class="width-30-pct">Name</th>
-                                <th class="text-align-center">Choice</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="member in vm.members">
-                                <td class="width-30-pct">{{ member.nmResearcher }}</td>
-                                <td class="center">
-                                    <input type="radio" name="optradio" ng-click="vm.review.dsSSO = member.dsSSO">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    </br>
+                    <label ng-if="vm.assign_manually" for="sel2">Studies Mutiple select list:  *</label>
+                    <select style="height: 350px" ng-if="vm.assign_manually" multiple class="form-control" id="sel2" ng-model="vm.review.studies"
+                        ng-options="study.idStudy as study.dsTitle +  ' ( ' +(study.nrYear)+' ) ' + ' - ' + study.nmAuthor for study in vm.studies">
+                </select>
 
 
+                    <div class="box-body" ng-if="vm.assign_manually">
+                        <label>Assign To:  *</label>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="width-30-pct">Name</th>
+                                    <th class="text-align-center">Choice</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="member in vm.members">
+                                    <td class="width-30-pct">{{ member.nmResearcher }}</td>
+                                    <td class="center">
+                                        <input type="radio" name="optradio" ng-click="vm.review.dsSSO = member.dsSSO">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                <!-- Start - Action buttons -->
-                <div class="modal-footer" ng-if="vm.assign_manually">
-                    <center>
-                        <button ng-show="vm.roleResearcher == 0" type="button" class="btn btn-primary" ng-click="vm.assignManual()">
+
+
+                    <!-- Start - Action buttons -->
+                    <div class="modal-footer" ng-if="vm.assign_manually">
+                        <center>
+                            <button ng-show="vm.roleResearcher == 0" type="button" class="btn btn-primary" ng-click="vm.assignManual()">
         				<i class="fa fa-check"></i>Assign
     					</button>
-                    </center>
-                </div>
-                <!-- End - Action buttons -->
+                        </center>
+                    </div>
+                    <!-- End - Action buttons -->
 
-                </div>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

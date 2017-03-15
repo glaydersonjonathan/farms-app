@@ -13,13 +13,13 @@
             <div class="modal-body">
                 <form name="form" ng-submit="send()">
                     <div class="form-group">
-                        <label for="ds_title">Title</label>
+                        <label for="ds_title">Title *</label>
                         <input type="text" name="ds_title" id="ds_title" class="form-control" ng-model="vm.study.dsTitle" required />
                         <span ng-show="form.ds_title.$dirty && form.ds_title.$error.required" class="help-block">Title is required.</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="rate">Reading Rate</label>
+                        <label for="rate">Reading Rate *</label>
                         <select id="rate" name="rate" class="form-control" ng-model="vm.study.tpReadingRate" required>
                             <option value="0">Very High</option>
                             <option value="1">High</option>
@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="ds_cite">Cite Key</label>
+                        <label for="ds_cite">Cite Key *</label>
                         <input maxlength="50" type="text" name="ds_cite" id="ds_cite" class="form-control" ng-model="vm.study.cdCiteKey" required
                         />
                         <span ng-show="form.ds_cite.$dirty && form.ds_cite.$error.required" class="help-block">Cite Key is required.</span>
@@ -111,19 +111,15 @@
 
                 </form>
             </div>
-
             <!-- Start - Action buttons. -->
             <div class="modal-footer">
                 <button id="btn-create" class="btn btn-primary" ng-click="vm.createStudy(); form.$setPristine();"><i class="fa fa-check"  type="submit" ng-disabled="form.$invalid"></i>Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
             </div>
             <!-- End - Action buttons. -->
-
-
         </div>
         <!-- End - Fields form -->
         <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
         />
     </div>
-</div>
 </div>

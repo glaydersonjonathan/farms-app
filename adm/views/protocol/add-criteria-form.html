@@ -13,7 +13,7 @@
       <div class="modal-body">
         <form name="form" ng-submit="send()">
           <div class="form-group">
-            <label for="tp_criteria">Criteria type</label>
+            <label for="tp_criteria">Criteria type *</label>
             <select id="tp_criteria" name="tp_criteria" class="form-control" ng-model="vm.protocol.selectionCriterias.tpCriteria" required>
             <option value="">All types</option>
             <option value="0">Exclusion</option>
@@ -23,7 +23,7 @@
           </div>
 
           <div class="form-group">
-            <label for="ds_criteria">Criteria</label>
+            <label for="ds_criteria">Criteria *</label>
             <input type="text" name="ds_criteria" id="ds_criteria" class="form-control" ng-model="vm.protocol.selectionCriterias.dsSelectionCriteria"
               required />
             <span ng-show="form.ds_criteria.$dirty && form.ds_criteria.$error.required" class="help-block">Criteria is required.</span>

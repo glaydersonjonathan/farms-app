@@ -1,27 +1,26 @@
 <!-- Start - Selection Criterias list -->
 <div class="box-body">
-
-<center> 
-  <div class="form-group">
-    <button ng-show="vm.roleResearcher == 0" type="button" class="btn btn-primary" ng-click="vm.showAddCriteriaForm()">
+  <center>
+    <div class="form-group">
+      <button ng-show="vm.roleResearcher == 0" type="button" class="btn btn-primary" ng-click="vm.showAddCriteriaForm()">
      <i class="fa fa-plus"></i> Add Criteria
       </button>
-  </div>
-</center>
+    </div>
+  </center>
 
-<table class="table table-bordered table-hover">
-  <thead>
-    <tr>
-      <th class="width-60-pct">Criterias</th>
-      <th class="width-60-pct">Type</th>
-      <th class="width-60-pct" ng-show="vm.roleResearcher == 0" >Actions</th>    
-    </tr>  
-  </thead>
-  <tbody>
-    <tr ng-hide=" vm.protocol.selectionCriterias.length > 0">
-      <td align="center" colspan="5">No selection criterias registered.</td>
-    </tr>
-    <tr ng-repeat="selectionCriteria in  vm.protocol.selectionCriterias">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th class="width-60-pct">Criterias</th>
+        <th class="width-60-pct">Type</th>
+        <th class="width-60-pct" ng-show="vm.roleResearcher == 0">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-hide=" vm.protocol.selectionCriterias.length > 0">
+        <td align="center" colspan="5">No selection criterias registered.</td>
+      </tr>
+      <tr ng-repeat="selectionCriteria in  vm.protocol.selectionCriterias">
         <td class="width-30-pct">{{ selectionCriteria.dsSelectionCriteria }}</td>
         <td class="width-30-pct">
           <div class="width-30-pct" ng-if="selectionCriteria.tpCriteria == 0">
@@ -32,23 +31,23 @@
           </div>
         </td>
         <td class="center" ng-show="vm.roleResearcher == 0">
-            <button type="button" class="btn btn-warning" ng-click="vm.showEditSelectionCriteriaForm(selectionCriteria)">
+          <button type="button" class="btn btn-warning" ng-click="vm.showEditSelectionCriteriaForm(selectionCriteria)">
                 <span class="glyphicon glyphicon-pencil"></span>
             </button>
-            <button type="button" class="btn btn-danger" ng-click="vm.deleteSelectionCriteria(selectionCriteria)" >
+          <button type="button" class="btn btn-danger" ng-click="vm.deleteSelectionCriteria(selectionCriteria)">
                 <span class="glyphicon glyphicon-trash"></span>
             </button>
         </td>
-    </tr>
-      
-  </tbody>
-  <tfoot>
-    <tr>
-      <th class="width-60-pct">Criterias</th>
-      <th class="width-60-pct">Type</th>
-      <th class="width-60-pct" ng-show="vm.roleResearcher == 0">Actions</th>    
-    </tr>
-  </tfoot>
-</table>
+      </tr>
+
+    </tbody>
+    <tfoot>
+      <tr>
+        <th class="width-60-pct">Criterias</th>
+        <th class="width-60-pct">Type</th>
+        <th class="width-60-pct" ng-show="vm.roleResearcher == 0">Actions</th>
+      </tr>
+    </tfoot>
+  </table>
 </div>
 <!-- End - Selection Criterias list -->

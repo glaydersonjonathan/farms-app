@@ -2,7 +2,6 @@
 <div class="modal fade" id="create-modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-
       <!-- Form title. -->
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -13,7 +12,7 @@
       <div class="modal-body">
         <form name="form" ng-submit="send()">
           <div class="form-group">
-            <label for="tp_review">Review type</label>
+            <label for="tp_review">Review type *</label>
             <select id="tp_review" name="tp_review" class="form-control" ng-model="vm.project.tpReview" required>
             <option value="">All types</option>
             <option value="0">Not Systematic</option>
@@ -24,26 +23,25 @@
           </div>
 
           <div class="form-group">
-            <label for="ds_key">Key</label>
+            <label for="ds_key">Key *</label>
             <input maxlength="10" type="text" name="ds_key" id="ds_key" class="form-control" ng-model="vm.project.dsKey" required />
             <span ng-show="form.ds_key.$dirty && form.ds_key.$error.required" class="help-block">Key is required.</span>
           </div>
           <div class="form-group">
-            <label for="ds_title">Title</label>
+            <label for="ds_title">Title *</label>
             <input type="text" name="ds_title" id="ds_title" class="form-control" ng-model="vm.project.dsTitle" required />
             <span ng-show="form.ds_title.$dirty && form.ds_title.$error.required" class="help-block">Title is required.</span>
           </div>
           <div class="form-group">
-            <label for="ds_project">Description:</label>
+            <label for="ds_project">Description</label>
             <textarea id="ds_project" name="ds_project" ng-model="vm.project.dsProject" class="form-control" rows="5"></textarea>
           </div>
-
 
           <!--Institution-->
           <hr width=90%> 
             <div class="form-group">
               <div class="form-group">
-                <label for="ds_country">Institution Country</label>
+                <label for="ds_country">Institution Country *</label>
                 <select id="ds_country" name="ds_country" ng-model="vm.project.country" class="form-control" ng-options="country as country.nmCountry for country in vm.all_countries | orderBy: 'nmCountry'"
                   required>'
             <option value="">Select a country of institutuion</option>
@@ -52,40 +50,28 @@
               </div>
 
               <div class="form-group">
-                <label for="ds_name_ins">Institution Name</label>
+                <label for="ds_name_ins">Institution Name *</label>
                 <input maxlength="200" type="text" name="ds_name_ins" id="ds_name_ins" class="form-control" ng-model="vm.project.nmInstitution" required />
                 <span ng-show="form.ds_name_ins.$dirty && form.ds_name_ins.$error.required" class="help-block">Institution name is required.</span>
               </div>
 
               <div class="form-group">
-                <label for="ds_abbr">Institution Abbreviation</label>
+                <label for="ds_abbr">Institution Abbreviation *</label>
                 <input maxlength="10"  type="text" name="ds_abbr" id="ds_abbr" class="form-control" ng-model="vm.project.dsAbbreviation" required />
                 <span ng-show="form.ds_abbr.$dirty && form.ds_abbr.$error.required" class="help-block">Institution abbreviation is required.</span>
               </div>
             </div>
-
         </form>
       </div>
-
       <!-- Start - Action buttons. -->
       <div class="modal-footer">
         <button id="btn-create" class="btn btn-primary" ng-click="vm.createProject(); form.$setPristine();"><i class="fa fa-check"  type="submit" ng-disabled="form.$invalid"></i>Save</button>
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
       </div>
       <!-- End - Action buttons. -->
-
-
     </div>
     <!-- End - Fields form -->
-
-
-
     <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
     />
-
-
-
-
   </div>
-</div>
 </div>
