@@ -6,7 +6,76 @@
         ng-bind="flash.message"></div>
       <div class="box">
         <div class="panel-group">
-         Coming soon.
+
+          <center>
+            <button ng-show="vm.roleResearcher == 0" type="button" class="btn btn-success" ng-click="" ng-disabled="true">
+              <i class="fa fa-arrow-circle-down"></i> Finalize Selection Step
+            </button>
+          </center>
+
+          <label ng-show="vm.roleResearcher == 0">Set Decision Maker:</label>
+          <table class="table table-bordered table-hover" ng-show="vm.roleResearcher == 0">
+            <thead>
+              <tr>
+                <th class="width-30-pct">Name</th>
+                <th class="text-align-center">Choice</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="member in vm.members">
+                <td class="width-30-pct">{{ member.nmResearcher }}</td>
+                <td class="center">
+                  <input type="checkbox" ng-click="vm.review.dsSSO = member.dsSSO">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <label>Studies in conflict </label>
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <!--th class="width-60-pct">#</th-->
+                <th class="width-30-pct">Title</th>
+                <th class="width-30-pct">Year</th>
+                <th class="text-align-center">Details</th>
+                <th class="width-30-pct">Decision</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--tr ng-hide="vm.studiesByFilter().length > 0">
+            <td align="center" colspan="5">No study found.</td>
+          </tr-->
+              <tr ng-if="vm.dataLoading">
+                <td colspan="9" align="center">
+                  <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                  />
+                </td>
+              </tr>
+              <tr ng-repeat="review in vm.studiesByFilter()| pagination : vm.currentPage*vm.itemsPerPage | limitTo: vm.itemsPerPage">
+                <!--td class="width-30-pct">{{ $index + 1 }}</td-->
+                <td class="width-30-pct">{{ review.study.dsTitle }}</td>
+                <td class="width-30-pct">{{ review.study.nrYear}}</td>
+                <td class="center">
+                  <button type="button" class="btn btn-default" ng-click="vm.showReadForm(review.study)">
+                <span class="glyphicon glyphicon-eye-open"></span>
+              </button>
+                </td>
+                <td class="width-30-pct">
+                  <label>
+                  <input type="radio" name="x"> Accept
+                  </label>
+                  <label>
+                  <input type="radio" name="x">Reject
+                  </label>
+
+                </td>
+
+
+              </tr>
+            </tbody>
+          </table>
+
         </div>
       </div>
     </div>

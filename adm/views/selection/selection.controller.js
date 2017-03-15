@@ -163,6 +163,7 @@
             }
             var dsSSO = $rootScope.globals.currentUser.dsUsername;
             SelectionService.GetReviews(dsKey, dsSSO).then(function (response) {
+                console.log(response);
                 vm.reviews = response;
                 vm.dataLoading = false;
             });
