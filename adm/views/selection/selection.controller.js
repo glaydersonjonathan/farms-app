@@ -55,9 +55,9 @@
 
         vm.showReadForm = showReadForm;
         vm.clearForm = clearForm;
+        vm.realizeReview = realizeReview;
 
-
-        vm.testee = false;
+        vm.finalize = false;
         vm.loadCriteria = loadCriteria;
         vm.criterias = [];
 
@@ -217,12 +217,21 @@
             });
         }
 
-        vm.realizeReview = realizeReview;
 
         function realizeReview(review) {
             console.log('Review: ');
             console.log(review);
-            vm.testee = false;
+            vm.finalize = false;
+            SelectionService.RealizeReview(review).then(function (response) {
+                console.log(response);
+                if (response.code === 1030) {
+                    //FlashService.Success(response.description, false);
+                    alert(response.description);
+                } else {
+                    //FlashService.Error(response.description, false);
+                    alert(response.description);
+                }
+            });
         }
 
 

@@ -1,4 +1,6 @@
 <!-- Selection - CRUD -->
+<script src="multiple-select/multiple-select.js"></script>
+<link rel="stylesheet" href="multiple-select/multiple-select.css">
 <div class="content">
 
   <div class="row">
@@ -113,34 +115,33 @@
               </button>
                 </td>
                 <td class="width-30-pct">
-                  <select id="status" name="status" class="form-control" ng-model="review.tpStatus" ng-change="vm.testee=true">
+                  <select id="status" name="status" class="form-control" ng-model="review.tpStatus" ng-change="vm.finalize=true">
             <option value="0">Unclassified</option>
             <option value="1">Accepted</option>
             <option value="2">Rejected</option>
           </select>
 
-                  <div ng-if="vm.testee">
-                    </br>
-                     <div ng-repeat="criteria in vm.criterias">
-                      <label for="criteria-" ng-show="criteria.tpCriteria == 0 && review.tpStatus == 2">
-                      <input ng-model="review.criteria[criteria.idSelectionCriteria]" ng-true-value="'{{criteria}}'" type="checkbox" id="criteria-" ng-checked="criteria.checked">
-                      {{criteria.dsSelectionCriteria}}</label>
-
-                      <label for="criteria-" ng-show="criteria.tpCriteria == 1 && review.tpStatus == 1">
-                      <input ng-model="review.criteria[criteria.idSelectionCriteria]" ng-true-value="'{{criteria}}'" type="checkbox" id="criteria-" ng-checked="criteria.checked">
-                      {{criteria.dsSelectionCriteria}}</label>
+                  <div ng-if="vm.finalize">
+                    Multiple Select
+                    <div>
+                      <select multiple="multiple" id="ms" ng-if="review.tpStatus == 1" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!0'}"
+                        ng-model="review.criterias">
+                    </select>
+                      <select multiple="multiple" id="ms" ng-if="review.tpStatus == 2" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!1'}"
+                        ng-model="review.criterias">
+                      </select>
                     </div>
 
                     </br>
-                    <textarea id="coment" name="coment" class="form-control" rows="2" ng-model="review.comment" placeholder="Optional Comment"></textarea>
+                    <textarea id="coment" name="coment" ng-show="review.tpStatus != '0'" class="form-control" rows="2" ng-model="review.dsCommentary"
+                      placeholder="Optional Comment"></textarea>
                     </br>
                     <button type="button" class="btn btn-primary" ng-click="vm.realizeReview(review)"> 
                    <i class="glyphicon glyphicon-ok"></i> Finish
                   </button>
                   </div>
                 </td>
-he
-{{vm.reviews.indexOf()}}
+
               </tr>
             </tbody>
             <tfoot>
@@ -154,7 +155,9 @@ he
               </tr>
             </tfoot>
           </table>
-
+    <!--script>
+        $('#ms').multipleSelect();
+    </script-->
           <!--div id="myCarousel" class="carousel slide" data-ride="carousel" ng-if="vm.page">
          
             <ol class="carousel-indicators">

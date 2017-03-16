@@ -14,6 +14,7 @@
         service.GetAllRated = GetAllRated;
         service.AssignManual = AssignManual;
         service.GetReviews = GetReviews;
+        service.RealizeReview = RealizeReview;
         
         return service;
 
@@ -35,6 +36,10 @@
 
         function GetReviews(dsKey, dsSSO) {
             return $http.get(API_SERVER.url + '/selections/review/' + dsKey + "/" + dsSSO).then(handleSuccess, handleError);
+        }
+
+        function RealizeReview (review){
+          return $http.post(API_SERVER.url + '/selections/realizeReview', review).then(handleSuccess, handleError);   
         }
 
         // private functions
