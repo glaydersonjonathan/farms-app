@@ -16,7 +16,8 @@
     // Study
     vm.study = {};
     vm.studies = [];
-
+    
+    vm.year = {};
 
     vm.showCreateForm = showCreateForm;
     vm.showImportForm = showImportForm;
@@ -53,6 +54,7 @@
     function initController() {
       vm.getAllStudies();
       getStandardQuery();
+      date();
     }
 
     // Forms
@@ -96,6 +98,11 @@
       $('#study-create-modal-form').modal('hide');
       $('#study-edit-modal-form').modal('hide');
       $('#confirmation-message-modal').modal('hide');
+    }
+
+    function date() {
+      var date = new Date();
+      vm.year = date.getFullYear();
     }
 
     // CRUD functions

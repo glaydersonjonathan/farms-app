@@ -43,7 +43,10 @@
 
                     <div class="form-group">
                         <label for="year">Year</label>
-                        <input maxlength="4" type="number" name="year" id="year" class="form-control" ng-model="vm.study.nrYear" />
+                        <input maxlength="4" type="number" name="year" id="year" class="form-control" ng-model="vm.study.nrYear" min="1500" max="{{vm.year + 1 }}"/>
+                        <span ng-if="form.year.$dirty && form.year.$error.min">Year should be at least 1500</span>
+                        <span ng-if="form.year.$dirty && form.year.$error.max">Year is higher than {{vm.year + 1}}.</span>
+
                     </div>
 
                     <div class="form-group">
