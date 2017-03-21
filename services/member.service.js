@@ -10,10 +10,10 @@
         var service = {};
 
         service.GetAll = GetAll;
-        service.GetByNmMember = GetByNmMember;
         service.Invite = Invite;
-        service.Update = Update;
+        service.ActiveMember = ActiveMember;
         service.Delete = Delete;
+        service.ActiveMember = ActiveMember;
 
         return service;
 
@@ -21,20 +21,16 @@
             return $http.get(API_SERVER.url + '/members').then(handleSuccess, handleError);
         }
 
-        function GetByNmMember(nmMember) {
-            return $http.get(API_SERVER.url + '/members/' + nmMember).then(handleSuccess, handleError);
-        }
-
         function Invite(invite) {
-            return $http.post(API_SERVER.url + '/projects/members/invite/',invite).then(handleSuccess, handleError);
+            return $http.post(API_SERVER.url + '/projects/members/invite/', invite).then(handleSuccess, handleError);
         }
 
-        function Update(idMember) {
-            return $http.put(API_SERVER.url + '/members/' + member.idMember, member).then(handleSuccess, handleError);
+        function ActiveMember(idProjectMember) {
+            return $http.put(API_SERVER.url + '/projects/members/active/' + idProjectMember).then(handleSuccess, handleError);
         }
 
-        function Delete(idMember) {
-            return $http.delete(API_SERVER.url + '/members/' + idMember).then(handleSuccess, handleError);
+        function Delete(idProjectMember) {
+            return $http.delete(API_SERVER.url + '/projects/members/' + idProjectMember).then(handleSuccess, handleError);
         }
 
         // private functions

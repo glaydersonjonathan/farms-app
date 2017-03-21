@@ -31,7 +31,7 @@
 
     vm.getAllProjects = getAllProjects;
     vm.createProject = createProject;
-    vm.readProject = readProject;
+    
     vm.updateProject = updateProject;
     vm.openProject = openProject;
 
@@ -150,7 +150,6 @@
         if (response.code === 1007) {
           FlashService.Success(response.description, false);
           $cookieStore.put('currentProject', vm.project);
-         // $window.location.reload();
           vm.project = null;
           closeModal();
           vm.getAllProjects();
@@ -162,21 +161,7 @@
       });
     };
 
-    function readProject(key) {
-      //vm.dataLoading = true;
-      ProjectService.GetByDsKey(key).then(function (response) {
-        //console.log(response.data);
-        //if (response.code === 1000) {
-        vm.project = response;
-        showReadForm();
-        //} else {
-        //FlashService.Error(response.description);
-        //vm.dataLoading = false;
-        //}
-      });
-    }
-
-
+ 
     function openProject(dsKey) {
       ProjectService.GetByDsKey(dsKey).then(function (response) {
         var project = response;

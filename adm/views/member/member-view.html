@@ -73,7 +73,8 @@
                 <th class="width-30-pct">Name</th>
                 <th class="width-30-pct">Username</th>
                 <th class="width-30-pct">Role</th>
-                <th class="text-align-center" ng-show="vm.roleResearcher == 0">Inactive Member</th>
+                <th class="width-30-pct">Status</th>
+                <th class="text-align-center" ng-show="vm.roleResearcher == 0">Inactive/Active Member</th>
               </tr>
             </thead>
             <tbody>
@@ -87,9 +88,13 @@
                 <td class="width-30-pct">{{ member.nmResearcher }}</td>
                 <td class="width-30-pct">{{ member.dsSSO }}</td>
                 <td class="width-30-pct">{{ member.tpRole }}</td>
+                <td class="width-30-pct">{{ member.tpState }}</td>
                 <td class="center" ng-show="vm.roleResearcher == 0">
-                  <button type="button" class="btn btn-danger" ng-click="vm.deleteMember(member.dsKey)" ng-disabled="true">
-                <span class="glyphicon glyphicon-trash"></span>
+                  <button type="button" class="btn btn-danger" ng-click="vm.inactiveMember(member)" ng-if="member.tpState != 'Inactive'">
+                <span class="glyphicon glyphicon-trash" ng-if="member.tpState != 'Inactive'"></span>
+
+                <button type="button" class="btn btn-sucess" ng-click="vm.activeMember(member)" ng-if="member.tpState != 'Active'">
+                <span class="glyphicon glyphicon-ok" ng-if="member.tpState != 'Active'"></span>
               </button>
                 </td>
               </tr>
@@ -99,7 +104,8 @@
                 <th class="width-30-pct">Name</th>
                 <th class="width-30-pct">Username</th>
                 <th class="width-30-pct">Role</th>
-                <th class="text-align-center" ng-show="vm.roleResearcher == 0">Inactive Member</th>
+                <th class="width-30-pct">Status</th>
+                <th class="text-align-center" ng-show="vm.roleResearcher == 0">Inactive/Active Member</th>
               </tr>
             </tfoot>
           </table>

@@ -23,19 +23,17 @@
     // Invite
     vm.invite = {};
 
-
-
     vm.clearForm = clearForm;
     vm.closeModal = closeModal;
     vm.showMemberInvitationForm = showMemberInvitationForm;
-    vm.showReadForm = showReadForm;
 
     vm.getAllMembers = getAllMembers;
-    vm.getMemberByCdCite = getMemberByCdCite;
 
     vm.inviteMember = inviteMember;
-    //vm.readMember = readMember;
-    vm.deleteMember = deleteMember;
+
+    vm.inactiveMember = inactiveMember;
+    vm.deleteConfirm = deleteConfirm;
+    vm.activeMember = activeMember;
 
     vm.membersByFilter = membersByFilter;
     vm.nmResearcherSearch = "";
@@ -63,6 +61,7 @@
 
     function closeModal() {
       $('#member-invitation-modal-form').modal('hide');
+      $('#confirmation-message-modal').modal('hide');
     }
 
     function showMemberInvitationForm() {
@@ -71,14 +70,9 @@
       $('#member-invitation-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
-
-    function showReadForm() {
-      $('#read-modal-title').text("Member");
-      $('#read-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
-    }
-
     function showConfirmationMessage() {
-      $('#confirmation-message-modal-title').text("Confirmation");
+      $('#confirmation-message-modal-title').text("Do you really want to inactive this member?");
+      $('#confirmation-message-modal-message').text("This member not be able to participate in this project.");
       $('#confirmation-message-modal').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
@@ -104,7 +98,6 @@
         dsKey = currentProject.dsKey
       }
       ProjectService.GetMembersByDsKey(dsKey).then(function (response) {
-
         var members = response;
         vm.members = members;
         vm.dataLoading = false;
@@ -142,55 +135,38 @@
       });
     };
 
-    function getMemberByCdCite(cdCite) {
-      //vm.dataLoading = true;
-      MemberService.GetByCdCite(cdCite).then(function (response) {
-        //console.log(response.data);
-        //if (response.code === 1000) {
-        var member = response;
-        return member;
-        //} else {
-        // console.log(response.data);
-        //FlashService.Error(response.description);
-        //vm.dataLoading = false;
-        //}
+
+    function inactiveMember(member) {
+      vm.member = member;
+      if (member.tpRole == 'Coordinator') {
+        FlashService.Error('You are coordinator of this project, you can not inactive.', false);
+      } else {
+        showConfirmationMessage();
+      }
+    }
+
+    function deleteConfirm() {
+      closeModal();
+      MemberService.Delete(vm.member.idProjectMember).then(function (response) {
+        if (response.code === 1031) {
+          vm.member = null;
+          getAllMembers();
+          FlashService.Success(response.description, false);
+        } else {
+          FlashService.Error(response.description, false);
+        }
       });
     }
 
-
-    //    function readMember(cdCiteKey) {
-    //vm.dataLoading = true;
-    // MemberService.GetByCdCiteKey(cdCiteKey).then(function (response) {
-    //console.log(response.data);
-    //if (response.code === 1000) {
-    //   vm.member = response;
-    //showReadForm();
-    //} else {
-    //FlashService.Error(response.description);
-    //vm.dataLoading = false;
-    //}
-    ///   });
-    // }
-
- 
-
-    function deleteMember(cdCiteKey) {
-      showConfirmationMessage();
-      /*vm.dataLoading = true;
-      if (Do you really want to delete this member?) {
-      MemberService.Delete(vm.member).then(function (response) {
-        console.log(response.data);
-        if (response.code === 1002) {
-          FlashService.Success(response.description, true);
-          vm.member = null;
-          $('#create-modal-form').closeModal();
-          vm.getAllMembers();
+    function activeMember(member) {
+      MemberService.ActiveMember(member.idProjectMember).then(function (response) {
+        if (response.code === 1032) {
+          FlashService.Success(response.description, false);
+          $state.go($state.current, {}, { reload: true });
         } else {
-          FlashService.Error(response.description, true);
-          vm.dataLoading = false;
+          FlashService.Error(response.description, false);
         }
       });
-    }*/
     }
 
     /****** Start filter functions *****/

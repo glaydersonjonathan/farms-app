@@ -57,7 +57,7 @@
     }
 
     function showConfirmationMessage() {
-      $('#confirmation-message-modal-title').text("Do you really want to delete your account?");
+      $('#confirmation-message-modal-title').text("Do you really want to inative your account?");
       $('#confirmation-message-modal-message').text("You will not be able to participate in any project any more.");
       $('#confirmation-message-modal').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
