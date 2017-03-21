@@ -27,6 +27,7 @@
 
         vm.reviews = [];
 
+        vm.studiesInConflict = [];
 
         vm.selection = {};
 
@@ -83,6 +84,7 @@
             vm.getAllReviews();
             getRoleResearcher();
             vm.loadCriteria();
+            getStudiesInConflict();
         }
 
         function getRoleResearcher() {
@@ -165,6 +167,21 @@
             SelectionService.GetReviews(dsKey, dsSSO).then(function (response) {
                 vm.reviews = response;
                 vm.dataLoading = false;
+            });
+        }
+
+        function getStudiesInConflict() {
+           
+            vm.studiesInConflict
+            var currentProject = $cookieStore.get("currentProject");
+            var dsKey;
+            if (currentProject != null) {
+                dsKey = currentProject.dsKey;
+            }
+            console.log(dsKey);
+            SelectionService.GetStudiesInConflict(dsKey).then(function (response) {
+                 console.log(response);
+                vm.studiesInConflict = response;
             });
         }
 

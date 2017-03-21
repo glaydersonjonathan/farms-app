@@ -15,6 +15,7 @@
         service.AssignManual = AssignManual;
         service.GetReviews = GetReviews;
         service.RealizeReview = RealizeReview;
+        service.GetStudiesInConflict = GetStudiesInConflict;
         
         return service;
 
@@ -40,6 +41,10 @@
 
         function RealizeReview (review){
           return $http.post(API_SERVER.url + '/selections/realizeReview', review).then(handleSuccess, handleError);   
+        }
+
+        function GetStudiesInConflict (dsKey){
+          return $http.get(API_SERVER.url + '/selections/conflicts/' + dsKey).then(handleSuccess, handleError);  
         }
 
         // private functions
