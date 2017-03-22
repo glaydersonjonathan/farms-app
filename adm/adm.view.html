@@ -86,6 +86,9 @@ desired effect
             ng-change="vm.openProject()">
             <option value="">Choose Project</option>
           </select>
+          <button ng-if="vm.project !=null" class="btn btn-danger" type="button"  ng-click="vm.closeProject()">
+                <span class="glyphicon glyphicon-remove"></span>
+          </button>
         </div>
 
         <!-- Navbar Right Menu -->
@@ -163,16 +166,16 @@ desired effect
               </a>
               <ul class="treeview-menu">
                 <li><a ui-sref=".projects" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Projects</span></a></li>
-                <li><a ui-sref=".institutions" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Institutions</span></a></li>
-                <li><a ui-sref=".members" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Members</span></a></li>
+                <li ng-show="vm.project != null"><a ui-sref=".institutions" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Institutions</span></a></li>
+                <li ng-show="vm.project != null"><a ui-sref=".members" ui-sref-active="active"><i class="fa fa-circle-o"></i><span>Members</span></a></li>
               </ul>
             </li>
 
             <!-- Protocol -->
-            <li><a ui-sref=".protocol" ui-sref-active="active"><i class="fa fa-book"></i><span>Protocol</span></a></li>
+            <li ng-show="vm.project != null"><a ui-sref=".protocol" ui-sref-active="active"><i class="fa fa-book"></i><span>Protocol</span></a></li>
 
             <!-- Studies Identification -->
-            <li class="treeview">
+            <li class="treeview" ng-show="vm.project != null">
               <a href="#">
                 <i class="fa fa-files-o"></i> <span>Studies Identification</span>
                 <i class="fa fa-angle-left pull-right"></i>
@@ -184,7 +187,7 @@ desired effect
             </li>
 
             <!-- Selection Step -->
-            <li class="treeview">
+            <li class="treeview" ng-show="vm.project != null">
               <a href="#">
                 <i class="fa fa-check-square-o"></i> <span>Selection Step</span>
                 <i class="fa fa-angle-left pull-right"></i>
@@ -200,7 +203,7 @@ desired effect
             </li>
 
             <!-- Data Extraction -->
-            <li class="treeview">
+            <li class="treeview" ng-show="vm.project != null">
               <a href="#">
                 <i class="fa fa-database"></i> <span>Data Extraction</span>
                 <i class="fa fa-angle-left pull-right"></i>
@@ -219,7 +222,7 @@ desired effect
             </li>
 
             <!-- Charts and Reports -->
-            <li class="treeview">
+            <li class="treeview" ng-show="vm.project != null">
               <a href="#">
                 <i class="fa fa-pie-chart"></i> <span>Charts and Reports</span>
                 <i class="fa fa-angle-left pull-right"></i>

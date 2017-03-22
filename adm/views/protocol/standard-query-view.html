@@ -8,7 +8,8 @@
 
 <!-- Start - Action buttons -->
 <div class="modal-footer">
-    <button ng-show="vm.roleResearcher == 0" id="btn-save-standard-query" type="button" class="btn btn-primary" ng-click="vm.saveStandardQuery()">
+    <button ng-show="vm.roleResearcher == 0" id="btn-save-standard-query" type="button" class="btn btn-primary" ng-click="vm.saveStandardQuery()"
+     ng-disabled="vm.protocol.standardQuery.dsStandardQuery == null">
         <i class="fa fa-check"></i>Save
     </button>
 </div>

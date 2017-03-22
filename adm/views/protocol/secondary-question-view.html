@@ -8,7 +8,8 @@
 
 <!-- Start - Action buttons -->
 <div class="modal-footer">
-    <button ng-show="vm.roleResearcher == 0" id="btn-save-questions" type="button" class="btn btn-primary" ng-click="vm.saveSecondaryQuestion()">
+    <button ng-show="vm.roleResearcher == 0" id="btn-save-questions" type="button" class="btn btn-primary" ng-click="vm.saveSecondaryQuestion()"
+     ng-disabled="vm.protocol.secondaryQuestion.dsSecondaryQuestion == null">
         <i class="fa fa-check"></i>Save
     </button>
 </div>

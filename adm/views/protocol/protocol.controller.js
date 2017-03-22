@@ -179,9 +179,7 @@
       var dsKey = null;
       if (currentProject != null) {
         dsKey = currentProject.dsKey
-      } else {
-        FlashService.Error('Open a project before view and edit protocol', false);
-      }
+      } 
       ProtocolService.GetObjectivesByDsKey(dsKey).then(function (response) {
         var objectives = response;
         vm.protocol.objective = objectives[0];
@@ -229,11 +227,9 @@
       ProtocolService.SaveObjectives(vm.protocol.objective).then(function (response) {
         if (response.code === 1011) {
           FlashService.Success(response.description, false);
-          alert(response.description);
         }
         else {
           FlashService.Error(response.description, false);
-          alert(response.description);
         }
       });
     }
@@ -246,11 +242,9 @@
       ProtocolService.SaveMainQuestion(vm.protocol.mainQuestion).then(function (response) {
         if (response.code === 1012) {
           FlashService.Success(response.description, false);
-          alert(response.description);
         }
         else {
           FlashService.Error(response.description, false);
-          alert(response.description);
         }
       });
     }
@@ -263,11 +257,9 @@
       ProtocolService.SaveSecondaryQuestion(vm.protocol.secondaryQuestion).then(function (response) {
         if (response.code === 1013) {
           FlashService.Success(response.description, false);
-          alert(response.description);
         }
         else {
           FlashService.Error(response.description, false);
-          alert(response.description);
         }
       });
     }
@@ -280,11 +272,9 @@
       ProtocolService.SaveStandardQuery(vm.protocol.standardQuery).then(function (response) {
         if (response.code === 1014) {
           FlashService.Success(response.description, false);
-          alert(response.description);
         }
         else {
           FlashService.Error(response.description, false);
-          alert(response.description);
         }
       });
     }
@@ -474,9 +464,6 @@
       showConfirmationMessage("selection criteria '" + vm.criteriaToDelete.dsSelectionCriteria + "'");
     }
 
-
-
-
     function editKeyword() {
       ProtocolService.EditKeyword(vm.protocol.searchKeywords).then(function (response) {
         if (response.data.code === 1015) {
@@ -504,7 +491,6 @@
         closeModal();
       });
     }
-
 
     function editCriteria() {
       ProtocolService.EditCriteria(vm.protocol.selectionCriterias).then(function (response) {

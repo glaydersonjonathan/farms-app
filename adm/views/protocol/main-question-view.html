@@ -1,6 +1,6 @@
 <!-- Start - Objectives form -->
 <div class="form-group">
-  <label for="ds_main_question">Main Question</label>
+  <label for="ds_main_question">Main Question *</label>
   <textarea ng-readonly="vm.roleResearcher != 0" id="ds_main_question" name="ds_main_question" ng-model="vm.protocol.mainQuestion.dsMainQuestion" class="form-control" rows="2"></textarea>
 </div>
 <div class="form-group">
@@ -31,7 +31,8 @@
 
 <!-- Start - Action buttons -->
 <div class="modal-footer">
-    <button ng-show="vm.roleResearcher == 0" id="btn-save-questions" type="button" class="btn btn-primary" ng-click="vm.saveMainQuestion()">
+    <button ng-show="vm.roleResearcher == 0" id="btn-save-questions" type="button" class="btn btn-primary" ng-click="vm.saveMainQuestion()"
+    ng-disabled="vm.protocol.mainQuestion.dsMainQuestion ==null">
         <i class="fa fa-check"></i>Save
     </button>
 </div>

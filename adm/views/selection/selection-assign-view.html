@@ -53,7 +53,8 @@
                     <!-- Start - Action buttons -->
                     <div class="modal-footer" ng-if="vm.assign_manually">
                         <center>
-                            <button ng-show="vm.roleResearcher == 0" type="button" class="btn btn-primary" ng-click="vm.assignManual()">
+                            <button ng-show="vm.roleResearcher == 0" type="button" class="btn btn-primary" ng-click="vm.assignManual()" 
+                            ng-disabled="vm.review.dsSSO == null || vm.review.studies.length == null">
         				<i class="fa fa-check"></i>Assign
     					</button>
                         </center>

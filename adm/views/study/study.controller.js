@@ -120,7 +120,6 @@
         });
       } else {
         vm.dataLoading = false;
-        FlashService.Error('Open a project before view and edit studies', false);
       }
     }
 

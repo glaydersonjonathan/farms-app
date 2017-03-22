@@ -45,7 +45,7 @@
                 <th class="width-30-pct">
                   <center> Score 
                   <br>
-                  Accepted - Rejected
+                  Accepted - Rejected - Unclassified(ignored)
                   </center>
                 </th>
                 <th class="width-30-pct" ng-show="vm.roleResearcher == 0">Decision</th>
@@ -70,7 +70,7 @@
                 <span class="glyphicon glyphicon-eye-open"></span>
               </button>
                 </td>
-                <td class="width-30-pct"><center>{{ study.accepted }} - {{ study.rejected}} </center></td>
+                <td class="width-30-pct"><center>{{ study.accepted }} - {{ study.rejected}} - {{study.unclassified}}</center></td>
                 <td class="width-30-pct" ng-show="vm.roleResearcher == 0">
                   <label class="radio-inline">
                   <input type="radio" name="x"> Accept

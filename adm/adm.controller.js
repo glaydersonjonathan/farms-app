@@ -15,12 +15,14 @@
         vm.year = {};
 
         vm.openProject = openProject;
+        vm.closeProject = closeProject;
         vm.getAllProjects = getAllProjects;
-        vm.roleResearcher ={};
+        vm.roleResearcher = {};
 
         initController();
 
         function initController() {
+            vm.project = null;
             loadCurrentUser();
             date();
             getAllProjects();
@@ -56,6 +58,12 @@
                 $cookieStore.put('currentProject', project);
                 $state.go($state.current, {}, { reload: true });
             });
+        }
+
+        function closeProject() {
+            vm.project = null;
+            $cookieStore.put('currentProject', null);
+            $state.go($state.current, {}, { reload: true });
         }
 
         function getRoleResearcher() {

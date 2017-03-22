@@ -8,7 +8,8 @@
 
 <!-- Start - Action buttons -->
 <div class="modal-footer">
-    <button id="btn-save-objectives" type="button" class="btn btn-primary" ng-click="vm.saveObjectives()" ng-show="vm.roleResearcher == 0">
+    <button id="btn-save-objectives" type="button" class="btn btn-primary" ng-click="vm.saveObjectives()" ng-show="vm.roleResearcher == 0"
+    ng-disabled="vm.protocol.objective.dsObjective == null">
         <i class="fa fa-check"></i>Save
     </button>
 </div>
