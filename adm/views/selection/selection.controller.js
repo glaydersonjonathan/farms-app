@@ -166,13 +166,11 @@
             var dsSSO = $rootScope.globals.currentUser.dsUsername;
             SelectionService.GetReviews(dsKey, dsSSO).then(function (response) {
                 vm.reviews = response;
-                            console.log(vm.reviews);
                 vm.dataLoading = false;
             });
         }
 
         function getStudiesInConflict() {
-            vm.studiesInConflict
             var currentProject = $cookieStore.get("currentProject");
             var dsKey;
             if (currentProject != null) {
@@ -180,6 +178,7 @@
             }
             SelectionService.GetStudiesInConflict(dsKey).then(function (response) {
                 vm.studiesInConflict = response;
+                console.log(vm.studiesInConflict);
             });
         }
 
