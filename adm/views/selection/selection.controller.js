@@ -70,6 +70,7 @@
 
         function showReadForm(study) {
             clearForm();
+            console.log(study);
             vm.study = study;
             $('#read-modal-form-title').text(study.dsTitle);
             $('#read-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
@@ -178,7 +179,6 @@
             }
             SelectionService.GetStudiesInConflict(dsKey).then(function (response) {
                 vm.studiesInConflict = response;
-                console.log(vm.studiesInConflict);
             });
         }
 
