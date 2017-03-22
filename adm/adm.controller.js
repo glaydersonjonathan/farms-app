@@ -5,8 +5,8 @@
         .module('app')
         .controller('AdmController', AdmController);
 
-    AdmController.$inject = ['AccountService', 'ProjectService', '$rootScope', '$cookieStore','$state'];
-    function AdmController(AdmService,ProjectService, $rootScope, $cookieStore, $state) {
+    AdmController.$inject = ['AccountService', 'ProjectService', '$rootScope', '$cookieStore', '$state'];
+    function AdmController(AdmService, ProjectService, $rootScope, $cookieStore, $state) {
         var vm = this;
 
         vm.user = {};
@@ -16,6 +16,7 @@
 
         vm.openProject = openProject;
         vm.getAllProjects = getAllProjects;
+        vm.roleResearcher ={};
 
         initController();
 
@@ -23,6 +24,7 @@
             loadCurrentUser();
             date();
             getAllProjects();
+            getRoleResearcher();
         }
 
         function date() {
@@ -53,6 +55,18 @@
                 var project = response;
                 $cookieStore.put('currentProject', project);
                 $state.go($state.current, {}, { reload: true });
+            });
+        }
+
+        function getRoleResearcher() {
+            var currentProject = $cookieStore.get("currentProject");
+            var roleResearcher = {};
+            if (currentProject != null) {
+                roleResearcher.dsKey = currentProject.dsKey;
+            }
+            roleResearcher.dsUserName = $rootScope.globals.currentUser.dsUsername;
+            ProjectService.GetRoleBydsKey(roleResearcher.dsKey, roleResearcher.dsUserName).then(function (response) {
+                vm.roleResearcher = response;
             });
         }
     }

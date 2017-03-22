@@ -166,21 +166,19 @@
             var dsSSO = $rootScope.globals.currentUser.dsUsername;
             SelectionService.GetReviews(dsKey, dsSSO).then(function (response) {
                 vm.reviews = response;
+                            console.log(vm.reviews);
                 vm.dataLoading = false;
             });
         }
 
         function getStudiesInConflict() {
-           
             vm.studiesInConflict
             var currentProject = $cookieStore.get("currentProject");
             var dsKey;
             if (currentProject != null) {
                 dsKey = currentProject.dsKey;
             }
-            console.log(dsKey);
             SelectionService.GetStudiesInConflict(dsKey).then(function (response) {
-                 console.log(response);
                 vm.studiesInConflict = response;
             });
         }
@@ -216,17 +214,13 @@
         }
 
         function assignManual() {
-            var date = new Date();
-            var day = date.getDate();
-            var month = date.getMonth() + 1;
-            var year = date.getFullYear();
-            //vm.review.dhAssign = [day, month, year].join('/');
             vm.review.dhAssign = new Date();
             SelectionService.AssignManual(vm.review).then(function (response) {
-                if (response.code === 1029) {
+                if (response.code === 1029 || response.code === 2012) {
                     FlashService.Success(response.description, false);
                     alert(response.description);
-                } else {
+                }
+                else {
                     FlashService.Error(response.description, false);
                     alert(response.description);
                 }
@@ -237,7 +231,6 @@
         function realizeReview(review) {
             vm.finalize = false;
             SelectionService.RealizeReview(review).then(function (response) {
-                console.log(response);
                 if (response.code === 1030) {
                     //FlashService.Success(response.description, false);
                     alert(response.description);

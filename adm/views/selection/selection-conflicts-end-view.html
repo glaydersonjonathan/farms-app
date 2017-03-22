@@ -39,7 +39,7 @@
                 <th class="width-30-pct">Title</th>
                 <th class="width-30-pct">Year</th>
                 <th class="text-align-center">Details</th>
-                <th class="width-30-pct">Decision</th>
+                <th class="width-30-pct" ng-show="vm.roleResearcher == 0">Decision</th>
               </tr>
             </thead>
             <tbody>
@@ -52,16 +52,16 @@
                   />
                 </td>
               </tr>
-              <tr ng-repeat="review in vm.studiesByFilter()| pagination : vm.currentPage*vm.itemsPerPage | limitTo: vm.itemsPerPage">
+              <tr ng-repeat="study in vm.studiesInConflict | pagination : vm.currentPage*vm.itemsPerPage | limitTo: vm.itemsPerPage">
                 <!--td class="width-30-pct">{{ $index + 1 }}</td-->
-                <td class="width-30-pct">{{ review.study.dsTitle }}</td>
-                <td class="width-30-pct">{{ review.study.nrYear}}</td>
+                <td class="width-30-pct">{{ study.dsTitle }}</td>
+                <td class="width-30-pct">{{ study.nrYear}}</td>
                 <td class="center">
                   <button type="button" class="btn btn-default" ng-click="vm.showReadForm(review.study)">
                 <span class="glyphicon glyphicon-eye-open"></span>
               </button>
                 </td>
-                <td class="width-30-pct">
+                <td class="width-30-pct" ng-show="vm.roleResearcher == 0">
                   <label>
                   <input type="radio" name="x"> Accept
                   </label>

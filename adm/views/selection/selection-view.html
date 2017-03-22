@@ -1,11 +1,11 @@
 <!-- Selection - CRUD -->
-<script src="multiple-select/multiple-select.js"></script>
-<link rel="stylesheet" href="multiple-select/multiple-select.css">
 <div class="content">
 <div class="row">
 <div class="col-xs-12">
-<div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash"
-   ng-bind="flash.message"></div>
+
+<div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error', 'alert-warning': flash.type === 'warning' }"
+        ng-if="flash" ng-bind="flash.message"></div>
+        
 <div class="box">
    <div class="panel-group">
       <!-- Start filter the list of studies. -->
@@ -100,18 +100,18 @@
                   </button>
                </td>
                <td class="width-30-pct">
-                  <select id="status" name="status" class="form-control" ng-model="review.tpStatus" ng-change="vm.finalize= review.idReview">
+                  <select id="status" name="status" class="form-control" ng-model="review.tpStatus" ng-focus="vm.finalize= review.idReview">
                      <option value="0">Unclassified</option>
                      <option value="1">Accepted</option>
                      <option value="2">Rejected</option>
                   </select>
-                  <div ng-if="vm.finalize == review.idReview">
-                     <h5 ng-show="review.tpStatus != '0'">Multiple Select</h5>
+                  <div class="form-group" ng-if="vm.finalize == review.idReview">
+                     <h5 ng-show="review.tpStatus != '0'">Criteria Multiple Select *</h5>
                      <div>
-                        <select multiple="multiple" id="ms" ng-if="review.tpStatus == 1" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!0'}"
+                        <select multiple="multiple" id="ms"  ng-if="review.tpStatus == 1" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!0'}"
                            ng-model="review.criterias">
                         </select>
-                        <select multiple="multiple" id="ms" ng-if="review.tpStatus == 2" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!1'}"
+                        <select multiple="multiple" id="ms"  ng-if="review.tpStatus == 2" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!1'}"
                            ng-model="review.criterias">
                         </select>
                      </div>
@@ -119,7 +119,7 @@
                      <textarea id="coment" name="coment" ng-show="review.tpStatus != '0'" class="form-control" rows="2" ng-model="review.dsCommentary"
                         placeholder="Optional Comment"></textarea>
                      </br>
-                     <button type="button" class="btn btn-primary" ng-click="vm.realizeReview(review)"> 
+                     <button type="button" class="btn btn-primary" ng-click="vm.realizeReview(review)" ng-disabled="review.criterias.length == null"> 
                      <i class="glyphicon glyphicon-ok"></i> Finish
                      </button>
                   </div>
@@ -136,9 +136,7 @@
             </tr>
          </tfoot>
       </table>
-      <!--script>
-         $('#ms').multipleSelect();
-         </script-->
+    
       <div id="text-carousel" class="carousel slide" data-ride="carousel" ng-if="vm.page" data-pause="true">
          <div class="row">
             <div class="col-xs-offset-3 col-xs-6">
@@ -146,9 +144,13 @@
                   <div class="item active">
                      <div class="carousel-content">
                         <div>
-                           <label>
-                           <-- Begin -->
-                           </label>
+                          <center>
+                           <h3>
+                             <span class="glyphicon glyphicon-arrow-left"></span> 
+                             BEGIN
+                             <span class="glyphicon glyphicon-arrow-right"></span>
+                           </h3>
+                           </center>
                         </div>
                      </div>
                   </div>
@@ -157,7 +159,7 @@
                         <div>
                            <label>{{review.study.dsTitle}} </label>
                            </br>
-                           <button type="button" class="btn btn-default" ng-click="vm.showReadForm(review.study)">
+                           <button type="button" class="btn btn-default" ng-focus="vm.showReadForm(review.study)">
                            <span class="glyphicon glyphicon-eye-open"></span>
                            </button>
                            </br></br>
@@ -167,7 +169,7 @@
                               <option value="2">Rejected</option>
                            </select>
                            <div ng-if="vm.finalize == review.idReview">
-                              <h5 ng-show="review.tpStatus != '0'">Multiple Select</h5>
+                              <h5 ng-show="review.tpStatus != '0'">Criteria Multiple Select *</h5>
                               <div>
                                  <select multiple="multiple" id="ms" ng-if="review.tpStatus == 1" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!0'}"
                                     ng-model="review.criterias">
@@ -180,7 +182,7 @@
                               <textarea id="coment" name="coment" ng-show="review.tpStatus != '0'" class="form-control" rows="2" ng-model="review.dsCommentary"
                                  placeholder="Optional Comment"></textarea>
                               </br>
-                              <button type="button" class="btn btn-primary" ng-click="vm.realizeReview(review)"> 
+                              <button type="button" class="btn btn-primary" ng-click="vm.realizeReview(review)" ng-disabled="review.criterias.length == null"> 
                               <i class="glyphicon glyphicon-ok"></i> Finish
                               </button>
                            </div>
@@ -190,11 +192,13 @@
                </div>
             </div>
          </div>
-         <a class="left carousel-control" href="adm/project/selection/review/#text-carousel" data-slide="prev">
+         <a class="left carousel-control" href="adm/project/selection/review/#text-carousel" data-slide="prev" style="background-color:#000">
          <span class="glyphicon glyphicon-chevron-left"></span>
+         Previous
          </a>
-         <a class="right carousel-control" href="adm/project/selection/review/#text-carousel" data-slide="next">
+         <a class="right carousel-control" href="adm/project/selection/review/#text-carousel" data-slide="next" style="background-color:#000">
          <span class="glyphicon glyphicon-chevron-right"></span>
+         Next
          </a>
       </div>
       <script>
