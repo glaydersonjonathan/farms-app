@@ -40,6 +40,7 @@
         vm.saveConfiguration = saveConfiguration;
 
         vm.assignManual = assignManual;
+        vm.assignAuto = assignAuto;
 
         vm.studiesByFilter = studiesByFilter;
         vm.dsTitleSearch = "";
@@ -70,7 +71,6 @@
 
         function showReadForm(study) {
             clearForm();
-            console.log(study);
             vm.study = study;
             $('#read-modal-form-title').text(study.dsTitle);
             $('#read-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
@@ -218,10 +218,29 @@
                 if (response.code === 1029 || response.code === 2012) {
                     FlashService.Success(response.description, false);
                     alert(response.description);
+                    vm.assign_manually = false;
                 }
                 else {
                     FlashService.Error(response.description, false);
                     alert(response.description);
+                }
+            });
+        }
+
+        function assignAuto() {
+            vm.assign_manually = false;
+            var currentProject = $cookieStore.get("currentProject");
+            var dsKey;
+            if (currentProject != null) {
+                dsKey = currentProject.dsKey;
+            }
+            SelectionService.AssignAuto(dsKey).then(function (response) {
+                if (response.code === 1029 || response.code === 2012) {
+                    FlashService.Success(response.description, false);
+                    //   alert(response.description);
+                }
+                else {
+                    FlashService.Error(response.description, false);
                 }
             });
         }

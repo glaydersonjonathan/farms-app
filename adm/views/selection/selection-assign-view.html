@@ -13,7 +13,7 @@
                     <center>
                         <div class="panel-body">
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary" ng-click="vm.showCreateForm()" ng-disabled="true">
+                                <button type="button" class="btn btn-primary" ng-click="vm.assignAuto()" ng-disabled="vm.roleResearcher != 0 ">
                         <i class="fa fa-plus"></i> Assign Studies Automatically
                     </button>
                                 <button class="btn btn-primary" ng-click="vm.changeAssignType()" type="button" ng-disabled="vm.roleResearcher != 0">
@@ -53,8 +53,7 @@
                     <!-- Start - Action buttons -->
                     <div class="modal-footer" ng-if="vm.assign_manually">
                         <center>
-                            <button ng-show="vm.roleResearcher == 0" type="button" class="btn btn-primary" ng-click="vm.assignManual()" 
-                            ng-disabled="vm.review.dsSSO == null || vm.review.studies.length == null">
+                            <button ng-show="vm.roleResearcher == 0" type="button" class="btn btn-primary" ng-click="vm.assignManual()">
         				<i class="fa fa-check"></i>Assign
     					</button>
                         </center>

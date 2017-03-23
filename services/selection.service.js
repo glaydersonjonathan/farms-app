@@ -16,6 +16,7 @@
         service.GetReviews = GetReviews;
         service.RealizeReview = RealizeReview;
         service.GetStudiesInConflict = GetStudiesInConflict;
+        service.AssignAuto = AssignAuto;
         
         return service;
 
@@ -47,6 +48,9 @@
           return $http.get(API_SERVER.url + '/selections/conflicts/' + dsKey).then(handleSuccess, handleError);  
         }
 
+        function AssignAuto(dsKey) {
+            return $http.post(API_SERVER.url + '/selections/assignAuto/'+ dsKey).then(handleSuccess, handleError);
+        }
         // private functions
         function handleSuccess(res) {
             return res.data;
