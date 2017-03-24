@@ -1,212 +1,213 @@
 <!-- Selection - CRUD -->
 <div class="content">
-<div class="row">
-<div class="col-xs-12">
+  <div class="row">
+    <div class="col-xs-12">
 
-<div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error', 'alert-warning': flash.type === 'warning' }"
+      <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error', 'alert-warning': flash.type === 'warning' }"
         ng-if="flash" ng-bind="flash.message"></div>
-        
-<div class="box">
-   <div class="panel-group">
-      <!-- Start filter the list of studies. -->
-      <div class="box-header">
-         <h3 class="box-title">Studies</h3>
+      <div> <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+        />
       </div>
-      <center>
-         <label class="radio-inline">
+      <div class="box">
+        <div class="panel-group">
+          <!-- Start filter the list of studies. -->
+          <div class="box-header">
+            <h3 class="box-title">Studies</h3>
+          </div>
+          <center>
+            <label class="radio-inline">
          <input type="radio" id="list" name="opt"  checked="true" ng-click="vm.page = false">Studies in List 
          </label>
-         <label class="radio-inline">
+            <label class="radio-inline">
          <input  type="radio" id="pages" name="opt"  ng-click="vm.page = true">Studies in Pages
          </label>
-      </center>
-      <div class="panel-body" ng-if="!vm.page">
-         <!-- DsTilte filter -->
-         <div class="form-group" ng-if="!vm.page">
-            <label for="ds_title">Title</label>
-            <input id="ds_title" name="ds_title" type="text" ng-model="vm.dsTitleSearch" class="form-control">
-         </div>
-         <div class="row">
-            <!-- Year filter -->
-            <div class="form-group col-xs-6">
-               <label for="ds_title">Year</label>
-               <input id="nr_year" name="nr_year" type="text" ng-model="vm.nrYearSearch" class="form-control">
+          </center>
+          <div class="panel-body" ng-if="!vm.page">
+            <!-- DsTilte filter -->
+            <div class="form-group" ng-if="!vm.page">
+              <label for="ds_title">Title</label>
+              <input id="ds_title" name="ds_title" type="text" ng-model="vm.dsTitleSearch" class="form-control">
             </div>
-            <!-- Author filter -->
-            <div class="form-group col-xs-6">
-               <label for="nm_author">Author</label>
-               <input id="nm_author" name="nm_author" type="text" ng-model="vm.nmAuthorSearch" class="form-control">
+            <div class="row">
+              <!-- Year filter -->
+              <div class="form-group col-xs-6">
+                <label for="ds_title">Year</label>
+                <input id="nr_year" name="nr_year" type="text" ng-model="vm.nrYearSearch" class="form-control">
+              </div>
+              <!-- Author filter -->
+              <div class="form-group col-xs-6">
+                <label for="nm_author">Author</label>
+                <input id="nm_author" name="nm_author" type="text" ng-model="vm.nmAuthorSearch" class="form-control">
+              </div>
             </div>
-         </div>
-      </div>
-   </div>
-   <!-- End filter the list of studies. -->
-   <!-- Star pager -->
-   <div class="text-center" ng-if="!vm.page">
-      <ul class="pagination" ng-if="vm.studiesByFilter().length > 0">
-         <li ng-class="{disabled:vm.currentPage === 0}">
-            <a href ng-click="vm.setPage(0)">««</a>
-         </li>
-         <li ng-class="{disabled: vm.currentPage === 0}">
-            <a href ng-click="vm.prevPage()">«</a>
-         </li>
-         <li ng-repeat="n in vm.range()" ng-class="{active: n == vm.currentPage}">
-            <a href ng-click="vm.setPage(n)">{{n+1}}</a>
-         </li>
-         <li ng-class="{disabled:vm.currentPage === vm.pageCount()}">
-            <a href ng-click="vm.nextPage()">»</a>
-         </li>
-         <li ng-class="{disabled:vm.currentPage === vm.pageCount()}">
-            <a href ng-click="vm.setPage(vm.pageCount())">»»</a>
-         </li>
-      </ul>
-      <div ng-show="(vm.studiesByFilter().length == 0 || vm.studiesByFilter().length == 1)">
-         <b>{{ "The query returned " + vm.studiesByFilter().length + " study." }}</b>
-      </div>
-      <div ng-show="vm.studiesByFilter().length > 1">
-         <b>{{ "The query returned " + vm.studiesByFilter().length + " studies." }}</b>
-      </div>
-   </div>
-   <!-- End pager -->
-   <!-- Start study list -->
-   <div class="box-body">
-      <table class="table table-bordered table-hover" ng-if="!vm.page">
-         <thead>
-            <tr>
-               <!--th class="width-60-pct">#</th-->
-               <th class="width-30-pct">Title</th>
-               <th class="width-30-pct">Year</th>
-               <th class="text-align-center">Details</th>
-               <th class="width-30-pct">Status</th>
-            </tr>
-         </thead>
-         <tbody>
-            <!--tr ng-hide="vm.studiesByFilter().length > 0">
+          </div>
+        </div>
+        <!-- End filter the list of studies. -->
+        <!-- Star pager -->
+        <div class="text-center" ng-if="!vm.page">
+          <ul class="pagination" ng-if="vm.studiesByFilter().length > 0">
+            <li ng-class="{disabled:vm.currentPage === 0}">
+              <a href ng-click="vm.setPage(0)">««</a>
+            </li>
+            <li ng-class="{disabled: vm.currentPage === 0}">
+              <a href ng-click="vm.prevPage()">«</a>
+            </li>
+            <li ng-repeat="n in vm.range()" ng-class="{active: n == vm.currentPage}">
+              <a href ng-click="vm.setPage(n)">{{n+1}}</a>
+            </li>
+            <li ng-class="{disabled:vm.currentPage === vm.pageCount()}">
+              <a href ng-click="vm.nextPage()">»</a>
+            </li>
+            <li ng-class="{disabled:vm.currentPage === vm.pageCount()}">
+              <a href ng-click="vm.setPage(vm.pageCount())">»»</a>
+            </li>
+          </ul>
+          <div ng-show="(vm.studiesByFilter().length == 0 || vm.studiesByFilter().length == 1)">
+            <b>{{ "The query returned " + vm.studiesByFilter().length + " study." }}</b>
+          </div>
+          <div ng-show="vm.studiesByFilter().length > 1">
+            <b>{{ "The query returned " + vm.studiesByFilter().length + " studies." }}</b>
+          </div>
+        </div>
+        <!-- End pager -->
+        <!-- Start study list -->
+        <div class="box-body">
+          <table class="table table-bordered table-hover" ng-if="!vm.page">
+            <thead>
+              <tr>
+                <!--th class="width-60-pct">#</th-->
+                <th class="width-30-pct">Title</th>
+                <th class="width-30-pct">Year</th>
+                <th class="text-align-center">Details</th>
+                <th class="width-30-pct">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--tr ng-hide="vm.studiesByFilter().length > 0">
                <td align="center" colspan="5">No study found.</td>
                </tr-->
-            <tr ng-if="vm.dataLoading">
-               <td colspan="9" align="center">
+              <tr ng-if="vm.dataLoading">
+                <td colspan="9" align="center">
                   <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-                     />
-               </td>
-            </tr>
-            <tr ng-repeat="review in vm.studiesByFilter()| pagination : vm.currentPage*vm.itemsPerPage | limitTo: vm.itemsPerPage">
-               <!--td class="width-30-pct">{{ $index + 1 }}</td-->
-               <td class="width-30-pct">{{ review.study.dsTitle }}</td>
-               <td class="width-30-pct">{{ review.study.nrYear}}</td>
-               <td class="center">
+                  />
+                </td>
+              </tr>
+              <tr ng-repeat="review in vm.studiesByFilter()| pagination : vm.currentPage*vm.itemsPerPage | limitTo: vm.itemsPerPage">
+                <!--td class="width-30-pct">{{ $index + 1 }}</td-->
+                <td class="width-30-pct">{{ review.study.dsTitle }}</td>
+                <td class="width-30-pct">{{ review.study.nrYear}}</td>
+                <td class="center">
                   <button type="button" class="btn btn-default" ng-click="vm.showReadForm(review.study)">
                   <span class="glyphicon glyphicon-eye-open"></span>
                   </button>
-               </td>
-               <td class="width-30-pct">
+                </td>
+                <td class="width-30-pct">
                   <select id="status" name="status" class="form-control" ng-model="review.tpStatus" ng-focus="vm.finalize= review.idReview">
                      <option value="0">Unclassified</option>
                      <option value="1">Accepted</option>
                      <option value="2">Rejected</option>
                   </select>
                   <div class="form-group" ng-if="vm.finalize == review.idReview">
-                     <h5 ng-show="review.tpStatus != '0'">Criteria Multiple Select *</h5>
-                     <div>
-                        <select multiple="multiple" id="ms"  ng-if="review.tpStatus == 1" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!0'}"
-                           ng-model="review.criterias">
+                    <h5 ng-show="review.tpStatus != '0'">Criteria Multiple Select *</h5>
+                    <div>
+                      <select multiple="multiple" id="ms" ng-if="review.tpStatus == 1" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!0'}"
+                        ng-model="review.criterias">
                         </select>
-                        <select multiple="multiple" id="ms"  ng-if="review.tpStatus == 2" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!1'}"
-                           ng-model="review.criterias">
+                      <select multiple="multiple" id="ms" ng-if="review.tpStatus == 2" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!1'}"
+                        ng-model="review.criterias">
                         </select>
-                     </div>
-                     </br>
-                     <textarea id="coment" name="coment" ng-show="review.tpStatus != '0'" class="form-control" rows="2" ng-model="review.dsCommentary"
-                        placeholder="Optional Comment"></textarea>
-                     </br>
-                     <button type="button" class="btn btn-primary" ng-click="vm.realizeReview(review)" ng-disabled="review.criterias.length == null"> 
+                    </div>
+                    </br>
+                    <textarea id="coment" name="coment" ng-show="review.tpStatus != '0'" class="form-control" rows="2" ng-model="review.dsCommentary"
+                      placeholder="Optional Comment"></textarea>
+                    </br>
+                    <button type="button" class="btn btn-primary" ng-click="vm.realizeReview(review)" ng-disabled="review.criterias.length == null"> 
                      <i class="glyphicon glyphicon-ok"></i> Finish
                      </button>
                   </div>
-               </td>
-            </tr>
-         </tbody>
-         <tfoot>
-            <tr>
-               <!--th class="width-60-pct">#</th-->
-               <th class="width-30-pct">Title</th>
-               <th class="width-30-pct">Year</th>
-               <th class="text-align-center">Details</th>
-               <th class="width-30-pct">Status</th>
-            </tr>
-         </tfoot>
-      </table>
-    
-      <div id="text-carousel" class="carousel slide" data-ride="carousel" ng-if="vm.page" data-pause="true">
-         <div class="row">
-            <div class="col-xs-offset-3 col-xs-6">
-               <div class="carousel-inner">
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <!--th class="width-60-pct">#</th-->
+                <th class="width-30-pct">Title</th>
+                <th class="width-30-pct">Year</th>
+                <th class="text-align-center">Details</th>
+                <th class="width-30-pct">Status</th>
+              </tr>
+            </tfoot>
+          </table>
+
+          <div id="text-carousel" class="carousel slide" data-ride="carousel" ng-if="vm.page" data-pause="true">
+            <div class="row">
+              <div class="col-xs-offset-3 col-xs-6">
+                <div class="carousel-inner">
                   <div class="item active">
-                     <div class="carousel-content">
-                        <div>
-                          <center>
-                           <h3> BEGIN </h3>
-                           </center>
-                        </div>
-                     </div>
+                    <div class="carousel-content">
+                      <div>
+                        <center>
+                          <h3> BEGIN </h3>
+                        </center>
+                      </div>
+                    </div>
                   </div>
                   <div class="item" ng-repeat="review in vm.reviews">
-                     <div class="carousel-content">
-                        <div>
-                           <label>{{review.study.dsTitle}} </label>
-                           </br>
-                           <button type="button" class="btn btn-default" ng-focus="vm.showReadForm(review.study)">
+                    <div class="carousel-content">
+                      <div>
+                        <label>{{review.study.dsTitle}} </label>
+                        </br>
+                        <button type="button" class="btn btn-default" ng-focus="vm.showReadForm(review.study)">
                            <span class="glyphicon glyphicon-eye-open"></span>
                            </button>
-                           </br></br>
-                           <select id="status" name="status" class="form-control" ng-model="review.tpStatus" ng-change="vm.finalize= review.idReview">
+                        </br>
+                        </br>
+                        <select id="status" name="status" class="form-control" ng-model="review.tpStatus" ng-change="vm.finalize= review.idReview">
                               <option value="0">Unclassified</option>
                               <option value="1">Accepted</option>
                               <option value="2">Rejected</option>
                            </select>
-                           <div ng-if="vm.finalize == review.idReview">
-                              <h5 ng-show="review.tpStatus != '0'">Criteria Multiple Select *</h5>
-                              <div>
-                                 <select multiple="multiple" id="ms" ng-if="review.tpStatus == 1" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!0'}"
-                                    ng-model="review.criterias">
+                        <div ng-if="vm.finalize == review.idReview">
+                          <h5 ng-show="review.tpStatus != '0'">Criteria Multiple Select *</h5>
+                          <div>
+                            <select multiple="multiple" id="ms" ng-if="review.tpStatus == 1" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!0'}"
+                              ng-model="review.criterias">
                                  </select>
-                                 <select multiple="multiple" id="ms" ng-if="review.tpStatus == 2" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!1'}"
-                                    ng-model="review.criterias">
+                            <select multiple="multiple" id="ms" ng-if="review.tpStatus == 2" ng-options="criteria as criteria.dsSelectionCriteria for criteria in vm.criterias | filter: {tpCriteria: '!1'}"
+                              ng-model="review.criterias">
                                  </select>
-                              </div>
-                              </br>
-                              <textarea id="coment" name="coment" ng-show="review.tpStatus != '0'" class="form-control" rows="2" ng-model="review.dsCommentary"
-                                 placeholder="Optional Comment"></textarea>
-                              </br>
-                              <button type="button" class="btn btn-primary" ng-click="vm.realizeReview(review)" ng-disabled="review.criterias.length == null"> 
+                          </div>
+                          </br>
+                          <textarea id="coment" name="coment" ng-show="review.tpStatus != '0'" class="form-control" rows="2" ng-model="review.dsCommentary"
+                            placeholder="Optional Comment"></textarea>
+                          </br>
+                          <button type="button" class="btn btn-primary" ng-click="vm.realizeReview(review)" ng-disabled="review.criterias.length == null"> 
                               <i class="glyphicon glyphicon-ok"></i> Finish
                               </button>
-                           </div>
                         </div>
-                     </div>
+                      </div>
+                    </div>
                   </div>
-               </div>
+                </div>
+              </div>
             </div>
-         </div>
-         <a class="left carousel-control" href="adm/project/selection/review/#text-carousel" data-slide="prev" style="background-color:#000">
-         <span class="glyphicon glyphicon-chevron-left"></span>
-         Previous
-         </a>
-         <a class="right carousel-control" href="adm/project/selection/review/#text-carousel" data-slide="next" style="background-color:#000">
-         <span class="glyphicon glyphicon-chevron-right"></span>
-         Next
-         </a>
+            <a class="left carousel-control" href="adm/project/selection/review/#text-carousel" data-slide="prev" style="background-color:#000">
+              <span class="glyphicon glyphicon-chevron-left"></span> Previous
+            </a>
+            <a class="right carousel-control" href="adm/project/selection/review/#text-carousel" data-slide="next" style="background-color:#000">
+              <span class="glyphicon glyphicon-chevron-right"></span> Next
+            </a>
+          </div>
+          <script>
+            $(document).ready(function () {
+              $("#text-carousel").carousel("pause");
+            });
+          </script>
+          <!-- End project list -->
+          <!-- Modal form details. -->
+          <div ng-include="'adm/views/study/study-details-form.html'"></div>
+          <!-- end col s12 -->
+        </div>
+        <!-- end row -->
       </div>
-      <script>
-         $(document).ready(function () {
-           $("#text-carousel").carousel("pause");
-         });
-      </script>
-      <!-- End project list -->
-      <!-- Modal form details. -->
-      <div ng-include="'adm/views/study/study-details-form.html'"></div>
-      <!-- end col s12 -->
-   </div>
-   <!-- end row -->
-</div>
-<!-- end container -->
+      <!-- end container -->

@@ -78,6 +78,7 @@
 
 
         function initController() {
+            vm.dataLoading = true;
             vm.getAllStudies();
             vm.getConfiguration();
             vm.getAllRated();
@@ -86,6 +87,7 @@
             getRoleResearcher();
             vm.loadCriteria();
             getStudiesInConflict();
+            vm.dataLoading = false;
         }
 
         function getRoleResearcher() {
