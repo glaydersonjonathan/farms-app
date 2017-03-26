@@ -34,7 +34,6 @@
 
     vm.getAllInstitutions = getAllInstitutions;
     vm.getAllCountries = getAllCountries;
-    //vm.getInstitutionByCdCite = getInstitutionByCdCite;
 
     vm.updateInstitution = updateInstitution;
     vm.deleteInstitution = deleteInstitution;
@@ -73,19 +72,11 @@
       $('#institution-add-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
-    function showEditInstitutionForm(nmInstitution) {
+    function showEditInstitutionForm(institution) {
       clearForm();
       getAllCountries();
-      var currentProject = $cookieStore.get("currentProject");
-      var dsKey = null;
-      if (currentProject != null) {
-        dsKey = currentProject.dsKey
-      }
-      InstitutionService.GetByNmInstitution(nmInstitution, dsKey).then(function (response) {
-        vm.institution = response;
-      });
-
-      $('#institution-edit-modal-form-title').text("Edit Institution");
+      vm.institution = institution;
+      $('#institution-edit-form-title').text("Edit Institution");
       $('#institution-edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
 
@@ -204,32 +195,11 @@
       });
     }
 
-    
+
     function deleteInstitution(institution) {
       vm.institution = institution;
       showConfirmationMessage();
     }
-
-
-
-
-    /*  function getInstitutionByCdCite(cdCite) {
-        //vm.dataLoading = true;
-        InstitutionService.GetByCdCite(cdCite).then(function (response) {
-          //console.log(response.data);
-          //if (response.code === 1000) {
-          var institution = response;
-          return institution;
-          //} else {
-          // console.log(response.data);
-          //FlashService.Error(response.description);
-          //vm.dataLoading = false;
-          //}
-        });
-      }*/
-
-
-
 
     /****** Start filter functions *****/
     function institutionsByFilter() {

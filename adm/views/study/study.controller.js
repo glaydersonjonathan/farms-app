@@ -16,7 +16,8 @@
     // Study
     vm.study = {};
     vm.studies = [];
-    
+    vm.flStudy = 'none';
+
     vm.year = {};
 
     vm.showCreateForm = showCreateForm;
@@ -29,7 +30,6 @@
     vm.getStudyByCdCite = getStudyByCdCite;
     vm.createStudy = createStudy;
     vm.importStudy = importStudy;
-    //vm.readStudy = readStudy;
     vm.updateStudy = updateStudy;
     vm.deleteStudy = deleteStudy;
     vm.deleteConfirm = deleteConfirm;
@@ -97,6 +97,7 @@
     function closeModal() {
       $('#study-create-modal-form').modal('hide');
       $('#study-edit-modal-form').modal('hide');
+      $('#import-modal-form').modal('hide');
       $('#confirmation-message-modal').modal('hide');
     }
 
@@ -156,19 +157,6 @@
       });
     }
 
-    /* function readStudy(cdCiteKey) {
-       console.log(cdCiteKey);
-       StudyService.GetByCdCiteKey(cdCiteKey).then(function (response) {
-         console.log(response);
-         //if (response.code === 1000) {
-         vm.study = response;
-         showReadForm();
-         //} else {
-         //FlashService.Error(response.description);
-         //vm.dataLoading = false;
-         //}
-       });
-     }*/
 
     function getStudyByCdCite(cdCite) {
       //vm.dataLoading = true;
@@ -185,24 +173,28 @@
       });
     }
 
-
-
     function importStudy() {
       vm.dataLoading = true;
-      console.log(vm.study);
-      StudyService.Import(vm.study).then(function (response) {
-        console.log(response.data);
-        if (response.code === 1002) {
-          FlashService.Success(response.description, true);
-          vm.study = null;
-          $('#create-modal-form').closeModal();
-          vm.getAllStudies();
-        } else {
-          FlashService.Error(response.description, true);
+      var f = document.getElementById('file').files[0],
+        r = new FileReader();
+      r.onloadend = function (e) {
+        vm.flStudy = e.target.result;
+        StudyService.Import(vm.flStudy).then(function (response) {
+          console.log(response);
+          if (response.code === 1002) {
+            FlashService.Success(response.description, true);
+            vm.getAllStudies();
+          } else {
+            FlashService.Error(response.description, true);
+          }
+          closeModal();
           vm.dataLoading = false;
-        }
-      });
+        });
+      }
+      r.readAsBinaryString(f);
     }
+
+
 
 
 
@@ -212,9 +204,7 @@
       if (currentProject != null) {
         vm.study.dsKeyProject = currentProject.dsKey;
       }
-      console.log(vm.study);
       StudyService.Update(vm.study).then(function (response) {
-        console.log(response.data);
         if (response.code === 1026) {
           FlashService.Success(response.description, true);
           vm.study = null;

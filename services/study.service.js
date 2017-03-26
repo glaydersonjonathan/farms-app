@@ -32,8 +32,18 @@
         function GetByNmStudy(nmStudy) {
             return $http.get(API_SERVER.url + '/studies/' + nmStudy).then(handleSuccess, handleError);
         }
+
+        //  function Import(file) {
+        //    return $http.post(API_SERVER.url + '/studies/upload-study/',file).then(handleSuccess, handleError);
+        //  }
+
         function Import(file) {
-            return $http.post(API_SERVER.url + '/studies/upload-study/',file).then(handleSuccess, handleError);
+           // var fd = new FormData();
+            //fd.append('file', file);
+            return $http.post(API_SERVER.url+ '/studies/upload-study/', file, {
+               // transformRequest: angular.identity,
+                headers: { 'Content-Type': 'multipart/form-data' }
+            }).then(handleSuccess, handleError);
         }
 
         function Create(study) {
@@ -48,7 +58,7 @@
             return $http.delete(API_SERVER.url + '/studies/' + idStudy).then(handleSuccess, handleError);
         }
 
-        function GetByCdCiteKey (cdCiteKey){
+        function GetByCdCiteKey(cdCiteKey) {
             return $http.get(API_SERVER.url + '/studies/read/' + cdCiteKey).then(handleSuccess, handleError);
         }
 
