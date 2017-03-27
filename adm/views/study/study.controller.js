@@ -27,7 +27,7 @@
     vm.clearForm = clearForm;
 
     vm.getAllStudies = getAllStudies;
-    vm.getStudyByCdCite = getStudyByCdCite;
+  
     vm.createStudy = createStudy;
     vm.importStudy = importStudy;
     vm.updateStudy = updateStudy;
@@ -82,6 +82,7 @@
     }
 
     function showReadForm(study) {
+      console.log(study);
       clearForm();
       vm.study = study;
       $('#read-modal-form-title').text(study.dsTitle);
@@ -158,21 +159,6 @@
     }
 
 
-    function getStudyByCdCite(cdCite) {
-      //vm.dataLoading = true;
-      StudyService.GetByCdCite(cdCite).then(function (response) {
-        //console.log(response.data);
-        //if (response.code === 1000) {
-        var study = response;
-        return study;
-        //} else {
-        // console.log(response.data);
-        //FlashService.Error(response.description);
-        //vm.dataLoading = false;
-        //}
-      });
-    }
-
     function importStudy() {
       vm.dataLoading = true;
       var f = document.getElementById('file').files[0],
@@ -182,10 +168,10 @@
         StudyService.Import(vm.flStudy).then(function (response) {
           console.log(response);
           if (response.code === 1002) {
-            FlashService.Success(response.description, true);
+            FlashService.Success(response.description, false);
             vm.getAllStudies();
           } else {
-            FlashService.Error(response.description, true);
+            FlashService.Error(response.description, false);
           }
           closeModal();
           vm.dataLoading = false;
@@ -194,7 +180,20 @@
       r.readAsBinaryString(f);
     }
 
-
+    vm.teste = teste;
+    function teste() {
+      vm.dataLoading = true;
+      StudyService.teste().then(function (response) {
+        if (response.code === 1033) {
+          FlashService.Success(response.description + response.data,false);
+          vm.getAllStudies();
+        } else {
+          FlashService.Error(response.description, false);
+        }
+        closeModal();
+        vm.dataLoading = false;
+      });
+    }
 
 
 

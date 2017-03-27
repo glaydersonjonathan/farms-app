@@ -8,8 +8,9 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h3 class="read-modal-form-title" id="read-modal-form-title">title</h3>
                 <h5> Reading Rate: {{vm.study.tpReadingRate}} - Status: {{vm.study.tpStatus}}</h5>
-                <h5 ng-if="vm.study.nrSearch == 1"> Insertion type: Manual </h5>
-                <h5 ng-if="vm.study.nrSearch != 1"> Insertion type: Automatic </h5>
+                <h5 ng-if="vm.study.tpSearch == 1"> Insertion type: Manual </h5>
+                <h5 ng-if="vm.study.tpSearch == 0"> Insertion type: Automatic </h5>
+                <h5 ng-if="vm.study.tpSearch == 2"> Insertion type: File import </h5>
             </div>
 
             <!-- Start - Fields form -->

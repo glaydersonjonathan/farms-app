@@ -1,15 +1,13 @@
-<!-- Project edit form. -->
+<!-- Project update form. -->
 <div class="modal fade" id="edit-modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
 
-
-      <!-- Form title. -->
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="edit-modal-form-title" id="edit-modal-form-title">title</h4>
       </div>
-
+      
       <!-- Start - Fields form -->
       <div class="modal-body">
         <form name="form" ng-submit="send()">
@@ -23,6 +21,7 @@
           </select>
             <span ng-show="form.tp_review.$dirty && form.tp_review.$error.required" class="help-block">Type is required.</span>
           </div>
+
 
           <div class="form-group">
             <label for="ds_title">Title *</label>
@@ -38,7 +37,8 @@
       </div>
       <!-- Start - Action buttons. -->
       <div class="modal-footer">
-        <button id="btn-create" type="button" class="btn btn-primary" ng-click="vm.updateProject()" type="submit" ng-disabled="form.$invalid"><i class="fa fa-check"></i>Save</button>
+        <button id="btn-create" class="btn btn-primary" ng-click="vm.updateProject(); form.$setPristine();" type="submit"
+          ng-disabled="form.$invalid"><i class="fa fa-check"></i>Save</button>
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
       </div>
       <!-- End - Action buttons. -->

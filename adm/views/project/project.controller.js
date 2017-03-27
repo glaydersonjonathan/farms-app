@@ -56,6 +56,7 @@
     function initController() {
       vm.getAllProjects();
       getRoleResearcher();
+      getAllCountries();
     }
 
     // Forms
@@ -65,9 +66,7 @@
 
 
     function showCreateForm() {
-      getAllCountries();
-      //clearForm();
-
+      clearForm();
       $('#create-modal-title').text("Create Project");
       $('#create-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }

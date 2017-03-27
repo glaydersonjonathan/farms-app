@@ -18,7 +18,7 @@
         service.Delete = Delete;
 
         service.GetByCdCiteKey = GetByCdCiteKey;
-
+        service.teste = teste;
         return service;
 
         function GetStudiesByDsKey(dsKey) {
@@ -38,12 +38,17 @@
         //  }
 
         function Import(file) {
-           // var fd = new FormData();
-            //fd.append('file', file);
-            return $http.post(API_SERVER.url+ '/studies/upload-study/', file, {
-               // transformRequest: angular.identity,
+            var fd = new FormData();
+            fd.append('file', file);
+            return $http.post(API_SERVER.url + '/studies/upload-study/', fd, {
+                params: fd,
+                transformRequest: angular.identity,
                 headers: { 'Content-Type': 'multipart/form-data' }
             }).then(handleSuccess, handleError);
+        }
+
+        function teste() {
+            return $http.get(API_SERVER.url + '/studies/teste').then(handleSuccess, handleError);
         }
 
         function Create(study) {
