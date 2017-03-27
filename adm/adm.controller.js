@@ -5,8 +5,8 @@
         .module('app')
         .controller('AdmController', AdmController);
 
-    AdmController.$inject = ['AccountService', 'ProjectService', '$rootScope', '$cookieStore', '$state'];
-    function AdmController(AdmService, ProjectService, $rootScope, $cookieStore, $state) {
+    AdmController.$inject = ['AccountService', 'ProjectService', 'DashboardService', 'FlashService', '$rootScope', '$cookieStore', '$state'];
+    function AdmController(AdmService, ProjectService, DashboardService, FlashService, $rootScope, $cookieStore, $state) {
         var vm = this;
 
         vm.user = {};
@@ -19,6 +19,11 @@
         vm.getAllProjects = getAllProjects;
         vm.roleResearcher = {};
 
+        vm.getInvitations = getInvitations;
+        vm.invitations = [];
+        vm.decline = decline;
+        vm.accept = accept;
+
         initController();
 
         function initController() {
@@ -27,6 +32,36 @@
             date();
             getAllProjects();
             getRoleResearcher();
+            getInvitations();
+        }
+
+        function getInvitations() {
+            var dsSSO = $rootScope.globals.currentUser.dsUsername;
+            DashboardService.GetInvitations(dsSSO).then(function (response) {
+                vm.invitations = response;
+            });
+        }
+
+        function decline(id) {
+            DashboardService.Decline(id).then(function (response) {
+                if (response.code === 1034) {
+                    FlashService.Success(response.description, false);
+                    vm.getInvitations();
+                } else {
+                    FlashService.Error(response.description, false);
+                }
+            });
+        }
+
+        function accept(id) {
+            DashboardService.Accept(id).then(function (response) {
+                if (response.code === 1035) {
+                    FlashService.Success(response.description, false);
+                    vm.getInvitations();
+                } else {
+                    FlashService.Error(response.description, false);
+                }
+            });
         }
 
         function date() {
