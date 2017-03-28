@@ -30,7 +30,7 @@
           AuthenticationService.SetCredentials(loggedUser);
           $location.path('/adm');
         } else {
-          FlashService.Error(response.description);
+          FlashService.Error(response.description, false);
           vm.lDataLoading = false;
         }
       });
@@ -41,11 +41,11 @@
       vm.rDataLoading = true;
       AccountService.Register(vm.ruser).then(function (response) {
         if (response.code === 1002) {
-          FlashService.Success(response.description, true);
+          FlashService.Success(response.description, false);
           vm.ruser = null;
           vm.rDataLoading = false;
         } else {
-          FlashService.Error(response.description, true);
+          FlashService.Error(response.description, false);
           vm.rDataLoading = false;
         }
       });
