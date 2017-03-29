@@ -186,7 +186,7 @@
       StudyService.Import(file, dsKey).then(function (response) {
         console.log(response);
         if (response.code === 1033) {
-          vm.myFile = null;
+          vm.myFile = undefined;
           FlashService.Success(response.description + response.data, false);
           vm.getAllStudies();
         } else {
