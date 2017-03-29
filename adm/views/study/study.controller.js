@@ -3,7 +3,21 @@
 
   angular
     .module('app')
-    .controller('StudyController', StudyController);
+    .controller('StudyController', StudyController).directive('fileModel', ['$parse', function ($parse) {
+      return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+          var model = $parse(attrs.fileModel);
+          var modelSetter = model.assign;
+
+          element.bind('change', function () {
+            scope.$apply(function () {
+              modelSetter(scope, element[0].files[0]);
+            });
+          });
+        }
+      };
+    }]);
 
   StudyController.$inject = ['StudyService', 'ProjectService', 'FlashService', 'ProtocolService', '$rootScope', '$http', '$location', '$cookieStore', '$state'];
 
@@ -27,15 +41,17 @@
     vm.clearForm = clearForm;
 
     vm.getAllStudies = getAllStudies;
-  
+
     vm.createStudy = createStudy;
-    vm.importStudy = importStudy;
     vm.updateStudy = updateStudy;
     vm.deleteStudy = deleteStudy;
     vm.deleteConfirm = deleteConfirm;
 
     vm.getStandardQuery = getStandardQuery;
     vm.standardQuery = {};
+
+    vm.myFile = undefined;
+    vm.uploadFile = uploadFile;
 
     vm.studiesByFilter = studiesByFilter;
     vm.dsTitleSearch = "";
@@ -159,33 +175,19 @@
     }
 
 
-    function importStudy() {
+    function uploadFile() {
       vm.dataLoading = true;
-      var f = document.getElementById('file').files[0],
-        r = new FileReader();
-      r.onloadend = function (e) {
-        vm.flStudy = e.target.result;
-        StudyService.Import(vm.flStudy).then(function (response) {
-          console.log(response);
-          if (response.code === 1002) {
-            FlashService.Success(response.description, false);
-            vm.getAllStudies();
-          } else {
-            FlashService.Error(response.description, false);
-          }
-          closeModal();
-          vm.dataLoading = false;
-        });
+      var file = vm.myFile;
+      var currentProject = $cookieStore.get("currentProject");
+      var dsKey = null;
+      if (currentProject != null) {
+        dsKey = currentProject.dsKey;
       }
-      r.readAsBinaryString(f);
-    }
-
-    vm.teste = teste;
-    function teste() {
-      vm.dataLoading = true;
-      StudyService.teste().then(function (response) {
+      StudyService.Import(file, dsKey).then(function (response) {
+        console.log(response);
         if (response.code === 1033) {
-          FlashService.Success(response.description + response.data,false);
+          vm.myFile = null;
+          FlashService.Success(response.description + response.data, false);
           vm.getAllStudies();
         } else {
           FlashService.Error(response.description, false);
@@ -194,8 +196,6 @@
         vm.dataLoading = false;
       });
     }
-
-
 
     function updateStudy() {
       vm.dataLoading = true;

@@ -37,13 +37,13 @@
         //    return $http.post(API_SERVER.url + '/studies/upload-study/',file).then(handleSuccess, handleError);
         //  }
 
-        function Import(file) {
+        function Import(file, dsKey) {
             var fd = new FormData();
             fd.append('file', file);
-            return $http.post(API_SERVER.url + '/studies/upload-study/', fd, {
+            return $http.post(API_SERVER.url + '/studies/upload-study/'+dsKey, fd, {
                 params: fd,
                 transformRequest: angular.identity,
-                headers: { 'Content-Type': 'multipart/form-data' }
+                headers: { 'Content-Type': undefined }
             }).then(handleSuccess, handleError);
         }
 
