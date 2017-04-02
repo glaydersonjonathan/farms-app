@@ -37,6 +37,12 @@
         templateUrl: "adm/views/account/confirmation.view.html",
         controllerAs: 'vm',
       })
+      .state('newPassword', {
+        url: '/newPassword',
+        controller: 'AccountController',
+        templateUrl: "adm/views/account/newPassword.view.html",
+        controllerAs: 'vm',
+      })
       .state('adm.dashboard', {
         url: "/dashboard",
         controller: 'DashboardController',
@@ -201,7 +207,7 @@
       var restrictedPage = $.inArray($location.path(), ['adm']) === -1;
       var loggedIn = $rootScope.globals.currentUser;
       $rootScope.$state = $state
-      if (restrictedPage && !loggedIn && $location.path() != '/confirmation') {
+      if (restrictedPage && !loggedIn && $location.path() != '/newPassword' && $location.path() != '/confirmation' ) {
         $location.path('/');
       }
     });

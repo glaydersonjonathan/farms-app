@@ -19,6 +19,10 @@
     vm.resend_button = false;
     vm.resend = resend;
 
+    vm.fpuser = {};
+    vm.forgotPassword = forgotPassword;
+    vm.newPassword = newPassword;
+
     (function initController() {
       // reset login status.
       AuthenticationService.ClearCredentials();
@@ -26,7 +30,6 @@
 
     function login() {
       vm.lDataLoading = true;
-      //alert(vm.luser.dsEmail + " " + vm.luser.dsPassword);
       AuthenticationService.Login(vm.luser, function (response) {
         if (response.code === 2013) {
           FlashService.Error(response.description, false);
@@ -67,8 +70,28 @@
       });
     }
 
+    function forgotPassword() {
+      AccountService.SendRequestNewPass(vm.fpuser.dsEmail).then(function (response) {
+        if (response.code === 1037) {
+          FlashService.Success(response.description, false);
+        } else {
+          FlashService.Error(response.description, false);
+        }
+      });
+    }
+
+    function newPassword() {
+      var code = $location.search();
+      AccountService.NewPassword(code.u, vm.ruser).then(function (response) {
+        if (response.code === 1038) {
+          FlashService.Success(response.description, false);
+        } else {
+          FlashService.Error(response.description, false);
+        }
+      });
+    }
+
     function register() {
-      //alert(vm.ruser.dsName  + " " + vm.ruser.dsSSO + " " + vm.ruser.dsEmail + " " + vm.ruser.dsPassword + " " + vm.ruser.dsConfirmPassword);
       vm.rDataLoading = true;
       AccountService.Register(vm.ruser).then(function (response) {
         if (response.code === 1002) {
@@ -83,5 +106,4 @@
       });
     };
   }
-
 })();

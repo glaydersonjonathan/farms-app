@@ -36,10 +36,10 @@
             <span ng-show="register_form.ruser_ds_password.$dirty && register_form.ruser_ds_password.$error.minlength" class="help-block">Password is lower than 6 characters.</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': (register_form.ruser_ds_confirm_password.$dirty && register_form.ruser_ds_confirm_password.$error.required) || ((register_form.ruser_ds_password.$dirty && register_form.ruser_ds_confirm_password.$dirty) && (vm.ruser.dsPassword != vm.ruser.dsConfirmPassword)) }">
-            <label for="ruser_ds_confirm_password">Confirm password</label>
+            <label for="ruser_ds_confirm_password">Confirm Password</label>
             <input ng-minlength="6" maxlength="60" type="password" name="ruser_ds_confirm_password" id="ruser_ds_confirm_password" class="form-control" ng-model="vm.ruser.dsConfirmPassword" required />
             <span ng-show="(register_form.ruser_ds_confirm_password.$dirty && register_form.ruser_ds_confirm_password.$error.required) || ((register_form.ruser_ds_confirm_password.$dirty && register_form.ruser_ds_confirm_password.$dirty) && (vm.ruser.dsPassword != vm.ruser.dsConfirmPassword))" class="help-block">
-              Password and password confirmation mismatched.
+              Password and Password confirmation mismatched.
             </span>
              <span ng-show="register_form.ruser_ds_password.$dirty && register_form.ruser_ds_password.$error.minlength" class="help-block">Confirm Password is lower than 6 characters.</span>
         </div>

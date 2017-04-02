@@ -19,6 +19,8 @@
         service.GetByName = GetByName;
         service.Confirm = Confirm;
         service.Resend = Resend;
+        service.SendRequestNewPass = SendRequestNewPass;
+        service.NewPassword = NewPassword;
 
         return service;
 
@@ -57,7 +59,15 @@
         function Resend(user) {
             return $http.post(API_SERVER.url + '/account/resend', user).then(handleSuccess, handleError);
         }
-        
+
+        function SendRequestNewPass(email) {
+            return $http.get(API_SERVER.url + '/account/requestPass/' + email).then(handleSuccess, handleError);
+        }
+
+        function NewPassword(u, pass) {
+            return $http.post(API_SERVER.url + '/account/newPass/' + u, pass).then(handleSuccess, handleError);
+        }
+
         // Private functions.
         function handleSuccess(res) {
             return res.data;
