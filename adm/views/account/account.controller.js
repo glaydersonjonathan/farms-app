@@ -11,7 +11,7 @@
 
     vm.luser = {};
     vm.login = login;
-
+    vm.dsConfirmEmail = undefined;
     vm.ruser = {};
     vm.register = register;
     vm.confirm = confirm;
@@ -74,6 +74,7 @@
         if (response.code === 1002) {
           FlashService.Success(response.description, false);
           vm.ruser = null;
+          vm.dsConfirmEmail = null;
           vm.rDataLoading = false;
         } else {
           FlashService.Error(response.description, false);

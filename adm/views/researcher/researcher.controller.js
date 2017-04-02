@@ -13,9 +13,9 @@
 
     // Researcher
     vm.researcher = {};
+    vm.dataLoading = false;
 
-
-
+    vm.dsConfirmEmail = undefined;
     // Forms
     vm.showEditForm = showEditForm;
     vm.showEditEmailForm = showEditEmailForm;
@@ -94,15 +94,19 @@
     }
 
     function editEmail() {
+      vm.dataLoading = true;
       ResearcherService.UpdateEmail(vm.researcher).then(function (response) {
         if (response.code === 1003) {
           FlashService.Success(response.description, false);
           getBydsSso();
           closeModal();
+          vm.dsConfirmEmail = null;
+          AuthenticationService.ClearCredentials();
         } else {
           FlashService.Error(response.description, false);
           closeModal();
         }
+        vm.dataLoading = false;
       });
     }
 

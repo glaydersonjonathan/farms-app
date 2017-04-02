@@ -140,7 +140,6 @@
       if (currentProject != null) {
         vm.institution.dsKey = currentProject.dsKey;
       }
-
       InstitutionService.AddInstitutionProject(vm.institution).then(function (response) {
         if (response.code === 1009) {
           FlashService.Success(response.description, false);

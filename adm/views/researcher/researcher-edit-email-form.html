@@ -8,17 +8,29 @@
         <!--button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button-->
         <h4 class="edit-modal-form-title" id="edit-modal-form-title">Edit Email Researcher</h4>
       </div>
-
       <!-- Start - Fields form -->
+      <h4> You need confirm email again after update to continue using FARMS.</h4>
       <div class="modal-body">
         <form name="form" ng-submit="send()">
 
           <div class="form-group">
-            <label for="ds_email">Email * </label>
+            <label for="ds_email">New Email * </label>
             <input maxlength="70" type="email" name="ds_email" id="ds_email" class="form-control" ng-model="vm.researcher.dsEmail" required
             />
             <span ng-show="form.ds_email.$dirty && form.ds_email.$error.required" class="help-block">Email is required.</span>
             <span class="help-block" ng-show="form.ds_email.$error.email"> Invalid email format.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="ds_email">Confirm New Email * </label>
+            <input maxlength="70" type="email" name="ds_c_email" id="ds_c_email" class="form-control" ng-model="vm.dsConfirmEmail" required
+            />
+            <span ng-show="form.ds_c_email.$dirty && form.ds_c_email.$error.required" class="help-block">Confirm Email is required.</span>
+            <span class="help-block" ng-show="form.ds_c_email.$error.email"> Invalid email format.</span>
+            <span ng-show="(form.ds_c_email.$dirty && form.ds_c_email.$error.required) || ((form.ds_c_email.$dirty && form.ds_c_email.$dirty) && (vm.dsConfirmEmail != vm.researcher.dsEmail))"
+              class="help-block">
+              Email and email confirmation mismatched.
+            </span>
           </div>
       </div>
       <!-- End - Fields form -->

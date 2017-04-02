@@ -31,7 +31,7 @@
 
     vm.getAllProjects = getAllProjects;
     vm.createProject = createProject;
-    
+
     vm.updateProject = updateProject;
     vm.openProject = openProject;
 
@@ -74,13 +74,7 @@
 
     function showEditForm() {
       var currentProject = $cookieStore.get("currentProject");
-      var dsKey = {};
-      if (currentProject != null) {
-        dsKey = currentProject.dsKey;
-      }
-      ProjectService.GetByDsKey(dsKey).then(function (response) {
-        vm.project = response;
-      });
+      vm.project = currentProject;
       $('#edit-modal-form-title').text("Update project");
       $('#edit-modal-form').modal({ backdrop: 'static', keyboard: false, show: true, closable: false });
     }
@@ -160,7 +154,7 @@
       });
     };
 
- 
+
     function openProject(dsKey) {
       ProjectService.GetByDsKey(dsKey).then(function (response) {
         var project = response;

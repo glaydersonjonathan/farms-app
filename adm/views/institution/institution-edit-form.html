@@ -6,8 +6,6 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="institution-edit-form-title" id="institution-edit-form-title">title</h4>
             </div>
-
-
             <!-- Start - Fields form -->
             <div class="modal-body">
                 <form name="form" ng-submit="send()">
@@ -24,13 +22,15 @@
 
                     <div class="form-group">
                         <label for="ds_name">Name *</label>
-                        <input maxlength="200" type="text" name="ds_name" id="ds_name" class="form-control" ng-model="vm.institution.nmInstitution" required />
+                        <input maxlength="200" type="text" name="ds_name" id="ds_name" class="form-control" ng-model="vm.institution.nmInstitution"
+                            required />
                         <span ng-show="form.ds_name.$dirty && form.ds_name.$error.required" class="help-block">Name is required.</span>
                     </div>
 
                     <div class="form-group">
                         <label for="ds_abbr">Abbreviation *</label>
-                        <input maxlength="10" type="text" name="ds_abbr" id="ds_abbr" class="form-control" ng-model="vm.institution.dsAbbreviation" required />
+                        <input maxlength="10" type="text" name="ds_abbr" id="ds_abbr" class="form-control" ng-model="vm.institution.dsAbbreviation"
+                            required />
                         <span ng-show="form.ds_abbr.$dirty && form.ds_abbr.$error.required" class="help-block">Abbreviation is required.</span>
                     </div>
 
@@ -39,8 +39,7 @@
             </div>
             <!-- Start - Action buttons. -->
             <div class="modal-footer">
-                <button id="btn-create" class="btn btn-primary" ng-click="vm.updateInstitution(); form.$setPristine();" type="submit"
-                    ng-disabled="form.$invalid"><i class="fa fa-check"></i>Edit</button>
+                <button id="btn-create" class="btn btn-primary" ng-click="vm.updateInstitution(); form.$setPristine();" type="submit" ng-disabled="form.$invalid"><i class="fa fa-check"></i>Edit</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>Cancel</button>
             </div>
             <!-- End - Action buttons. -->

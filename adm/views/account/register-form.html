@@ -18,6 +18,17 @@
             <span ng-show="register_form.ruser_ds_email.$dirty && register_form.ruser_ds_email.$error.required" class="help-block">Email is required.</span>
              <span ng-show="register_form.ruser_ds_email.$error.email" class="help-block"> Invalid email format.</span>
         </div>
+        <div class="form-group" ng-class="{ 'has-error': register_form.ruser_ds_email.$dirty && register_form.ruser_ds_email.$error.required }">
+            <label for="ds_email">Confirm Email</label>
+            <input maxlength="70" type="email" name="ds_c_email" id="ds_c_email" class="form-control" ng-model="vm.dsConfirmEmail" required
+            />
+            <span ng-show="register_form.ds_c_email.$dirty && register_form.ds_c_email.$error.required" class="help-block">Confirm Email is required.</span>
+            <span class="help-block" ng-show="register_form.ds_c_email.$error.email"> Invalid email format.</span>
+            <span ng-show="(register_form.ds_c_email.$dirty && register_form.ds_c_email.$error.required) || ((register_form.ds_c_email.$dirty && register_form.ds_c_email.$dirty) && (vm.dsConfirmEmail != vm.ruser.dsEmail))"
+              class="help-block">
+              Email and email confirmation mismatched.
+            </span>
+        </div>
         <div class="form-group" ng-class="{ 'has-error': register_form.ds_password.$dirty && register_form.ds_password.$error.required }">
             <label for="ruser_ds_password">Password</label>
             <input ng-minlength="6" maxlength="60" type="password" name="ruser_ds_password" id="ruser_ds_password" class="form-control" ng-model="vm.ruser.dsPassword" required />
