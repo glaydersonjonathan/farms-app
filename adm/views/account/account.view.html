@@ -20,6 +20,7 @@
       <div class="row">
         <div class="col-sm-6 col-sm-offset-3 form-box">
           <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+          <button ng-click="vm.resend()" ng-show="vm.resend_button" class="btn btn-warning">Resend Email Confirmation</button>
           <div class="nav-tabs-custom" ng-init="tab=1">
             <ul class="nav nav-tabs">
               <li class="active"><a ng-click="tab=1" ng-class="{'active' : tab==1}" data-toggle="tab">Log in</a></li>

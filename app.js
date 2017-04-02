@@ -31,6 +31,12 @@
           displayName: 'Home'
         }
       })
+      .state('confirmation', {
+        url: '/confirmation',
+        controller: 'AccountController',
+        templateUrl: "adm/views/account/confirmation.view.html",
+        controllerAs: 'vm',
+      })
       .state('adm.dashboard', {
         url: "/dashboard",
         controller: 'DashboardController',
@@ -139,7 +145,7 @@
         data: {
           displayName: 'Review'
         }
-        })
+      })
       .state('adm.finalization', {
         url: "/project/selection/finalization",
         controller: 'SelectionController',
@@ -195,7 +201,7 @@
       var restrictedPage = $.inArray($location.path(), ['adm']) === -1;
       var loggedIn = $rootScope.globals.currentUser;
       $rootScope.$state = $state
-      if (restrictedPage && !loggedIn) {
+      if (restrictedPage && !loggedIn && $location.path() != '/confirmation') {
         $location.path('/');
       }
     });

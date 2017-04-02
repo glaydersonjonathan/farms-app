@@ -17,6 +17,8 @@
         service.GetBySSO = GetBySSO;
         service.GetByEmail = GetByEmail;
         service.GetByName = GetByName;
+        service.Confirm = Confirm;
+        service.Resend = Resend;
 
         return service;
 
@@ -48,6 +50,14 @@
             return $http.get(API_SERVER.url + '/account/user?name=' + name).then(handleSuccess, handleError);
         }
 
+        function Confirm(u) {
+            return $http.get(API_SERVER.url + '/account/confirmation?u=' + u).then(handleSuccess, handleError);
+        }
+
+        function Resend(user) {
+            return $http.post(API_SERVER.url + '/account/resend', user).then(handleSuccess, handleError);
+        }
+        
         // Private functions.
         function handleSuccess(res) {
             return res.data;
