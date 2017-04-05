@@ -98,7 +98,6 @@
     }
 
     function showReadForm(study) {
-      console.log(study);
       clearForm();
       vm.study = study;
       $('#read-modal-form-title').text(study.dsTitle);

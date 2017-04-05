@@ -38,6 +38,14 @@
 
 
           <label>Review Studies in Conflict </label>
+          <center>
+            <div ng-show="(vm.studiesInConflict.length == 0 || vm.studiesInConflict.length == 1)">
+            <b>{{ "The query returned " + vm.studiesInConflict.length + " study in conflict." }}</b>
+          </div>
+          <div ng-show="vm.studiesInConflict.length > 1">
+            <b>{{ "The query returned " + vm.studiesInConflict.length + " studies in conflict." }}</b>
+          </div>
+          </center>
           <table class="table table-bordered table-hover">
             <thead>
               <tr>
@@ -77,10 +85,10 @@
                 </td>
                 <td class="width-30-pct" ng-show="vm.roleResearcher == 0">
                   <label class="radio-inline">
-                  <input type="radio" name="x"> Accept
+                  <input type="radio" name="x" ng-disabled="true"> Accept
                   </label>
                   <label class="radio-inline">
-                  <input type="radio" name="x">Reject
+                  <input type="radio" name="x" ng-disabled="true">Reject
                   </label>
 
                 </td>

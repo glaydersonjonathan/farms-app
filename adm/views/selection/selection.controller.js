@@ -252,10 +252,10 @@
             vm.finalize = false;
             SelectionService.RealizeReview(review).then(function (response) {
                 if (response.code === 1030) {
-                    //FlashService.Success(response.description, false);
-                    alert(response.description);
+                    FlashService.Success( "'"+review.study.dsTitle+"' - "+response.description, false);
+                    //alert(response.description);
                 } else {
-                    //FlashService.Error(response.description, false);
+                    FlashService.Error(response.description, false);
                     alert(response.description);
                 }
             });
