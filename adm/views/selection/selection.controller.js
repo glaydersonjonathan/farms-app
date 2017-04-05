@@ -174,6 +174,7 @@
         }
 
         function getStudiesInConflict() {
+        	vm.dataLoading = true;
             var currentProject = $cookieStore.get("currentProject");
             var dsKey;
             if (currentProject != null) {
@@ -182,10 +183,12 @@
             SelectionService.GetStudiesInConflict(dsKey).then(function (response) {
                 vm.studiesInConflict = response;
             });
+            vm.dataLoading = false;
         }
 
 
         function saveConfiguration() {
+        	vm.dataLoading = true;
             var currentProject = $cookieStore.get("currentProject");
             if (currentProject != null) {
                 vm.selection.idProject = currentProject.idProject;
@@ -203,7 +206,7 @@
                     vm.dataLoading = false;
                 }
             });
-
+            vm.dataLoading = false;
         }
 
         function changeAssignType() {
@@ -215,6 +218,7 @@
         }
 
         function assignManual() {
+        	vm.dataLoading = true;
             vm.review.dhAssign = new Date();
             SelectionService.AssignManual(vm.review).then(function (response) {
                 if (response.code === 1029 || response.code === 2012) {
@@ -227,9 +231,11 @@
                     alert(response.description);
                 }
             });
+            vm.dataLoading = false;
         }
 
         function assignAuto() {
+        	vm.dataLoading = true;
             vm.assign_manually = false;
             var currentProject = $cookieStore.get("currentProject");
             var dsKey;
@@ -245,6 +251,7 @@
                     FlashService.Error(response.description, false);
                 }
             });
+            vm.dataLoading = false;
         }
 
 
