@@ -14,14 +14,12 @@
     vm.dataLoading = true;
 
     // Project
-    vm.project = {}; //usando pra editar
+    vm.project = {}; 
     vm.projects = [];
 
     vm.roleResearcher = {};
 
-
     vm.all_countries = [];
-    vm.all_institutions = [];//usado na criação de um projeto
 
     vm.clearForm = clearForm;
     vm.showCreateForm = showCreateForm;
@@ -34,8 +32,6 @@
 
     vm.updateProject = updateProject;
     vm.openProject = openProject;
-
-
 
     vm.getAllCountries = getAllCountries;
 
@@ -154,7 +150,6 @@
       });
     };
 
-
     function openProject(dsKey) {
       ProjectService.GetByDsKey(dsKey).then(function (response) {
         var project = response;
@@ -162,9 +157,6 @@
         $state.go($state.current, {}, { reload: true });
       });
     }
-
-
-
 
     function getRoleResearcher() {
       var currentProject = $cookieStore.get("currentProject");
@@ -177,8 +169,6 @@
         vm.roleResearcher = response;
       });
     }
-
-
 
     /****** Start filter functions *****/
     function projectsByFilter() {
