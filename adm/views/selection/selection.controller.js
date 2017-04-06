@@ -148,7 +148,9 @@
                 dsKey = currentProject.dsKey;
             }
             SelectionService.GetConfiguration(dsKey).then(function (response) {
+            	if(response.code != 999){
                 vm.selection = response;
+            	}
                 if (response != "") {
                     vm.selection.dhStartSelectionStep = new Date(vm.selection.dhStartSelectionStep);
                     vm.selection.dhEndSelectionStep = new Date(vm.selection.dhEndSelectionStep);
