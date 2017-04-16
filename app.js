@@ -102,6 +102,16 @@
           displayName: 'Studies'
         }
       })
+      .state('adm.studies-example', {
+        url: "/project/studies/example",
+        controller: 'StudyController',
+        templateUrl: "adm/views/study/study-example.html",
+        controllerAs: 'vm',
+        title: 'Studies',
+        data: {
+          displayName: 'Studies'
+        }
+      })
       .state('adm.searches', {
         url: "/project/searches",
         controller: 'StudyController',

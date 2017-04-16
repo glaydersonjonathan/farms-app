@@ -47,6 +47,8 @@
     vm.deleteStudy = deleteStudy;
     vm.deleteConfirm = deleteConfirm;
 
+    vm.searchDuplicate = searchDuplicate;
+
     vm.getStandardQuery = getStandardQuery;
     vm.standardQuery = {};
 
@@ -233,6 +235,10 @@
     function deleteStudy(study) {
       showConfirmationMessage("study '" + study.dsTitle + "' ");
       vm.study = study;
+    }
+
+    function searchDuplicate() {
+      alert('Teste');
     }
 
     /****** Start filter functions *****/
